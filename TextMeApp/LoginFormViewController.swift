@@ -15,8 +15,8 @@ class LoginFormViewController: UIViewController {
     @IBOutlet weak var passwordInput: UITextField!
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-        let login = loginInput.text!
-        let password = passwordInput.text!
+        guard let login = loginInput.text else { return }
+        guard let password = passwordInput.text else { return }
         if login == "admin" && password == "123456" {
             print("успешная авторизация")
         } else {
