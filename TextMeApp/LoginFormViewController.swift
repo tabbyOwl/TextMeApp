@@ -11,6 +11,7 @@ class LoginFormViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var loginInput: UITextField!
+    
     @IBOutlet weak var passwordInput: UITextField!
     
     @IBAction func loginButtonPressed(_ sender: Any) {
