@@ -132,7 +132,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="efk-0d-1Hl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2940" y="68.7192118226601"/>
+            <point key="canvasLocation" x="2940" y="129"/>
         </scene>
         <!--Фото-->
         <scene sceneID="Azd-vu-j8g">
@@ -168,7 +168,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Up6-Xv-Gnk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3671.1999999999998" y="68.7192118226601"/>
+            <point key="canvasLocation" x="3703" y="129"/>
         </scene>
         <!--Мои группы-->
         <scene sceneID="yY3-u4-LMs">
@@ -195,10 +195,10 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Мои группы" id="bhG-jm-crr">
-                        <barButtonItem key="rightBarButtonItem" title="Поиск" width="80.700000000000003" style="plain" id="FhW-dR-kV7">
+                        <barButtonItem key="rightBarButtonItem" title="Поиск" width="80.700000000000003" id="FhW-dR-kV7">
                             <color key="tintColor" red="0.42589648670000002" green="0.42644031170000002" blue="0.65668032870000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="XC3-gL-8Ja" kind="show" id="ati-1V-eth"/>
+                                <segue destination="5bV-Xn-9XX" kind="show" id="ho2-KX-X1K"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -206,46 +206,18 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gxf-mC-or3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2786" y="-1289"/>
-        </scene>
-        <!--Поиск по группам-->
-        <scene sceneID="IUB-1R-t3x">
-            <objects>
-                <tableViewController id="XC3-gL-8Ja" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="uRw-NV-5Zd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="n5I-GQ-Xdb">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="375" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="n5I-GQ-Xdb" id="iMT-I6-82e">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="XC3-gL-8Ja" id="TRx-Nj-19F"/>
-                            <outlet property="delegate" destination="XC3-gL-8Ja" id="iQ3-io-y6O"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Поиск по группам" id="h5P-cP-jcs"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aZH-oT-b6k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3620" y="-1289.408866995074"/>
+            <point key="canvasLocation" x="2940" y="-1289"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="PU9-vh-JhT">
             <objects>
                 <tabBarController modalPresentationStyle="fullScreen" id="9Qd-Tt-mFw" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="ffo-Cc-7sW"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="prM-pn-FA6">
+                    <tabBar key="tabBar" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="prM-pn-FA6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.42589648670000002" green="0.42644031170000002" blue="0.65668032870000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="997-tM-6Am" kind="relationship" relationship="viewControllers" id="LOi-FH-iss"/>
@@ -293,7 +265,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GpI-rN-Z7N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1997.5999999999999" y="-1288.6699507389162"/>
+            <point key="canvasLocation" x="2161" y="-1289"/>
         </scene>
         <!--Друзья-->
         <scene sceneID="4LY-iy-fyB">
@@ -321,10 +293,39 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RQA-mb-uh5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1999" y="130"/>
+            <point key="canvasLocation" x="2161" y="129"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="kFP-CQ-yba">
+            <objects>
+                <tableViewController id="5bV-Xn-9XX" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="79d-kT-7du">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="DXU-pz-ua3">
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="375" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DXU-pz-ua3" id="6Xc-cf-Ybs">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="5bV-Xn-9XX" id="2wJ-S9-nZi"/>
+                            <outlet property="delegate" destination="5bV-Xn-9XX" id="aVc-Uy-R4t"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="cCa-xP-K3L"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9JU-dl-PRx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3702" y="-1289"/>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.4258963368" green="0.42644016159999998" blue="0.6566800975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
