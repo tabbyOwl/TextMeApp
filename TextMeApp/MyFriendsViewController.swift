@@ -43,4 +43,6 @@ class MyFriendsViewController: UITableViewController {
         photosVC.photos = user.photos
     }
     
+    
+    
 }

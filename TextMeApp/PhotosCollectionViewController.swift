@@ -30,16 +30,16 @@ class PhotosCollectionViewController: UICollectionViewController {
         return cell ?? UICollectionViewCell()
     }
     
-    // MARK: не работает
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let cell = sender as? PhotoCollectionCell,
-              let index = collectionView.indexPath(for: cell)?.item,
-              let OnePhotoVC = segue.destination as? OnePhotoViewController else {
+               let photo = cell.photoCellImageView.image,
+              let onePhotoVC = segue.destination as? OnePhotoViewController else {
                   return
               }
-        let photo = photos[index]
-        OnePhotoVC.onePhotoImageView.image = photo
+        onePhotoVC.photo = photo
 
     }
+    
     
 }

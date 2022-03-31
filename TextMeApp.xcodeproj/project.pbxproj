@@ -15,6 +15,8 @@
 		3F61FC2E27F345E100BEE41D /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F61FC2D27F345E100BEE41D /* Group.swift */; };
 		3F61FC3027F3465700BEE41D /* MyGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F61FC2F27F3465700BEE41D /* MyGroupsTableViewController.swift */; };
 		3F61FC3227F346CE00BEE41D /* MyGroupsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F61FC3127F346CE00BEE41D /* MyGroupsTableCell.swift */; };
+		3F68F1A527F407590021040F /* GlobalGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68F1A427F407590021040F /* GlobalGroupsTableViewCell.swift */; };
+		3F68F1A727F407A60021040F /* GlobalGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68F1A627F407A60021040F /* GlobalGroupsTableViewController.swift */; };
 		3F6905B327F17B2700C48143 /* MyFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6905B227F17B2700C48143 /* MyFriendsViewController.swift */; };
 		3FBF8C3B27E6E7CE006F7FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF8C3A27E6E7CE006F7FB3 /* AppDelegate.swift */; };
 		3FBF8C3D27E6E7CE006F7FB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF8C3C27E6E7CE006F7FB3 /* SceneDelegate.swift */; };
@@ -33,6 +35,8 @@
 		3F61FC2D27F345E100BEE41D /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		3F61FC2F27F3465700BEE41D /* MyGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupsTableViewController.swift; sourceTree = "<group>"; };
 		3F61FC3127F346CE00BEE41D /* MyGroupsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupsTableCell.swift; sourceTree = "<group>"; };
+		3F68F1A427F407590021040F /* GlobalGroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalGroupsTableViewCell.swift; sourceTree = "<group>"; };
+		3F68F1A627F407A60021040F /* GlobalGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalGroupsTableViewController.swift; sourceTree = "<group>"; };
 		3F6905B227F17B2700C48143 /* MyFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsViewController.swift; sourceTree = "<group>"; };
 		3FBF8C3727E6E7CE006F7FB3 /* TextMeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextMeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FBF8C3A27E6E7CE006F7FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +97,8 @@
 				3F6905B227F17B2700C48143 /* MyFriendsViewController.swift */,
 				3F61AFF427F226DC00F1DACD /* PhotosCollectionViewController.swift */,
 				3F61FC2F27F3465700BEE41D /* MyGroupsTableViewController.swift */,
+				3F68F1A427F407590021040F /* GlobalGroupsTableViewCell.swift */,
+				3F68F1A627F407A60021040F /* GlobalGroupsTableViewController.swift */,
 				3F61FC3127F346CE00BEE41D /* MyGroupsTableCell.swift */,
 				3F61FC2B27F3330400BEE41D /* PhotoCollectionCell.swift */,
 				3FBF8C4327E6E7D1006F7FB3 /* Assets.xcassets */,
@@ -177,6 +183,7 @@
 				3F61FC2A27F31C0C00BEE41D /* OnePhotoViewController.swift in Sources */,
 				3F61AFF127F1D37800F1DACD /* User.swift in Sources */,
 				3F61AFF327F1EFFC00F1DACD /* MyFriendsTableCell.swift in Sources */,
+				3F68F1A527F407590021040F /* GlobalGroupsTableViewCell.swift in Sources */,
 				3F61FC2E27F345E100BEE41D /* Group.swift in Sources */,
 				3F61FC3027F3465700BEE41D /* MyGroupsTableViewController.swift in Sources */,
 				3F61FC2C27F3330400BEE41D /* PhotoCollectionCell.swift in Sources */,
@@ -184,6 +191,7 @@
 				3F6905B327F17B2700C48143 /* MyFriendsViewController.swift in Sources */,
 				3F61AFF527F226DC00F1DACD /* PhotosCollectionViewController.swift in Sources */,
 				3FBF8C3B27E6E7CE006F7FB3 /* AppDelegate.swift in Sources */,
+				3F68F1A727F407A60021040F /* GlobalGroupsTableViewController.swift in Sources */,
 				3FBF8C3D27E6E7CE006F7FB3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

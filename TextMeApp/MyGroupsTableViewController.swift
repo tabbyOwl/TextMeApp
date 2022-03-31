@@ -9,10 +9,13 @@ import UIKit
 
 class MyGroupsTableViewController: UITableViewController {
     
-    let groups = [Group(name: "GroupOne"), Group(name: "GroupTwo"), Group(name: "GroupThree", avatar: UIImage(named: "i-7")), Group(name: "GroupFour")]
+    var groups = [Group(name: "GroupOne"), Group(name: "GroupTwo"), Group(name: "GroupThree", avatar: UIImage(named: "i-7")), Group(name: "GroupFour")]
     override func viewDidLoad() {
         super.viewDidLoad()
+     
     }
+    
+    var newGroup = Group(name: "New Group", avatar: UIImage(named: "i-2"))
     
     // MARK: - Table view data source
     
@@ -30,4 +33,13 @@ class MyGroupsTableViewController: UITableViewController {
         return cell ?? UITableViewCell()
     }
     
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "удалить", handler: {[weak self] _, _, block in
+            self?.groups.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            block(true)
+        })
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+        
 }

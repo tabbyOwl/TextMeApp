@@ -11,9 +11,10 @@ class OnePhotoViewController: UIViewController {
     
     @IBOutlet weak var onePhotoImageView: UIImageView!
     
+    var photo: UIImage?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.onePhotoImageView.image = photo
     }
-    
 }
