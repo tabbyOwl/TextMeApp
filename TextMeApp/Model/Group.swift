@@ -10,6 +10,8 @@ import UIKit
 
 struct Group {
     
+   
     let name: String
-    var avatar = UIImage(named: "defaultAvatar")
+    var avatar = UIImage(named: "groupDefaultPhoto")
+    var isSuscribe = false
 }

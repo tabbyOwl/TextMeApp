@@ -30,6 +30,7 @@ class MyFriendsViewController: UITableViewController {
         let friend = users[indexPath.row]
         cell?.friendName.text = friend.name
         cell?.friendImageView.image = friend.avatar
+        
         return cell ?? UITableViewCell()
     }
     

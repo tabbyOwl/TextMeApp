@@ -335,17 +335,30 @@
                                                 <constraint firstAttribute="height" constant="50" id="mms-zP-k5b"/>
                                             </constraints>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfO-Te-RDf">
+                                            <rect key="frame" x="227" y="14.666666666666664" width="112" height="31"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="gray" title="Подписаться">
+                                                <color key="baseForegroundColor" red="0.31423029299999999" green="0.31342631580000002" blue="0.48029708859999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </buttonConfiguration>
+                                            <connections>
+                                                <action selector="suscribeButtonAction:" destination="5bV-Xn-9XX" eventType="touchUpInside" id="XLA-bM-48g"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="8Jd-bV-UND" firstAttribute="leading" secondItem="6Xc-cf-Ybs" secondAttribute="leading" constant="5" id="1K9-ZQ-OSa"/>
                                         <constraint firstItem="WBH-aF-aIm" firstAttribute="leading" secondItem="8Jd-bV-UND" secondAttribute="trailing" constant="26" id="8Uq-9Q-RhV"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="bfO-Te-RDf" secondAttribute="trailing" constant="20" id="DNk-A4-GCc"/>
                                         <constraint firstItem="8Jd-bV-UND" firstAttribute="top" secondItem="6Xc-cf-Ybs" secondAttribute="top" constant="5" id="Hk9-2M-yy8"/>
                                         <constraint firstAttribute="bottom" secondItem="8Jd-bV-UND" secondAttribute="bottom" constant="5" id="evm-Et-9OE"/>
                                         <constraint firstItem="WBH-aF-aIm" firstAttribute="centerY" secondItem="6Xc-cf-Ybs" secondAttribute="centerY" id="kOz-nM-AYu"/>
+                                        <constraint firstItem="bfO-Te-RDf" firstAttribute="centerY" secondItem="6Xc-cf-Ybs" secondAttribute="centerY" id="nmv-xr-gq2"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="avatarImageView" destination="8Jd-bV-UND" id="Zbk-Fg-6TO"/>
+                                    <outlet property="button" destination="bfO-Te-RDf" id="bOv-IE-Nln"/>
                                     <outlet property="label" destination="WBH-aF-aIm" id="bvs-Pe-zte"/>
                                 </connections>
                             </tableViewCell>

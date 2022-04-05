@@ -38,8 +38,5 @@ class PhotosCollectionViewController: UICollectionViewController {
                   return
               }
         onePhotoVC.photo = photo
-
     }
-    
-    
 }

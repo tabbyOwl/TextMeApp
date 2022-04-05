@@ -7,12 +7,16 @@
 
 import UIKit
 
+
+
 class MyGroupsTableCell: UITableViewCell {
 
    
     @IBOutlet weak var avatarImageView: UIImageView!
     
     @IBOutlet weak var label: UILabel!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

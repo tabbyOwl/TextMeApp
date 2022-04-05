@@ -5,24 +5,24 @@
 //  Created by jane on 29.03.2022.
 //
 
+
+
 import UIKit
 
 class MyGroupsTableViewController: UITableViewController {
     
-    var groups = [Group(name: "GroupOne"), Group(name: "GroupTwo"), Group(name: "GroupThree", avatar: UIImage(named: "i-7")), Group(name: "GroupFour")]
+    
+    var groups: [Group] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
      
     }
-    
-    var newGroup = Group(name: "New Group", avatar: UIImage(named: "i-2"))
-    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groups.count
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as? MyGroupsTableCell
@@ -41,5 +41,26 @@ class MyGroupsTableViewController: UITableViewController {
         })
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
-        
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let globalGroupsVC = segue.destination as? GlobalGroupsTableViewController {
+            globalGroupsVC.myGroups = self.groups
+            globalGroupsVC.delegate = self
+        }
+    }
 }
+    
+    extension MyGroupsTableViewController: GlobalGroupsTableViewControllerDelegate {
+        
+        func userSubscribe(group: Group) {
+            groups.append(group)
+            tableView.reloadData()
+        }
+        
+        func userUnsubscribe(group: Group) {
+            groups.removeAll(where: {$0.name == group.name})
+            tableView.reloadData()
+        }
+    }
+        
+
