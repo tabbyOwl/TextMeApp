@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F2CE5AD27FD3D50009AFA45 /* FriendAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2CE5AC27FD3D50009AFA45 /* FriendAvatarView.swift */; };
+		3F2CE5AF27FE854A009AFA45 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2CE5AE27FE854A009AFA45 /* LikeControl.swift */; };
 		3F61AFF127F1D37800F1DACD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F61AFF027F1D37800F1DACD /* User.swift */; };
 		3F61AFF327F1EFFC00F1DACD /* MyFriendsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F61AFF227F1EFFC00F1DACD /* MyFriendsTableCell.swift */; };
 		3F61AFF527F226DC00F1DACD /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F61AFF427F226DC00F1DACD /* PhotosCollectionViewController.swift */; };
@@ -27,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F2CE5AC27FD3D50009AFA45 /* FriendAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAvatarView.swift; sourceTree = "<group>"; };
+		3F2CE5AE27FE854A009AFA45 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		3F61AFF027F1D37800F1DACD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3F61AFF227F1EFFC00F1DACD /* MyFriendsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsTableCell.swift; sourceTree = "<group>"; };
 		3F61AFF427F226DC00F1DACD /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +97,8 @@
 				3FBF8C3A27E6E7CE006F7FB3 /* AppDelegate.swift */,
 				3FBF8C3C27E6E7CE006F7FB3 /* SceneDelegate.swift */,
 				3FBF8C4027E6E7CE006F7FB3 /* Main.storyboard */,
+				3F2CE5AE27FE854A009AFA45 /* LikeControl.swift */,
+				3F2CE5AC27FD3D50009AFA45 /* FriendAvatarView.swift */,
 				3F61AFF227F1EFFC00F1DACD /* MyFriendsTableCell.swift */,
 				3F6905B227F17B2700C48143 /* MyFriendsViewController.swift */,
 				3F61AFF427F226DC00F1DACD /* PhotosCollectionViewController.swift */,
@@ -181,6 +187,7 @@
 			files = (
 				3F61FC3227F346CE00BEE41D /* MyGroupsTableCell.swift in Sources */,
 				3F61FC2A27F31C0C00BEE41D /* OnePhotoViewController.swift in Sources */,
+				3F2CE5AF27FE854A009AFA45 /* LikeControl.swift in Sources */,
 				3F61AFF127F1D37800F1DACD /* User.swift in Sources */,
 				3F61AFF327F1EFFC00F1DACD /* MyFriendsTableCell.swift in Sources */,
 				3F68F1A527F407590021040F /* GlobalGroupsTableViewCell.swift in Sources */,
@@ -192,6 +199,7 @@
 				3F61AFF527F226DC00F1DACD /* PhotosCollectionViewController.swift in Sources */,
 				3FBF8C3B27E6E7CE006F7FB3 /* AppDelegate.swift in Sources */,
 				3F68F1A727F407A60021040F /* GlobalGroupsTableViewController.swift in Sources */,
+				3F2CE5AD27FD3D50009AFA45 /* FriendAvatarView.swift in Sources */,
 				3FBF8C3D27E6E7CE006F7FB3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

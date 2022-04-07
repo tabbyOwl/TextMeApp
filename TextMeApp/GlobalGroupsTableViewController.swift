@@ -41,8 +41,9 @@ class GlobalGroupsTableViewController: UITableViewController {
         cell?.avatarImageView.image = group.avatar
         cell?.label.text = group.name
         
+        
         if myGroups.contains(where: { $0.name == group.name }) {
-            
+        
             cell?.button.setTitle("Отписаться", for: .normal)
             group.isSuscribe = true
         } else {
@@ -60,7 +61,7 @@ class GlobalGroupsTableViewController: UITableViewController {
         let indexPath = IndexPath(row: sender.tag, section: 0)
         let group = groups[indexPath.row]
         
-        if myGroups.contains(where: { $0.name == group.name }) {
+       if myGroups.contains(where: { $0.name == group.name }) {
             
             self.myGroups.removeAll(where: { $0.name == group.name })
             self.delegate?.userUnsubscribe(group: group)
