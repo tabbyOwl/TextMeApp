@@ -26,10 +26,9 @@ class PhotosCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionCell
         let photo = photos[indexPath.item]
         cell?.photoCellImageView.image = photo
-        
+       
         return cell ?? UICollectionViewCell()
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let cell = sender as? PhotoCollectionCell,

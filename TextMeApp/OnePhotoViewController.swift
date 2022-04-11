@@ -18,12 +18,9 @@ class OnePhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.onePhotoImageView.image = photo
-        print(1)
         likeControl.addTarget(self, action: #selector(likeControlTapped), for: .touchUpInside)
-        print(2)
-        
     }
-  
+    
     @objc func likeControlTapped() {
         likeControl.isSelected = !likeControl.isSelected
     }
