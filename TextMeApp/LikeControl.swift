@@ -10,7 +10,6 @@ import UIKit
 class LikeControl: UIControl {
 
     @IBOutlet weak var likeLabel: UILabel!
-    
     @IBOutlet weak var imageView: UIImageView!
 
     var likesCounter: Int = 0
@@ -21,6 +20,7 @@ class LikeControl: UIControl {
             
             if isSelected {
                 likesCounter += 1
+                
             } else {
                 likesCounter -= 1
             }
@@ -28,7 +28,7 @@ class LikeControl: UIControl {
             if likesCounter != 0 {
             likeLabel.text = "\(likesCounter)"
             } else {
-                likeLabel.text = nil
+                likeLabel.text = ""
                 }
         }
     }

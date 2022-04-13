@@ -20,7 +20,7 @@ class OnePhotoViewController: UIViewController {
         self.onePhotoImageView.image = photo
         likeControl.addTarget(self, action: #selector(likeControlTapped), for: .touchUpInside)
     }
-    
+
     @objc func likeControlTapped() {
         likeControl.isSelected = !likeControl.isSelected
     }
