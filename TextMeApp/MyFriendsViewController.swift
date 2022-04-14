@@ -15,15 +15,20 @@ struct GroupedFriends {
 
 class MyFriendsViewController: UITableViewController {
     
+   
     
     @IBOutlet weak var searchBar: UISearchBar!
     
     var users = [
-        User(name: "Том",avatar: UIImage(named: "user5"), photos: [UIImage(named: "photo1"), UIImage(named: "photo2"), UIImage(named: "photo3"),UIImage(named: "i"),UIImage(named: "i-1"),UIImage(named: "i-2"),UIImage(named: "i-3"),UIImage(named: "i-4"),UIImage(named: "i-5"),UIImage(named: "i-6")]),
-        User(name: "Стив", avatar: UIImage(named: "user1"), photos: [ UIImage(named: "photo1"), UIImage(named: "photo2"), UIImage(named: "photo3"),UIImage(named: "i"),UIImage(named: "i-1"),UIImage(named: "i-2"),UIImage(named: "i-3"),UIImage(named: "i-4"),UIImage(named: "i-5"),UIImage(named: "i-6"),UIImage(named: "i-7"),UIImage(named: "i-8"),UIImage(named: "i-9"),UIImage(named: "i-10"),UIImage(named: "i-11"),UIImage(named: "i-12"),UIImage(named: "i-13"),UIImage(named: "i-14")]),
-        User(name: "Джэк", avatar: UIImage(named: "user3")),
-        User(name: "Линда", avatar: UIImage(named: "user2"), photos: [UIImage(named: "i"),UIImage(named: "i"),UIImage(named: "i"),UIImage(named: "i"),UIImage(named: "i")]),
-        User(name: "Тимофей",avatar: UIImage(named: "user5"), photos: [UIImage(named: "photo1"), UIImage(named: "photo2"), UIImage(named: "photo3"),UIImage(named: "i"),UIImage(named: "i-1"),UIImage(named: "i-2"),UIImage(named: "i-3"),UIImage(named: "i-4"),UIImage(named: "i-5"),UIImage(named: "i-6")]),]
+        User(name: "Ирина Каткова",avatar: UIImage(named: "user5"), photos: [UIImage(named: "photo1"), UIImage(named: "photo2"), UIImage(named: "photo3"),UIImage(named: "i"),UIImage(named: "i-1"),UIImage(named: "i-2"),UIImage(named: "i-3"),UIImage(named: "i-4"),UIImage(named: "i-5"),UIImage(named: "i-6")]),
+        User(name: "Денис Скороходов", avatar: UIImage(named: "user1"), photos: [ UIImage(named: "photo1"), UIImage(named: "photo2"), UIImage(named: "photo3"),UIImage(named: "i"),UIImage(named: "i-1"),UIImage(named: "i-2"),UIImage(named: "i-3"),UIImage(named: "i-4"),UIImage(named: "i-5"),UIImage(named: "i-6"),UIImage(named: "i-7"),UIImage(named: "i-8"),UIImage(named: "i-9"),UIImage(named: "i-10"),UIImage(named: "i-11"),UIImage(named: "i-12"),UIImage(named: "i-13"),UIImage(named: "i-14")]),
+        User(name: "Данил Дубровский", avatar: UIImage(named: "user3")),
+        User(name: "Лиза Артемьева", avatar: UIImage(named: "user2"), photos: [UIImage(named: "i"),UIImage(named: "i"),UIImage(named: "i"),UIImage(named: "i"),UIImage(named: "i")]),
+        User(name: "Тимофей Иванов",avatar: UIImage(named: "user5"), photos: [UIImage(named: "photo1"), UIImage(named: "photo2"), UIImage(named: "photo3"),UIImage(named: "i"),UIImage(named: "i-1"),UIImage(named: "i-2"),UIImage(named: "i-3"),UIImage(named: "i-4"),UIImage(named: "i-5"),UIImage(named: "i-6")]),
+        User(name: "Иван Петров"),
+        User(name: " Арина Тинькова"),
+        User(name: "Анастасия Гордон"),
+        User(name: "Павел Яковлев")]
     
     
     var groupedFriends: [GroupedFriends] {
@@ -58,8 +63,8 @@ class MyFriendsViewController: UITableViewController {
         super.viewDidLoad()
 
         searchBar.delegate = self
-        
     }
+    
     
     // MARK: - Table view data source
     
@@ -95,6 +100,7 @@ class MyFriendsViewController: UITableViewController {
         }
         cell?.friendName.text = friend.name
         cell?.friendImageView.image = friend.avatar
+    
         return cell ?? UITableViewCell()
     }
     
@@ -114,7 +120,7 @@ extension MyFriendsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
      
         if !searchText.isEmpty {
-           filteredUsers = users.filter({$0.name.lowercased().hasPrefix(searchText.lowercased())})
+            filteredUsers = users.filter({$0.name.lowercased().contains(searchText.lowercased())})
         tableView.reloadData()
     }
         else {

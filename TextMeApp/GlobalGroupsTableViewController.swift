@@ -23,7 +23,6 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     // MARK: - Table view data source
@@ -47,12 +46,12 @@ class GlobalGroupsTableViewController: UITableViewController {
         }
         
         cell?.button.tag = indexPath.row
-        cell?.button.addTarget(self, action: #selector(suscribeButtonAction), for: .touchUpInside)
-        
+        cell?.button.addTarget(self, action: #selector(subscribeButtonAction), for: .touchUpInside)
+      
         return cell ?? UITableViewCell()
     }
     
-    @IBAction func suscribeButtonAction(_ sender: UIButton) {
+    @IBAction func subscribeButtonAction(_ sender: UIButton) {
         let indexPath = IndexPath(row: sender.tag, section: 0)
         let group = groups[indexPath.row]
         

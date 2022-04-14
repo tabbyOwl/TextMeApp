@@ -25,8 +25,26 @@ class GlobalGroupsTableViewCell: UITableViewCell {
         shadowView.layer.backgroundColor = UIColor.clear.cgColor
         avatarImageView.layer.cornerRadius = 25
         avatarImageView.layer.masksToBounds = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector( animateTapImage(recognizer: )))
+        avatarImageView.isUserInteractionEnabled = true
+        avatarImageView.addGestureRecognizer(tap)
     }
 
+    @objc func animateTapImage (recognizer: UITapGestureRecognizer) {
+        
+        UIView.animate(withDuration: 0.1,
+                       delay: 0,
+                       usingSpringWithDamping: 0.6,
+                       initialSpringVelocity: 0.3,
+                       options: [],
+                       animations: {
+            self.avatarImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8) },
+                       completion: {_ in
+            UIView.animate(withDuration: 0.5) {
+            self.avatarImageView.transform = CGAffineTransform.identity }
+        })
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }

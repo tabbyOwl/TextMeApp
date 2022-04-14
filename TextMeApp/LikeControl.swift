@@ -26,7 +26,9 @@ class LikeControl: UIControl {
             }
             
             if likesCounter != 0 {
-            likeLabel.text = "\(likesCounter)"
+                UIView.transition(with: self.likeLabel, duration: 2, options: [.transitionCrossDissolve], animations: {
+                    self.likeLabel.text = "\(self.likesCounter)"
+                }, completion: nil)
             } else {
                 likeLabel.text = ""
                 }

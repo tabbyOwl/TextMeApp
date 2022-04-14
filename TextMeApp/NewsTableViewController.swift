@@ -21,26 +21,41 @@ class NewsTableViewController: UITableViewController {
     }
     
     @IBAction func likeButtonAction(_ sender: UIButton) {
+        
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 0.2,
+                       options: [.curveEaseIn],
+                       animations: {
+            sender.transform = CGAffineTransform(scaleX: 1.6, y: 1.6) },
+                       completion: {_ in
+            UIView.animate(withDuration: 0.5) {
+            sender.transform = CGAffineTransform.identity
+            }
+        })
+                       
         let index = IndexPath(row: sender.tag, section: 0).row
         
         sender.isSelected = !sender.isSelected
         
         if sender.isSelected {
-            news[index].likesCounter += 1
+            self.news[index].likesCounter += 1
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            print(news[index].likesCounter)
+            print(self.news[index].likesCounter)
         } else {
-            print(news[index].likesCounter)
-            news[index].likesCounter -= 1
+            print(self.news[index].likesCounter)
+            self.news[index].likesCounter -= 1
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
         }
         
-        if news[index].likesCounter != 0 {
-        sender.setTitle(String(news[index].likesCounter), for: .normal)
+                if self.news[index].likesCounter != 0 {
+                    sender.setTitle(String(self.news[index].likesCounter), for: .normal)
         } else {
             sender.setTitle("", for: .normal)
         }
     }
+
     
     // MARK: - Table view data source
 
