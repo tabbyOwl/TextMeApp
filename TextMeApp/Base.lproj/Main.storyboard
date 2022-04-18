@@ -627,22 +627,22 @@
             </objects>
             <point key="canvasLocation" x="3657" y="129"/>
         </scene>
-        <!--One Photo View Controller-->
+        <!--Photo View Controller-->
         <scene sceneID="tV3-ua-Xum">
             <objects>
-                <viewController id="3lh-fI-2C8" customClass="OnePhotoViewController" customModule="TextMeApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3lh-fI-2C8" customClass="PhotoViewController" customModule="TextMeApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ypg-by-HAx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hd7-Om-ExV">
-                                <rect key="frame" x="0.0" y="56" width="375" height="673"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="646"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kMt-ZW-pSD">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="573"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="646"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EYL-kh-hJo" customClass="LikeControl" customModule="TextMeApp" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="643" width="20" height="20"/>
+                                        <rect key="frame" x="10" y="626" width="20" height="20"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="YTp-xj-hJh">
                                                 <rect key="frame" x="0.0" y="1.9999999999999982" width="20" height="17"/>
@@ -679,9 +679,10 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="kMt-ZW-pSD" secondAttribute="trailing" id="3LG-k2-enc"/>
                                     <constraint firstItem="kMt-ZW-pSD" firstAttribute="leading" secondItem="Hd7-Om-ExV" secondAttribute="leading" id="9SX-3I-79b"/>
-                                    <constraint firstAttribute="bottom" secondItem="kMt-ZW-pSD" secondAttribute="bottom" constant="100" id="9aE-CF-fuU"/>
-                                    <constraint firstItem="kMt-ZW-pSD" firstAttribute="top" secondItem="Hd7-Om-ExV" secondAttribute="top" id="TOd-vS-Ab3"/>
-                                    <constraint firstAttribute="bottom" secondItem="EYL-kh-hJo" secondAttribute="bottom" constant="10" id="gid-Jr-57F"/>
+                                    <constraint firstAttribute="bottom" secondItem="kMt-ZW-pSD" secondAttribute="bottom" id="9aE-CF-fuU"/>
+                                    <constraint firstItem="kMt-ZW-pSD" firstAttribute="centerY" secondItem="Hd7-Om-ExV" secondAttribute="centerY" id="A5V-i0-tN5"/>
+                                    <constraint firstItem="kMt-ZW-pSD" firstAttribute="centerX" secondItem="Hd7-Om-ExV" secondAttribute="centerX" id="Tr9-lw-FZT"/>
+                                    <constraint firstAttribute="bottom" secondItem="EYL-kh-hJo" secondAttribute="bottom" id="gid-Jr-57F"/>
                                     <constraint firstItem="EYL-kh-hJo" firstAttribute="leading" secondItem="Hd7-Om-ExV" secondAttribute="leading" constant="10" id="sWW-6X-kcq"/>
                                 </constraints>
                             </view>
@@ -689,16 +690,17 @@
                         <viewLayoutGuide key="safeArea" id="ogp-ww-vGz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ogp-ww-vGz" firstAttribute="bottom" secondItem="Hd7-Om-ExV" secondAttribute="bottom" id="ASJ-6Y-wxe"/>
                             <constraint firstItem="Hd7-Om-ExV" firstAttribute="leading" secondItem="ogp-ww-vGz" secondAttribute="leading" id="Ciz-Tb-u85"/>
                             <constraint firstItem="Hd7-Om-ExV" firstAttribute="top" secondItem="ogp-ww-vGz" secondAttribute="top" id="GZf-ob-rie"/>
+                            <constraint firstItem="Hd7-Om-ExV" firstAttribute="centerY" secondItem="ypg-by-HAx" secondAttribute="centerY" id="T7N-iM-wes"/>
+                            <constraint firstItem="Hd7-Om-ExV" firstAttribute="centerX" secondItem="ypg-by-HAx" secondAttribute="centerX" id="WWw-we-0Zg"/>
                             <constraint firstItem="ogp-ww-vGz" firstAttribute="trailing" secondItem="Hd7-Om-ExV" secondAttribute="trailing" id="nxM-Xs-poU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="e79-3e-jUq"/>
                     <connections>
                         <outlet property="likeControl" destination="EYL-kh-hJo" id="zR9-50-kDv"/>
-                        <outlet property="onePhotoImageView" destination="kMt-ZW-pSD" id="0nT-7T-tlI"/>
+                        <outlet property="photoImageView" destination="kMt-ZW-pSD" id="0nT-7T-tlI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ek8-lA-Lo1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

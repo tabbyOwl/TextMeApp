@@ -14,6 +14,7 @@ class LoginFormViewController: UIViewController {
     @IBOutlet weak var passwordInput: UITextField!
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+       
         let checkResult = checkUserData()
         if !checkResult {
             showLoginError()
@@ -24,7 +25,9 @@ class LoginFormViewController: UIViewController {
     func checkUserData() -> Bool {
         guard let login = loginInput.text,
               let password = passwordInput.text else { return false }
-        if login == "" && password == "" { return true
+        if login == "" && password == "" {
+            animateIndicatorCircles()
+            return true
         } else {
             return false
         }
@@ -44,9 +47,10 @@ class LoginFormViewController: UIViewController {
         
         let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         scrollView?.addGestureRecognizer(hideKeyboardGesture)
+       
     }
     
-    func animateIndicatorCircles () {
+    @objc func animateIndicatorCircles () {
     
         for i in 0 ..< 3 {
             let circle = UIView(frame: CGRect(x: Int(view.frame.width/2 - 30) + i * 30, y: Int(view.frame.height/2), width: 20 , height: 20))
@@ -90,12 +94,9 @@ class LoginFormViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        animateIndicatorCircles()
     }
     
     

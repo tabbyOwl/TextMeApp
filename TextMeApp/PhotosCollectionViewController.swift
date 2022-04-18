@@ -33,9 +33,10 @@ class PhotosCollectionViewController: UICollectionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let cell = sender as? PhotoCollectionCell,
                let photo = cell.photoCellImageView.image,
-              let onePhotoVC = segue.destination as? OnePhotoViewController else {
+              let onePhotoVC = segue.destination as? PhotoViewController else {
                   return
               }
-        onePhotoVC.photo = photo
+        onePhotoVC.indexOfCurrentImage = photos.firstIndex(of: photo) ?? 0
+        onePhotoVC.photos = photos
     }
 }

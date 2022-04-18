@@ -12,6 +12,8 @@ struct User {
     
     let name: String
     var avatar = UIImage(named: "defaultAvatar")
+    var isSuscribe = false
+    
     var photos: [UIImage?] = []
     
   

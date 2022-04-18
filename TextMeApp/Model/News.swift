@@ -10,7 +10,7 @@ import UIKit
 
 struct News {
     
-    let user: User
+    let autor: User
     let date: String
     let text: String
     var image = UIImage(named: "noPhoto")
