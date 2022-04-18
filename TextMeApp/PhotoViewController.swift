@@ -35,6 +35,13 @@ class PhotoViewController: UIViewController {
     @objc func likeControlTapped() {
         likeControl.isSelected = !likeControl.isSelected
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.animator?.stopAnimation(true)
+            if let animator = animator, animator.state != .inactive {
+                animator.finishAnimation(at: .current)
+            }
+    }
 
     @objc func viewPanned (_ sender: UIPanGestureRecognizer) {
         switch sender.state {
