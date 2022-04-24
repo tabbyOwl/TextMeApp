@@ -15,7 +15,7 @@ protocol GlobalGroupsTableViewControllerDelegate {
 
 class GlobalGroupsTableViewController: UITableViewController {
     
-    var groups = [Group(name: "Котики", avatar: UIImage(named: "cats"), isSuscribe: true), Group(name: "Сарказм", isSuscribe: true), Group(name: "Изучаем китайскийИзучаем китайскийИзучаем китайскийИзучаем китайскийИзучаем китайский", avatar: UIImage(named: "chinese"),isSuscribe: true), Group(name: "Сказочные места", avatar: UIImage(named: "places"), isSuscribe: true), Group(name: "Рецепты", avatar: UIImage(named: "recipes")), Group(name: "Йога"), Group(name: "Английский по фильмам", avatar: UIImage(named: "english")), Group(name: "Ешкин кот", avatar: UIImage(named: "eshkinCat"))]
+    var groups: [Group] = []
     
     var delegate: GlobalGroupsTableViewControllerDelegate?
     
@@ -23,6 +23,23 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        groups = globalGroups
+    }
+    
+    @IBAction func subscribeButtonAction(_ sender: UIButton) {
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        let group = groups[indexPath.row]
+        
+       if myGroups.contains(where: { $0.name == group.name }) {
+            
+            self.myGroups.removeAll(where: { $0.name == group.name })
+            self.delegate?.userUnsubscribe(group: group)
+            self.tableView.reloadData()
+        } else {
+            self.myGroups.append(group)
+            self.delegate?.userSubscribe(group: group)
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: - Table view data source
@@ -49,22 +66,6 @@ class GlobalGroupsTableViewController: UITableViewController {
         cell?.button.addTarget(self, action: #selector(subscribeButtonAction), for: .touchUpInside)
       
         return cell ?? UITableViewCell()
-    }
-    
-    @IBAction func subscribeButtonAction(_ sender: UIButton) {
-        let indexPath = IndexPath(row: sender.tag, section: 0)
-        let group = groups[indexPath.row]
-        
-       if myGroups.contains(where: { $0.name == group.name }) {
-            
-            self.myGroups.removeAll(where: { $0.name == group.name })
-            self.delegate?.userUnsubscribe(group: group)
-            self.tableView.reloadData()
-        } else {
-            self.myGroups.append(group)
-            self.delegate?.userSubscribe(group: group)
-            self.tableView.reloadData()
-        }
     }
 }
 

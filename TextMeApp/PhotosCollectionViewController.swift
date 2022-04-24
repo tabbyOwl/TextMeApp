@@ -11,7 +11,11 @@ private let reuseIdentifier = "PhotoCell"
 
 class PhotosCollectionViewController: UICollectionViewController {
     
-    var photos: [UIImage?] = []
+    var userIndex: Int = 0
+    
+    var user: User {
+        return allUsers[userIndex]
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,24 +23,24 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        return user.photos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionCell
-        let photo = photos[indexPath.item]
-        cell?.photoCellImageView.image = photo
-       
+        let photo = user.photos[indexPath.item]
+        cell?.photoCellImageView.image = UIImage(named: photo.name)
         return cell ?? UICollectionViewCell()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let cell = sender as? PhotoCollectionCell,
-               let photo = cell.photoCellImageView.image,
+              let index = collectionView.indexPath(for: cell)?.item,
               let onePhotoVC = segue.destination as? PhotoViewController else {
                   return
               }
-        onePhotoVC.indexOfCurrentImage = photos.firstIndex(of: photo) ?? 0
-        onePhotoVC.photos = photos
+        onePhotoVC.userIndex = self.userIndex
+        let photo = user.photos[index]
+        onePhotoVC.indexOfCurrentImage = user.photos.firstIndex(where: { $0.name == photo.name } ) ?? 0
     }
 }

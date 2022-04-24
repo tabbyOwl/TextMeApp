@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct GroupedFriends {
+struct SectionUsers {
     
     let character: Character
     var users: [User]
@@ -15,24 +15,11 @@ struct GroupedFriends {
 
 class MyFriendsViewController: UITableViewController {
     
-   
-    
     @IBOutlet weak var searchBar: UISearchBar!
     
-    let users = [
-        User(id: 1, name: "Ирина Каткова",avatar: UIImage(named: "user5"), photos: [UIImage(named: "photo1"), UIImage(named: "photo2"), UIImage(named: "photo3"),UIImage(named: "i"),UIImage(named: "i-1"),UIImage(named: "i-2"),UIImage(named: "i-3"),UIImage(named: "i-4"),UIImage(named: "i-5"),UIImage(named: "i-6")]),
-        User(id: 2,name: "Денис Скороходов", avatar: UIImage(named: "user1"), photos: [ UIImage(named: "i-7"), UIImage(named: "i-8"), UIImage(named: "i-9"),UIImage(named: "i-10"),UIImage(named: "i-11"),UIImage(named: "i-12"),UIImage(named: "i-13"),UIImage(named: "i-14"),UIImage(named: "i-15"),UIImage(named: "i-16"),UIImage(named: "i-17"),UIImage(named: "i-18"),UIImage(named: "i-19")]),
-        User(id: 4,name: "Лиза Артемьева", avatar: UIImage(named: "user2"), photos: [UIImage(named: "i-25"),UIImage(named: "i-26"),UIImage(named: "i"),UIImage(named: "i-27")]),
-        User(id: 5,name: "Тимофей Иванов",avatar: UIImage(named: "user5"), photos: [UIImage(named: "i-20"),UIImage(named: "i-21"),UIImage(named: "i-22"),UIImage(named: "i-23"),UIImage(named: "i-24")]),
-        User(id: 3, name: "Данил Дубровский"),
-        User(id: 6, name: "Иван Петров"),
-        User(id: 7, name: " Арина Тинькова"),
-        User(id: 8, name: "Анастасия Гордон", photos: [UIImage(named: "i-27")]),
-        User(id: 9, name: "Павел Яковлев", photos: [UIImage(named: "i-25"), UIImage(named: "i-25")])]
-    
-    
-    var groupedFriends: [GroupedFriends] {
-        var result = [GroupedFriends]()
+    var users : [User] = []
+    var sectionUsers: [SectionUsers] {
+        var result = [SectionUsers]()
         
         for user in users {
             guard let character = user.name.first else {
@@ -41,37 +28,28 @@ class MyFriendsViewController: UITableViewController {
             if let groupedIndex = result.firstIndex(where: {$0.character == character }) {
                 result[groupedIndex].users.append(user)
             } else {
-                    let friend = GroupedFriends(character: character, users: [user])
+                    let friend = SectionUsers(character: character, users: [user])
                     result.append(friend)
                 }
             }
-        
-        return result.sorted(by: {$0.character < $1.character})
+        return result
     }
     
     var filteredUsers:[User] = []
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if filteredUsers.count == 0 {
-        return String(groupedFriends[section].character)
-        } else {
-            return ""
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        users = allUsers
         searchBar.delegate = self
     }
     
+    let transitionAnimator = TransitionAnimator(isPresenting: false)
     
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if filteredUsers.count == 0 {
-        let friendsSection = groupedFriends[section]
-         return friendsSection.users.count
+         return sectionUsers[section].users.count
         } else {
             return filteredUsers.count
         }
@@ -79,41 +57,61 @@ class MyFriendsViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         if filteredUsers.count == 0 {
-            return groupedFriends.count
+            return sectionUsers.count
         } else {
             return 1
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if filteredUsers.count == 0 {
+        return String(sectionUsers[section].character)
+        } else {
+            return ""
+        }
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendsCell", for: indexPath) as? MyFriendsTableCell
-        var friend = User(id: 0, name: "")
+        var user = User(name: "", avatar: Photo(name: "default"))
         if filteredUsers.count == 0 {
-        let groupedFriend = groupedFriends[indexPath.section]
-         friend = groupedFriend.users[indexPath.row]
+            let sectionUser = sectionUsers[indexPath.section]
+            user = sectionUser.users[indexPath.row]
         } else {
-         friend = filteredUsers[indexPath.row]
+            user = filteredUsers[indexPath.row]
         }
-       
-        cell?.friendName.text = friend.name
-        cell?.friendImageView.image = friend.avatar
-        cell?.friendID = friend.id
+        cell?.friendName.text = user.name
+        cell?.friendImageView.image = UIImage(named: user.avatar.name)
         return cell ?? UITableViewCell()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showPhoto" {
-        let photosVC = segue.destination as! PhotosCollectionViewController
-        let cell = sender as! MyFriendsTableCell
-        let user = users.first(where: { $0.id == cell.friendID })
-        photosVC.photos = user!.photos
+        
+//        let PhotosCollectionVC = segue.destination as UIViewController
+//        PhotosCollectionVC.transitioningDelegate = transitionAnimator
+
+       guard
+            let cell = sender as? MyFriendsTableCell,
+            let indexPath = tableView.indexPath(for: cell),
+            let photosVC = segue.destination as? PhotosCollectionViewController
+        else {
+            return
+        }
+        if filteredUsers.count == 0 {
+            let sectionUser = sectionUsers[indexPath.section]
+            let user = sectionUser.users[indexPath.row]
+            if let userIndex = allUsers.firstIndex(where: { $0.id == user.id }) {
+                photosVC.userIndex = userIndex
+            }
+        } else {
+            let user = filteredUsers[indexPath.row]
+            if let userIndex = allUsers.firstIndex(where: { $0.id == user.id }) {
+                photosVC.userIndex = userIndex
+        }
     }
 }
 }
+
 
 extension MyFriendsViewController: UISearchBarDelegate {
     
@@ -129,3 +127,6 @@ extension MyFriendsViewController: UISearchBarDelegate {
         }
     }
 }
+
+
+

@@ -16,3 +16,8 @@ struct News {
     var image = UIImage(named: "noPhoto")
     var likesCounter = 0
 }
+
+var allNews = [
+News(autor: User(name: "Том", avatar: Photo(name: "user4")) , date: "12.04.2022", text: "Сегодня чудесная погода!", image: UIImage(named: "photo3")),
+News(autor: User(name: "Евгения Петрова", avatar: Photo(name: "user2")) , date: "12.04.2022", text: "Мой пушок ♥️", image: UIImage(named: "i-10")),
+News(autor: User(name: "Александр Гусев", avatar: Photo(name: "user5")) , date: "12.04.2022", text: "Выставка бездомных животных пройдет в эти выходные по адресу Красноармейская 89б ТЦ ЛИГА. Питомцы доброжелательно настроены по отношению к людям, здоровы, привиты и готовы стать домашними.", image: UIImage(named: "i-2"))]

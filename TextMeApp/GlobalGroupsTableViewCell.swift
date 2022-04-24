@@ -45,6 +45,7 @@ class GlobalGroupsTableViewCell: UITableViewCell {
             self.avatarImageView.transform = CGAffineTransform.identity }
         })
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
