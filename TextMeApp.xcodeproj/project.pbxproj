@@ -32,6 +32,7 @@
 		3FFC1C692813B752000ECD0F /* PresentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC1C682813B752000ECD0F /* PresentSegue.swift */; };
 		3FFC1C6B28140615000ECD0F /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC1C6A28140615000ECD0F /* TransitionAnimator.swift */; };
 		3FFC1C6D28140645000ECD0F /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC1C6C28140645000ECD0F /* CustomNavigationController.swift */; };
+		3FFC1C6F28154838000ECD0F /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC1C6E28154838000ECD0F /* Session.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		3FFC1C682813B752000ECD0F /* PresentSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentSegue.swift; sourceTree = "<group>"; };
 		3FFC1C6A28140615000ECD0F /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		3FFC1C6C28140645000ECD0F /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		3FFC1C6E28154838000ECD0F /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				3F61FC3127F346CE00BEE41D /* MyGroupsTableCell.swift */,
 				3F61FC2B27F3330400BEE41D /* PhotoCollectionCell.swift */,
 				3FBF8C4327E6E7D1006F7FB3 /* Assets.xcassets */,
+				3FFC1C6E28154838000ECD0F /* Session.swift */,
 				3FBF8C4527E6E7D1006F7FB3 /* LaunchScreen.storyboard */,
 				3FBF8C4827E6E7D1006F7FB3 /* Info.plist */,
 			);
@@ -222,6 +225,7 @@
 				3F61A8E428059DAC008491F7 /* News.swift in Sources */,
 				3F61A8E028051549008491F7 /* NewsTableViewController.swift in Sources */,
 				3FBF8C3B27E6E7CE006F7FB3 /* AppDelegate.swift in Sources */,
+				3FFC1C6F28154838000ECD0F /* Session.swift in Sources */,
 				3F61A8E228051683008491F7 /* NewsTableViewCell.swift in Sources */,
 				3F68F1A727F407A60021040F /* GlobalGroupsTableViewController.swift in Sources */,
 				3FBF8C3D27E6E7CE006F7FB3 /* SceneDelegate.swift in Sources */,
