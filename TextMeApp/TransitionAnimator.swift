@@ -46,21 +46,38 @@ class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                         y: 0,
                                         width: source.view.frame.height,
                                         height: source.view.frame.width)
-                
-        UIView.animate(withDuration: 4, delay: 0, options: [], animations: {
-            
-            destination.view.transform = .identity
-          
-            source.view.transform = source.view.transform.rotated(by: -.pi/2)
-           
-        }, completion: { isComplete in
-                       if isComplete {
-                           source.removeFromParent()
-                       }
-                       transitionContext.completeTransition(isComplete && !transitionContext.transitionWasCancelled)
-                   })
-        }
+        
+        source.view.setAnchorPoint(CGPoint(x: 1, y: 0))
+        
+        UIKit.UIView.animateKeyframes(
+            withDuration: animationDuration,
+            delay: 0,
+            options: [],
+            animations: {
 
+                UIKit.UIView.addKeyframe(
+                    withRelativeStartTime: 0,
+                    relativeDuration: 0.5,
+                    animations: {
+                        source.view.transform = source.view.transform.rotated(by: -.pi/2)
+                    })
+
+                UIKit.UIView.addKeyframe(
+                    withRelativeStartTime: 0.20,
+                    relativeDuration: 0.5,
+                    animations: {
+                        destination.view.transform = .identity
+                    })
+
+            },
+            completion: { isComplete in
+                if isComplete {
+                    source.removeFromParent()
+                }
+                transitionContext.completeTransition(isComplete && !transitionContext.transitionWasCancelled)
+            })
+    }
+    
     func animateForPresent(using transitionContext: UIViewControllerContextTransitioning) {
         guard
             let source = transitionContext.viewController(forKey: .from),
@@ -84,7 +101,7 @@ class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         destination.view.layer.anchorPoint = CGPoint(x: 0, y: 0)
         destination.view.transform = CGAffineTransform(rotationAngle: -.pi/2)
         
-        UIView.animate(withDuration: 1, delay: 0, options: [], animations: {
+        UIView.animate(withDuration: animationDuration, delay: 0, options: [], animations: {
             
             destination.view.transform = .identity
             destination.view.layer.position = CGPoint(x: 0, y: 0)
@@ -95,5 +112,26 @@ class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             transitionContext.completeTransition(isComplete)
         
         })
+    }
+}
+
+extension UIView {
+    func setAnchorPoint(_ point: CGPoint) {
+        var newPoint = CGPoint(x: bounds.size.width * point.x, y: bounds.size.height * point.y)
+        var oldPoint = CGPoint(x: bounds.size.width * layer.anchorPoint.x, y: bounds.size.height * layer.anchorPoint.y);
+
+        newPoint = newPoint.applying(transform)
+        oldPoint = oldPoint.applying(transform)
+
+        var position = layer.position
+
+        position.x -= oldPoint.x
+        position.x += newPoint.x
+
+        position.y -= oldPoint.y
+        position.y += newPoint.y
+
+        layer.position = position
+        layer.anchorPoint = point
     }
 }

@@ -87,9 +87,6 @@ class MyFriendsViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-//        let PhotosCollectionVC = segue.destination as UIViewController
-//        PhotosCollectionVC.transitioningDelegate = transitionAnimator
-
        guard
             let cell = sender as? MyFriendsTableCell,
             let indexPath = tableView.indexPath(for: cell),

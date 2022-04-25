@@ -9,9 +9,15 @@ import UIKit
 
 class PhotoViewController: UIViewController {
     
+    
+    @IBOutlet weak var likeControl: LikeControl!
+    
+    
+    @IBOutlet weak var likeImage: UIImageView!
+    @IBOutlet weak var likeLabel: UILabel!
+    
     @IBOutlet weak var photoImageView: UIImageView!
-  
-    @IBOutlet weak var likeButton: UIButton!
+    
     var animator: UIViewPropertyAnimator?
     
     var userIndex: Int = 0
@@ -22,29 +28,16 @@ class PhotoViewController: UIViewController {
         return allUsers[userIndex].photos
     }
 
-    var isLiked: Bool {
-        set {
-            allUsers[userIndex].photos[indexOfCurrentImage].isLiked = newValue
-        }
-        get {
-            allUsers[userIndex].photos[indexOfCurrentImage].isLiked
-        }
-    }
-    
-    var likesCounter: Int {
-        set {
-            allUsers[userIndex].photos[indexOfCurrentImage].likesCounter = newValue
-        }
-        get {
-            allUsers[userIndex].photos[indexOfCurrentImage].likesCounter
-        }
-    }
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        likeControl.likeLabel = self.likeLabel
+        likeControl.imageView = self.likeImage
+        
+        likeControl.addTarget(self, action: #selector(likeControlTapped), for: .touchUpInside)
+
+        self.likeControl.isSelected = photos[self.indexOfCurrentImage].isLiked
+       
         self.photoImageView.image = UIImage(named: photos[indexOfCurrentImage].name)
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
@@ -55,45 +48,17 @@ class PhotoViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = .white
         
     }
-
+    
+    @objc func likeControlTapped() {
+        likeControl.isSelected = !likeControl.isSelected
+        allUsers[self.userIndex].photos[self.indexOfCurrentImage].isLiked = self.likeControl.isSelected
+     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.animator?.stopAnimation(true)
             if let animator = animator, animator.state != .inactive {
                 animator.finishAnimation(at: .current)
             }
-    }
-
-    @IBAction func likeButton(_ sender: UIButton) {
-        
-        UIView.animate(withDuration: 0.3,
-                       delay: 0,
-                       usingSpringWithDamping: 0.5,
-                       initialSpringVelocity: 0.2,
-                       options: [.curveEaseIn],
-                       animations: {
-            sender.transform = CGAffineTransform(scaleX: 1.6, y: 1.6) },
-                       completion: {_ in
-            UIView.animate(withDuration: 0.5) {
-            sender.transform = CGAffineTransform.identity
-            }
-        })
-        
-        isLiked = !isLiked
-
-        if isLiked {
-            likesCounter += 1
-            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        } else {
-            likesCounter -= 1
-            sender.setImage(UIImage(systemName: "heart"), for: .normal)
-        }
-
-        if likesCounter != 0 {
-            sender.setTitle(String(likesCounter), for: .normal)
-        } else {
-            sender.setTitle("", for: .normal)
-        }
-    
     }
     
     @objc func viewPanned (_ sender: UIPanGestureRecognizer) {
@@ -129,15 +94,16 @@ class PhotoViewController: UIViewController {
                 self.photoImageView.transform = CGAffineTransform.identity
                 self.photoImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
                 self.photoImageView.alpha = 0
-                    UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: {
+                UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: { [self] in
                         self.photoImageView.alpha = 1
                         self.photoImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
                         self.photoImageView.transform = CGAffineTransform.identity
-                    }, completion: nil)
-                
+                    
+                    self.likeControl.isSelected = photos[self.indexOfCurrentImage].isLiked
+                    },
+                    completion: nil)
                 self.photoImageView.image = UIImage(named: photos[indexOfCurrentImage].name)
-                view.superview?.reloadInputViews()
-                view.reloadInputViews()
+                
                 } else {
                 animator?.isReversed = true
                     animator?.continueAnimation(withTimingParameters: nil, durationFactor: 1)
@@ -146,4 +112,5 @@ class PhotoViewController: UIViewController {
             break
         }
     }
-}
+
+    }
