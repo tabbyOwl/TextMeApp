@@ -29,7 +29,6 @@
 		3FBF8C4427E6E7D1006F7FB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF8C4327E6E7D1006F7FB3 /* Assets.xcassets */; };
 		3FBF8C4727E6E7D1006F7FB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF8C4527E6E7D1006F7FB3 /* LaunchScreen.storyboard */; };
 		3FBF8C4F27E6E89B006F7FB3 /* LoginFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF8C4E27E6E89B006F7FB3 /* LoginFormViewController.swift */; };
-		3FFC1C692813B752000ECD0F /* PresentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC1C682813B752000ECD0F /* PresentSegue.swift */; };
 		3FFC1C6B28140615000ECD0F /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC1C6A28140615000ECD0F /* TransitionAnimator.swift */; };
 		3FFC1C6D28140645000ECD0F /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC1C6C28140645000ECD0F /* CustomNavigationController.swift */; };
 		3FFC1C6F28154838000ECD0F /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC1C6E28154838000ECD0F /* Session.swift */; };
@@ -60,7 +59,6 @@
 		3FBF8C4627E6E7D1006F7FB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3FBF8C4827E6E7D1006F7FB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FBF8C4E27E6E89B006F7FB3 /* LoginFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormViewController.swift; sourceTree = "<group>"; };
-		3FFC1C682813B752000ECD0F /* PresentSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentSegue.swift; sourceTree = "<group>"; };
 		3FFC1C6A28140615000ECD0F /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		3FFC1C6C28140645000ECD0F /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		3FFC1C6E28154838000ECD0F /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 				3F6905B227F17B2700C48143 /* MyFriendsViewController.swift */,
 				3FFC1C6A28140615000ECD0F /* TransitionAnimator.swift */,
 				3FFC1C6C28140645000ECD0F /* CustomNavigationController.swift */,
-				3FFC1C682813B752000ECD0F /* PresentSegue.swift */,
 				3F61AFF427F226DC00F1DACD /* PhotosCollectionViewController.swift */,
 				3F61FC2F27F3465700BEE41D /* MyGroupsTableViewController.swift */,
 				3F68F1A427F407590021040F /* GlobalGroupsTableViewCell.swift */,
@@ -214,7 +211,6 @@
 				3F61AFF327F1EFFC00F1DACD /* MyFriendsTableCell.swift in Sources */,
 				3F68F1A527F407590021040F /* GlobalGroupsTableViewCell.swift in Sources */,
 				3F61FC2E27F345E100BEE41D /* Group.swift in Sources */,
-				3FFC1C692813B752000ECD0F /* PresentSegue.swift in Sources */,
 				3FFC1C6B28140615000ECD0F /* TransitionAnimator.swift in Sources */,
 				3F61FC3027F3465700BEE41D /* MyGroupsTableViewController.swift in Sources */,
 				3F61FC2C27F3330400BEE41D /* PhotoCollectionCell.swift in Sources */,

@@ -11,10 +11,10 @@ import UIKit
 struct Group {
     
     let name: String
-    var avatar = UIImage(named: "groupDefaultAvatar")
+    var avatar: Photo = Photo(name: "groupDefaultAvatar")
     var isSuscribe = false
 }
 
 var globalGroups = [
-    Group(name: "Котики", avatar: UIImage(named: "cats"), isSuscribe: true), Group(name: "Сарказм", isSuscribe: true), Group(name: "Изучаем китайскийИзучаем китайскийИзучаем китайскийИзучаем китайскийИзучаем китайский", avatar: UIImage(named: "chinese"),isSuscribe: true), Group(name: "Сказочные места", avatar: UIImage(named: "places"), isSuscribe: true), Group(name: "Рецепты", avatar: UIImage(named: "recipes")), Group(name: "Йога"), Group(name: "Английский по фильмам", avatar: UIImage(named: "english")), Group(name: "Ешкин кот", avatar: UIImage(named: "eshkinCat"))
+    Group(name: "Котики", avatar: Photo(name: "cats"), isSuscribe: true), Group(name: "Сарказм", isSuscribe: true), Group(name: "Изучаем китайский", avatar: Photo(name: "chinese"),isSuscribe: true), Group(name: "Сказочные места", avatar: Photo(name: "places"), isSuscribe: true), Group(name: "Рецепты", avatar: Photo(name: "recipes")), Group(name: "Йога"), Group(name: "Английский по фильмам", avatar: Photo(name: "english")), Group(name: "Ешкин кот", avatar: Photo(name: "eshkinCat"))
         ]

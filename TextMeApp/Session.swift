@@ -9,10 +9,7 @@ import Foundation
 
 class Session {
     
-    static let instance = Session()
-    
     var token: String = ""
-    
     var userID: Int = 0
     
 }

@@ -28,10 +28,18 @@ class NewsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as? NewsTableViewCell
         let theNews = news[indexPath.row]
-        cell?.userNameLabel.text = theNews.autor.name
+        
+        if theNews.autor is User {
+            cell?.userNameLabel.text = (theNews.autor as!User).name
+            cell?.userImageView.image = UIImage(named: (theNews.autor as! User).avatar.name)
+        }
+        if theNews.autor is Group {
+            cell?.userNameLabel.text = (theNews.autor as!Group).name
+            cell?.userImageView.image = UIImage(named: (theNews.autor as! Group).avatar.name)
+        }
+        
         cell?.dateLabel.text = theNews.date
         cell?.newsTextLabel.text = theNews.text
-        cell?.userImageView.image = UIImage(named: theNews.autor.avatar.name)
         cell?.mainImage.image = UIImage(named: theNews.image.name)
         cell?.likeControl.isSelected = theNews.image.isLiked
         cell?.photoDidLiked = { isSelected in

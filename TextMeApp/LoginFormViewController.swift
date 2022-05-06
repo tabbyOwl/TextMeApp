@@ -13,8 +13,6 @@ class LoginFormViewController: UIViewController {
     @IBOutlet weak var loginInput: UITextField!
     @IBOutlet weak var passwordInput: UITextField!
     
-    let session = Session.instance
-    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
        
         let checkResult = checkUserData()
