@@ -7,9 +7,7 @@
 
 import Foundation
 
-class Session {
-    
-    static let instance = Session()
+struct Session {
     
     var token: String = ""
     
