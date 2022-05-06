@@ -51,7 +51,7 @@ class GlobalGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GlobalGroupCell", for: indexPath) as? GlobalGroupsTableViewCell
         var group = groups[indexPath.row]
-        cell?.avatarImageView.image = group.avatar
+        cell?.avatarImageView.image = UIImage(named: group.avatar.name)
         cell?.label.text = group.name
         
         if myGroups.contains(where: { $0.name == group.name }) {
