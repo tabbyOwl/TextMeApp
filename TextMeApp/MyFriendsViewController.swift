@@ -41,6 +41,12 @@ class MyFriendsViewController: UITableViewController {
         super.viewDidLoad()
         users = allUsers
         searchBar.delegate = self
+        
+        let networkManager = NetworkManager()
+        networkManager.loadData(methodParameters: "friends.get",
+                                queryItems: [URLQueryItem(name: "user_id", value: String(Session.instance.userID)),
+                                             URLQueryItem(name: "fields", value: "photo_50")])
+        
     }
     
     let transitionAnimator = TransitionAnimator(isPresenting: false)

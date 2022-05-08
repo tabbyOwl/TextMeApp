@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VOX-Hf-X8R">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -25,7 +25,7 @@
                                         <rect key="frame" x="0.0" y="34" width="375" height="809"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TextMe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CX-BX-msd">
-                                                <rect key="frame" x="127.66666666666666" y="231" width="119.66666666666666" height="47"/>
+                                                <rect key="frame" x="127.66666666666669" y="231" width="120" height="47"/>
                                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="36"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -100,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1159" y="-1067"/>
+            <point key="canvasLocation" x="1399" y="-125"/>
         </scene>
         <!--Мои друзья-->
         <scene sceneID="fvm-4p-Lf5">
@@ -250,10 +250,10 @@
             </objects>
             <point key="canvasLocation" x="2999" y="-1289"/>
         </scene>
-        <!--View Controller-->
+        <!--Authorization View Controller-->
         <scene sceneID="Scf-DA-Wmy">
             <objects>
-                <viewController id="VOX-Hf-X8R" customClass="ViewController" customModule="TextMeApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="VOX-Hf-X8R" customClass="AuthorizationViewController" customModule="TextMeApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iVd-ny-DFS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -278,11 +278,12 @@
                     </view>
                     <connections>
                         <outlet property="webview" destination="P5o-w9-gTL" id="roQ-Gz-Xem"/>
+                        <segue destination="9Qd-Tt-mFw" kind="show" identifier="login" id="GZL-e9-U3c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yVf-dU-v3d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1158" y="-381"/>
+            <point key="canvasLocation" x="1398" y="-799"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="PU9-vh-JhT">
@@ -562,9 +563,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="JnP-zY-lTh">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GlobalGroupCell" id="DXU-pz-ua3" customClass="GlobalGroupsTableViewCell" customModule="TextMeApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="375" height="80.333335876464844"/>
+                                <rect key="frame" x="0.0" y="88.666666030883789" width="375" height="80.333335876464844"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DXU-pz-ua3" id="6Xc-cf-Ybs">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="80.333335876464844"/>
@@ -626,6 +632,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="cCa-xP-K3L"/>
+                    <connections>
+                        <outlet property="searchBar" destination="JnP-zY-lTh" id="Lvn-cU-PrP"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9JU-dl-PRx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -765,6 +774,9 @@
             <point key="canvasLocation" x="4445.6000000000004" y="128.57142857142858"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="GZL-e9-U3c"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="arrowshape.turn.up.right" catalog="system" width="128" height="106"/>

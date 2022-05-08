@@ -16,6 +16,9 @@ class MyGroupsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let networkManager = NetworkManager()
+        networkManager.loadData(methodParameters: "groups.get")
     }
     // MARK: - Table view data source
     

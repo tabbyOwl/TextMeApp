@@ -2,14 +2,20 @@
 //  Session.swift
 //  TextMeApp
 //
-//  Created by jane on 24.04.2022.
+//  Created by jane on 08.05.2022.
 //
 
 import Foundation
 
-class Session {
+struct Session {
+    
+    private init() {}
+    
+    static var instance = Session()
     
     var token: String = ""
     var userID: Int = 0
-    
 }
+
+
+

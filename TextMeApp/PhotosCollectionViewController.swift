@@ -28,6 +28,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionCell
+        
         let photo = user.photos[indexPath.item]
         cell?.photoCellImageView.image = UIImage(named: photo.name)
         return cell ?? UICollectionViewCell()
