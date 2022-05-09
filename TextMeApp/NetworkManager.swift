@@ -8,12 +8,6 @@
 import Foundation
 
 class NetworkManager {
-   
-    private let urlSession: URLSession
-    
-    init(urlSession: URLSession = .shared) {
-        self.urlSession = urlSession
-    }
     
     func request(with url: URL) {
         URLSession.shared.dataTask(with: url){data, _, _ in

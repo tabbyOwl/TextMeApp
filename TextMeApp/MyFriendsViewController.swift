@@ -46,7 +46,8 @@ class MyFriendsViewController: UITableViewController {
         networkManager.loadData(methodParameters: "friends.get",
                                 queryItems: [URLQueryItem(name: "user_id", value: String(Session.instance.userID)),
                                              URLQueryItem(name: "fields", value: "photo_50")])
-        
+       
+        networkManager.loadData(methodParameters: "photos.getAll")
     }
     
     let transitionAnimator = TransitionAnimator(isPresenting: false)
