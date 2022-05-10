@@ -64,7 +64,7 @@ class GlobalGroupsTableViewController: UITableViewController {
         } else {
             group = filteredGroups[indexPath.row]
         }
-        cell?.avatarImageView.image = UIImage(named: group.avatar.name)
+        cell?.avatarImageView.image = UIImage(named: group.avatar.url)
         cell?.label.text = group.name
         
         if myGroups.contains(where: { $0.name == group.name }) {
@@ -85,11 +85,6 @@ class GlobalGroupsTableViewController: UITableViewController {
 extension GlobalGroupsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-     
-        let networkManager = NetworkManager()
-        networkManager.loadData(methodParameters: "groups.search",
-                                queryItems: [URLQueryItem(name: "q", value: searchText),
-                                             URLQueryItem(name: "type", value: "group")])
         
         if !searchText.isEmpty {
             filteredGroups = groups.filter({$0.name.lowercased().contains(searchText.lowercased())})

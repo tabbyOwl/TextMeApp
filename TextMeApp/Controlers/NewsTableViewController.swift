@@ -31,16 +31,16 @@ class NewsTableViewController: UITableViewController {
         
         if theNews.autor is User {
             cell?.userNameLabel.text = (theNews.autor as!User).name
-            cell?.userImageView.image = UIImage(named: (theNews.autor as! User).avatar.name)
+            cell?.userImageView.image = UIImage(named: (theNews.autor as! User).avatar.url)
         }
         if theNews.autor is Group {
             cell?.userNameLabel.text = (theNews.autor as!Group).name
-            cell?.userImageView.image = UIImage(named: (theNews.autor as! Group).avatar.name)
+            cell?.userImageView.image = UIImage(named: (theNews.autor as! Group).avatar.url)
         }
         
         cell?.dateLabel.text = theNews.date
         cell?.newsTextLabel.text = theNews.text
-        cell?.mainImage.image = UIImage(named: theNews.image.name)
+        cell?.mainImage.image = UIImage(named: theNews.image.url)
         cell?.likeControl.isSelected = theNews.image.isLiked
         cell?.photoDidLiked = { isSelected in
             allNews[indexPath.row].image.isLiked = isSelected

@@ -30,7 +30,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionCell
         
         let photo = user.photos[indexPath.item]
-        cell?.photoCellImageView.image = UIImage(named: photo.name)
+        cell?.photoCellImageView.image = UIImage(named: photo.url)
         return cell ?? UICollectionViewCell()
     }
     
@@ -42,6 +42,6 @@ class PhotosCollectionViewController: UICollectionViewController {
               }
         onePhotoVC.userIndex = self.userIndex
         let photo = user.photos[index]
-        onePhotoVC.indexOfCurrentImage = user.photos.firstIndex(where: { $0.name == photo.name } ) ?? 0
+        onePhotoVC.indexOfCurrentImage = user.photos.firstIndex(where: { $0.url == photo.url } ) ?? 0
     }
 }

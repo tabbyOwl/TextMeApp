@@ -38,7 +38,7 @@ class PhotoViewController: UIViewController {
 
         self.likeControl.isSelected = photos[self.indexOfCurrentImage].isLiked
        
-        self.photoImageView.image = UIImage(named: photos[indexOfCurrentImage].name)
+        self.photoImageView.image = UIImage(named: photos[indexOfCurrentImage].url)
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
         self.view.addGestureRecognizer(panGesture)
@@ -102,7 +102,7 @@ class PhotoViewController: UIViewController {
                     self.likeControl.isSelected = photos[self.indexOfCurrentImage].isLiked
                     },
                     completion: nil)
-                self.photoImageView.image = UIImage(named: photos[indexOfCurrentImage].name)
+                self.photoImageView.image = UIImage(named: photos[indexOfCurrentImage].url)
                 
                 } else {
                 animator?.isReversed = true

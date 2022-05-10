@@ -17,8 +17,12 @@ class MyGroupsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let networkManager = NetworkManager()
-        networkManager.loadData(methodParameters: "groups.get")
+        GroupData().loadData() { [weak self] (complition) in
+            DispatchQueue.main.async {
+            self?.groups = complition
+            self?.tableView.reloadData()
+            }
+        }
     }
     // MARK: - Table view data source
     
@@ -30,7 +34,9 @@ class MyGroupsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as? MyGroupsTableCell
         let group = groups[indexPath.row]
         cell?.label.text = group.name
-        cell?.avatarImageView.image = UIImage(named: group.avatar.name) 
+        if let url = URL(string: group.avatar.url) {
+            cell?.avatarImageView.load(url: url)
+        }
         
         return cell ?? UITableViewCell()
     }

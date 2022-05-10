@@ -41,14 +41,8 @@ class MyFriendsViewController: UITableViewController {
         super.viewDidLoad()
         users = allUsers
         searchBar.delegate = self
-        
-        let networkManager = NetworkManager()
-        networkManager.loadData(methodParameters: "friends.get",
-                                queryItems: [URLQueryItem(name: "user_id", value: String(Session.instance.userID)),
-                                             URLQueryItem(name: "fields", value: "photo_50")])
-       
-        networkManager.loadData(methodParameters: "photos.getAll")
-    }
+      
+        }
     
     let transitionAnimator = TransitionAnimator(isPresenting: false)
     
@@ -80,7 +74,7 @@ class MyFriendsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendsCell", for: indexPath) as? MyFriendsTableCell
-        var user = User(name: "", avatar: Photo(name: "default"))
+        var user = User(name: "", avatar: Photo(url: "default"))
         if filteredUsers.count == 0 {
             let sectionUser = sectionUsers[indexPath.section]
             user = sectionUser.users[indexPath.row]
@@ -88,12 +82,11 @@ class MyFriendsViewController: UITableViewController {
             user = filteredUsers[indexPath.row]
         }
         cell?.friendName.text = user.name
-        cell?.friendImageView.image = UIImage(named: user.avatar.name)
+        cell?.friendImageView.image = UIImage(named: user.avatar.url)
         return cell ?? UITableViewCell()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
        guard
             let cell = sender as? MyFriendsTableCell,
             let indexPath = tableView.indexPath(for: cell),
