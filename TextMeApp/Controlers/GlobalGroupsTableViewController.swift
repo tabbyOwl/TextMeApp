@@ -25,7 +25,13 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        groups = globalGroups
+        
+        GroupSearchingData().loadData(searchText: "а") { [weak self] (complition) in
+            DispatchQueue.main.async {
+            self?.groups = complition
+            self?.tableView.reloadData()
+            }
+        }
         searchBar.delegate = self
         
     }
@@ -86,13 +92,11 @@ extension GlobalGroupsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        if !searchText.isEmpty {
-            filteredGroups = groups.filter({$0.name.lowercased().contains(searchText.lowercased())})
-        tableView.reloadData()
-    }
-        else {
-            filteredGroups.removeAll()
-            tableView.reloadData()
+        GroupSearchingData().loadData(searchText: searchText) { [weak self] (complition) in
+            DispatchQueue.main.async {
+            self?.groups = complition
+            self?.tableView.reloadData()
+            }
         }
     }
 }

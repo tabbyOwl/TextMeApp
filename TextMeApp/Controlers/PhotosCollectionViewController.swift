@@ -7,30 +7,36 @@
 
 import UIKit
 
-private let reuseIdentifier = "PhotoCell"
-
 class PhotosCollectionViewController: UICollectionViewController {
     
     var userIndex: Int = 0
-    
-    var user: User {
-        return allUsers[userIndex]
+
+    var photos: [Photo] {
+        allUsers[userIndex].photos
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
+       
+        PhotoData().loadData(userId: allUsers[userIndex].id) { [weak self] (complition) in
+            DispatchQueue.main.async {
+            //self?.user.photos = complition
+                allUsers[self!.userIndex].photos = complition
+            self?.collectionView.reloadData()
+            
+            }
+        }
+}
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return user.photos.count
+        return photos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionCell
-        
-        let photo = user.photos[indexPath.item]
-        cell?.photoCellImageView.image = UIImage(named: photo.url)
+        if let url = URL(string: photos[indexPath.item].url) {
+        cell?.photoCellImageView.load(url: url)
+        }
         return cell ?? UICollectionViewCell()
     }
     
@@ -41,7 +47,8 @@ class PhotosCollectionViewController: UICollectionViewController {
                   return
               }
         onePhotoVC.userIndex = self.userIndex
-        let photo = user.photos[index]
-        onePhotoVC.indexOfCurrentImage = user.photos.firstIndex(where: { $0.url == photo.url } ) ?? 0
+        let currentPhoto = photos[index]
+        onePhotoVC.indexOfCurrentImage = photos.firstIndex(where: { $0.id == currentPhoto.id } ) ?? 0
     }
 }
+

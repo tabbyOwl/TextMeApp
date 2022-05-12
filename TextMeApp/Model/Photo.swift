@@ -10,6 +10,7 @@ import UIKit
 
 struct Photo {
     
+    var id: Int
     var url : String
     var likesCounter: Int = 0
     var isLiked = false

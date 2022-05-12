@@ -33,9 +33,9 @@ import UIKit
 
 struct User {
 
-    let id: UUID = .init()
+    let id: Int
     let name: String
-    var avatar: Photo = Photo(url: "userDefaultAvatar")
+    var avatar: Photo = Photo(id: 0, url: "userDefaultAvatar")
     var isSuscribe = false
 
     var photos: [Photo] = []

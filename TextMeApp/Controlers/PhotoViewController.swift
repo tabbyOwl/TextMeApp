@@ -9,13 +9,9 @@ import UIKit
 
 class PhotoViewController: UIViewController {
     
-    
     @IBOutlet weak var likeControl: LikeControl!
-    
-    
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var likeLabel: UILabel!
-    
     @IBOutlet weak var photoImageView: UIImageView!
     
     var animator: UIViewPropertyAnimator?
@@ -25,9 +21,9 @@ class PhotoViewController: UIViewController {
     var nextPhotoView: UIImageView?
     
     var photos: [Photo] {
-        return allUsers[userIndex].photos
+        allUsers[userIndex].photos
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,11 +31,12 @@ class PhotoViewController: UIViewController {
         likeControl.imageView = self.likeImage
         
         likeControl.addTarget(self, action: #selector(likeControlTapped), for: .touchUpInside)
-
-        self.likeControl.isSelected = photos[self.indexOfCurrentImage].isLiked
-       
-        self.photoImageView.image = UIImage(named: photos[indexOfCurrentImage].url)
         
+        self.likeControl.isSelected = photos[self.indexOfCurrentImage].isLiked
+        
+        if let url = URL(string: photos[indexOfCurrentImage].url) {
+            self.photoImageView.load(url: url)
+        }
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
         self.view.addGestureRecognizer(panGesture)
         
@@ -51,14 +48,14 @@ class PhotoViewController: UIViewController {
     
     @objc func likeControlTapped() {
         likeControl.isSelected = !likeControl.isSelected
-        allUsers[self.userIndex].photos[self.indexOfCurrentImage].isLiked = self.likeControl.isSelected
-     }
+        allUsers[userIndex].photos[self.indexOfCurrentImage].isLiked = self.likeControl.isSelected
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.animator?.stopAnimation(true)
-            if let animator = animator, animator.state != .inactive {
-                animator.finishAnimation(at: .current)
-            }
+        if let animator = animator, animator.state != .inactive {
+            animator.finishAnimation(at: .current)
+        }
     }
     
     @objc func viewPanned (_ sender: UIPanGestureRecognizer) {
@@ -68,7 +65,7 @@ class PhotoViewController: UIViewController {
             animator?.finishAnimation(at: .current)
             animator = UIViewPropertyAnimator(duration: 1, curve: .easeIn, animations: {
                 if sender.velocity(in: self.photoImageView).x < 0 {
-                self.photoImageView.transform = CGAffineTransform(translationX: -self.view.frame.width, y: 0)
+                    self.photoImageView.transform = CGAffineTransform(translationX: -self.view.frame.width, y: 0)
                 } else {
                     self.photoImageView.transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
                 }
@@ -95,22 +92,24 @@ class PhotoViewController: UIViewController {
                 self.photoImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
                 self.photoImageView.alpha = 0
                 UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: { [self] in
-                        self.photoImageView.alpha = 1
-                        self.photoImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                        self.photoImageView.transform = CGAffineTransform.identity
+                    self.photoImageView.alpha = 1
+                    self.photoImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    self.photoImageView.transform = CGAffineTransform.identity
                     
                     self.likeControl.isSelected = photos[self.indexOfCurrentImage].isLiked
-                    },
-                    completion: nil)
-                self.photoImageView.image = UIImage(named: photos[indexOfCurrentImage].url)
-                
-                } else {
+                },
+                               completion: nil)
+                DispatchQueue.main.async { [self] in
+                    if let url = URL(string: photos[self.indexOfCurrentImage].url) {
+                        self.photoImageView.load(url: url)
+                    }
+                }
+            } else {
                 animator?.isReversed = true
-                    animator?.continueAnimation(withTimingParameters: nil, durationFactor: 1)
+                animator?.continueAnimation(withTimingParameters: nil, durationFactor: 1)
             }
         @unknown default:
             break
         }
     }
-
-    }
+}

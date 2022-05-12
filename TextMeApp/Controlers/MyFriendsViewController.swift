@@ -17,7 +17,9 @@ class MyFriendsViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var users : [User] = []
+    var users : [User] {
+        allUsers
+    }
     var sectionUsers: [SectionUsers] {
         var result = [SectionUsers]()
         
@@ -28,21 +30,27 @@ class MyFriendsViewController: UITableViewController {
             if let groupedIndex = result.firstIndex(where: {$0.character == character }) {
                 result[groupedIndex].users.append(user)
             } else {
-                    let friend = SectionUsers(character: character, users: [user])
-                    result.append(friend)
-                }
+                let friend = SectionUsers(character: character, users: [user])
+                result.append(friend)
             }
+        }
         return result
     }
     
     var filteredUsers:[User] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        users = allUsers
         searchBar.delegate = self
-      
+        
+        UserData().loadData() { [weak self] (complition) in
+            DispatchQueue.main.async {
+                allUsers = complition
+                self?.tableView.reloadData()
+            }
         }
+    }
+    
     
     let transitionAnimator = TransitionAnimator(isPresenting: false)
     
@@ -50,7 +58,7 @@ class MyFriendsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if filteredUsers.count == 0 {
-         return sectionUsers[section].users.count
+            return sectionUsers[section].users.count
         } else {
             return filteredUsers.count
         }
@@ -66,15 +74,15 @@ class MyFriendsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if filteredUsers.count == 0 {
-        return String(sectionUsers[section].character)
+            return String(sectionUsers[section].character)
         } else {
             return ""
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendsCell", for: indexPath) as? MyFriendsTableCell
-        var user = User(name: "", avatar: Photo(url: "default"))
+        var user = User(id: 0, name: "", avatar: Photo(id: 0, url: "default"))
         if filteredUsers.count == 0 {
             let sectionUser = sectionUsers[indexPath.section]
             user = sectionUser.users[indexPath.row]
@@ -82,12 +90,14 @@ class MyFriendsViewController: UITableViewController {
             user = filteredUsers[indexPath.row]
         }
         cell?.friendName.text = user.name
-        cell?.friendImageView.image = UIImage(named: user.avatar.url)
+        if let url = URL(string: user.avatar.url){
+            cell?.friendImageView.load(url: url)
+        }
         return cell ?? UITableViewCell()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       guard
+        guard
             let cell = sender as? MyFriendsTableCell,
             let indexPath = tableView.indexPath(for: cell),
             let photosVC = segue.destination as? PhotosCollectionViewController
@@ -97,27 +107,28 @@ class MyFriendsViewController: UITableViewController {
         if filteredUsers.count == 0 {
             let sectionUser = sectionUsers[indexPath.section]
             let user = sectionUser.users[indexPath.row]
-            if let userIndex = allUsers.firstIndex(where: { $0.id == user.id }) {
+            //photosVC.user = user
+            if let userIndex = users.firstIndex(where: { $0.id == user.id }) {
                 photosVC.userIndex = userIndex
+            } else {
+                let user = filteredUsers[indexPath.row]
+                //photosVC.user = user
+                if let userIndex = users.firstIndex(where: { $0.id == user.id }) {
+                    photosVC.userIndex = userIndex
+                }
             }
-        } else {
-            let user = filteredUsers[indexPath.row]
-            if let userIndex = allUsers.firstIndex(where: { $0.id == user.id }) {
-                photosVC.userIndex = userIndex
         }
     }
 }
-}
-
 
 extension MyFriendsViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-     
+        
         if !searchText.isEmpty {
             filteredUsers = users.filter({$0.name.lowercased().contains(searchText.lowercased())})
-        tableView.reloadData()
-    }
+            tableView.reloadData()
+        }
         else {
             filteredUsers.removeAll()
             tableView.reloadData()

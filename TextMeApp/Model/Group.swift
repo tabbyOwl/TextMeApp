@@ -11,7 +11,7 @@ import UIKit
 struct Group {
 
     let name: String
-    var avatar: Photo = Photo(url: "groupDefaultAvatar")
+    var avatar: Photo = Photo(id: 0, url: "groupDefaultAvatar")
     var isSuscribe = false
 }
 
