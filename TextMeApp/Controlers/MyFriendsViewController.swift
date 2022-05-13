@@ -110,6 +110,7 @@ class MyFriendsViewController: UITableViewController {
             //photosVC.user = user
             if let userIndex = users.firstIndex(where: { $0.id == user.id }) {
                 photosVC.userIndex = userIndex
+            }
             } else {
                 let user = filteredUsers[indexPath.row]
                 //photosVC.user = user
@@ -119,7 +120,7 @@ class MyFriendsViewController: UITableViewController {
             }
         }
     }
-}
+
 
 extension MyFriendsViewController: UISearchBarDelegate {
     
