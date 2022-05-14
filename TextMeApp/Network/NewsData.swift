@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 private struct NewsResponse: Decodable {
-   let response: [Response]
+   let response: Response
 }
 
 private struct Response : Decodable {
@@ -18,7 +18,7 @@ private struct Response : Decodable {
 }
 
 private struct Items: Decodable {
-    let text: String
+    let text: String?
 }
 
 
@@ -33,10 +33,7 @@ class NewsData {
             urlConstructor.queryItems = [
                 URLQueryItem(name: "access_token", value: String(Session.instance.token)),
                 URLQueryItem(name: "v", value: "5.131"),
-                URLQueryItem(name: "user_id", value: String(Session.instance.userID)),
-                URLQueryItem(name: "start_time", value: "1583406"),
-                URLQueryItem(name: "filters", value: "post"),
-                URLQueryItem(name: "count", value: "20")
+                URLQueryItem(name: "user_id", value: String(Session.instance.userID))
             ]
         guard let url = urlConstructor.url else {return}
         
@@ -48,8 +45,8 @@ class NewsData {
                 
                 var news: [News] = []
                 
-                for i in 0..<model.response[0].items.count {
-                    let text = model.response[0].items[i].text
+                for i in 0..<model.response.items.count {
+                    let text = model.response.items[i].text
                    
                     news.append(News(text: text, imageUrl: nil))
                 }
