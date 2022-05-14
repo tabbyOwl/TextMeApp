@@ -70,5 +70,3 @@ class MyGroupsTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-        
-

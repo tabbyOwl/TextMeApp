@@ -136,6 +136,3 @@ extension MyFriendsViewController: UISearchBarDelegate {
         }
     }
 }
-
-
-

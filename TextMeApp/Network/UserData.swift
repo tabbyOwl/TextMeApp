@@ -13,7 +13,7 @@ private struct UserResponse: Decodable {
 }
 
 private struct Response : Decodable {
-    let count: Int
+    //let count: Int
     let items: [Items]
 }
 

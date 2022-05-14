@@ -100,14 +100,3 @@ extension GlobalGroupsTableViewController: UISearchBarDelegate {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-

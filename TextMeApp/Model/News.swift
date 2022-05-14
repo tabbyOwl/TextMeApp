@@ -10,16 +10,28 @@ import UIKit
 
 struct News {
     
-    let autor: Any
-    let date: String
-    let text: String
-    var image = Photo(id: 0, url: "")
-    var likesCounter = 0
+    enum NewsType: String {
+        case imageOnly = "ImageNewsCell"
+        case textOnly = "TextNewsCell"
+        case imageAndText = "ImageAndTextCell"
+    }
+    
+    let text: String?
+    let imageUrl: URL?
+    //let autor: Any
+    //let date: String
+    
+    var newsType: NewsType? {
+        let hasImage = imageUrl != nil
+        let hasText = text != nil
+        
+        switch (hasImage, hasText) {
+        case (true, true): return .imageAndText
+        case (true, false): return .imageOnly
+        case (false, true): return .textOnly
+        case (false, false): return nil
+        }
+    }
 }
 
-var allNews: [News] = []
-//    News(autor: globalGroups[3] , date: "12.04.2022", text: "Сегодня чудесная погода!", image: Photo(url: "photo3")),
-//News(autor: allUsers[3] , date: "12.04.2022", text: "Мой пушок ♥️", image: Photo(url: "i-10")),
-//News(autor: globalGroups[0] , date: "12.04.2022", text: "Выставка бездомных животных пройдет в эти выходные по адресу Красноармейская 89б ТЦ ЛИГА. Питомцы доброжелательно настроены по отношению к людям, здоровы, привиты и готовы стать домашними.", image: Photo(url: "i-2")),
-//News(autor: allUsers[2], date: "12.04.2022", text: "Сегодня побывали в замечатльном месте", image: Photo(url: "i-4"))
-//]
+

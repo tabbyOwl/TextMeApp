@@ -9,13 +9,19 @@ import UIKit
 
 class NewsTableViewController: UITableViewController {
     
-    
     var news: [News] = []
        
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        news = allNews
+        NewsData().loadData() { [weak self] (complition) in
+            DispatchQueue.main.async {
+            self?.news = complition
+            self?.tableView.reloadData()
+                print("💓💓💓💓💓💓💓💓💓💓💓💓 \(self?.news)")
+            }
+           
+    }
     }
     
     // MARK: - Table view data source
@@ -25,28 +31,28 @@ class NewsTableViewController: UITableViewController {
         return news.count
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+ 
+        guard let currentDataType = news[indexPath.row].newsType else {return 0.0}
+        
+        switch currentDataType {
+        case .imageOnly: return 200
+        case .textOnly: return 100
+        case .imageAndText: return 400
+        }
+    }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as? NewsTableViewCell
-        let theNews = news[indexPath.row]
+        let curentNews = news[indexPath.row]
         
-        if theNews.autor is User {
-            cell?.userNameLabel.text = (theNews.autor as!User).name
-            cell?.userImageView.image = UIImage(named: (theNews.autor as! User).avatar.url)
-        }
-        if theNews.autor is Group {
-            cell?.userNameLabel.text = (theNews.autor as!Group).name
-            cell?.userImageView.image = UIImage(named: (theNews.autor as! Group).avatar.url)
+        guard
+            let cellIdentifier = curentNews.newsType?.rawValue,
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) else {
+            return UITableViewCell()
         }
         
-        cell?.dateLabel.text = theNews.date
-        cell?.newsTextLabel.text = theNews.text
-        cell?.mainImage.image = UIImage(named: theNews.image.url)
-        cell?.likeControl.isSelected = theNews.image.isLiked
-        cell?.photoDidLiked = { isSelected in
-            allNews[indexPath.row].image.isLiked = isSelected
-        }
+        (cell as? NewsCellProtocol)?.set(value: curentNews)
        
-        return cell ?? UITableViewCell()
+        return cell
     }
     
 }
