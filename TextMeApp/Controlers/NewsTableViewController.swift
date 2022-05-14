@@ -18,7 +18,6 @@ class NewsTableViewController: UITableViewController {
             DispatchQueue.main.async {
             self?.news = complition
             self?.tableView.reloadData()
-                print("💓💓💓💓💓💓💓💓💓💓💓💓 \(self?.news)")
             }
            
     }
