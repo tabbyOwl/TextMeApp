@@ -1,19 +1,27 @@
 //
-//  GlobalGroupsTableViewCell.swift
+//  MyGroupsTableCell.swift
 //  TextMeApp
 //
-//  Created by jane on 30.03.2022.
+//  Created by jane on 29.03.2022.
 //
 
 import UIKit
 
-class GlobalGroupsTableViewCell: UITableViewCell {
 
+
+class MyGroupsTableCell: UITableViewCell {
+
+   
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var button: UIButton!
-   
+    
+    func configure(with model: Group) {
+        label.text = model.name
+        if let url = URL(string: model.avatar.url) {
+        UIImageView().load(url: url, imageView: avatarImageView)
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -30,7 +38,7 @@ class GlobalGroupsTableViewCell: UITableViewCell {
         avatarImageView.isUserInteractionEnabled = true
         avatarImageView.addGestureRecognizer(tap)
     }
-
+    
     @objc func animateTapImage (recognizer: UITapGestureRecognizer) {
         
         UIView.animate(withDuration: 0.1,
@@ -45,7 +53,7 @@ class GlobalGroupsTableViewCell: UITableViewCell {
             self.avatarImageView.transform = CGAffineTransform.identity }
         })
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }

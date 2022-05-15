@@ -14,19 +14,20 @@ class NewsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NewsData().loadData() { [weak self] (complition) in
+        tableView.delegate = self
+        
+        NewsData().loadData() { [weak self] (completion) in
             DispatchQueue.main.async {
-            self?.news = complition
+            self?.news = completion
             self?.tableView.reloadData()
+                print("💝💝💝💝💝💝💝💝💝💝💝💝\(self?.news)")
             }
-           
-    }
+        }
     }
     
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return news.count
     }
 
@@ -40,6 +41,7 @@ class NewsTableViewController: UITableViewController {
         case .imageAndText: return 400
         }
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let curentNews = news[indexPath.row]
         
@@ -48,7 +50,6 @@ class NewsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) else {
             return UITableViewCell()
         }
-        
         (cell as? NewsCellProtocol)?.set(value: curentNews)
        
         return cell

@@ -17,9 +17,9 @@ class MyGroupsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        GroupData().loadData() { [weak self] (complition) in
+        GroupData().loadData() { [weak self] (completion) in
             DispatchQueue.main.async {
-            self?.groups = complition
+            self?.groups = completion
             self?.tableView.reloadData()
             }
         }
@@ -33,10 +33,7 @@ class MyGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as? MyGroupsTableCell
         let group = groups[indexPath.row]
-        cell?.label.text = group.name
-        if let url = URL(string: group.avatar.url) {
-            cell?.avatarImageView.load(url: url)
-        }
+        cell?.configure(with: group)
         
         return cell ?? UITableViewCell()
     }

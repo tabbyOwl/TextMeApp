@@ -26,9 +26,9 @@ class GlobalGroupsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        GroupSearchingData().loadData(searchText: "а") { [weak self] (complition) in
+        GroupSearchingData().loadData(searchText: "а") { [weak self] (completion) in
             DispatchQueue.main.async {
-            self?.groups = complition
+            self?.groups = completion
             self?.tableView.reloadData()
             }
         }
@@ -70,8 +70,7 @@ class GlobalGroupsTableViewController: UITableViewController {
         } else {
             group = filteredGroups[indexPath.row]
         }
-        cell?.avatarImageView.image = UIImage(named: group.avatar.url)
-        cell?.label.text = group.name
+        cell?.configure(with: group)
         
         if myGroups.contains(where: { $0.name == group.name }) {
             

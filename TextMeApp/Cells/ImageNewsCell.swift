@@ -1,5 +1,5 @@
 //
-//  ImageAndTextCell.swift
+//  ImageNews.swift
 //  TextMeApp
 //
 //  Created by jane on 13.05.2022.
@@ -7,10 +7,12 @@
 
 import Foundation
 import UIKit
-class ImageAndTextCell: UITableViewCell {
+
+class ImageNewsCell: UITableViewCell {
     
     @IBOutlet weak var newsImageView: UIImageView?
-    @IBOutlet weak var newsLabel: UILabel?
+    
+    static let identifier = String(describing: "ImageNewsCell")
     
     private lazy var newNewsImageView: UIImageView = {
         let height = bounds.height * 0.95
@@ -28,9 +30,8 @@ class ImageAndTextCell: UITableViewCell {
     } ()
 }
 
-extension ImageAndTextCell: NewsCellProtocol {
+extension ImageNewsCell: NewsCellProtocol {
     func set<T: NewsCellDataProtocol>(value: T) {
-        UIImageView().load(url: value.imageUrl!)
-        newsLabel?.text = value.text
+        UIImageView().load(url: value.imageUrl!, imageView: newNewsImageView)
     }
 }

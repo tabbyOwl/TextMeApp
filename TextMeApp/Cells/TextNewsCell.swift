@@ -10,6 +10,7 @@ import UIKit
 
 class TextNewsCell: UITableViewCell {
     
+    static let identifier = String(describing: "TextNewsCell")
     
     @IBOutlet weak var newsLabel: UILabel?
 }

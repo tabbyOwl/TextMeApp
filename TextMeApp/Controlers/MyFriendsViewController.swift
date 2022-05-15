@@ -43,9 +43,9 @@ class MyFriendsViewController: UITableViewController {
         super.viewDidLoad()
         searchBar.delegate = self
         
-        UserData().loadData() { [weak self] (complition) in
+        UserData().loadData() { [weak self] (completion) in
             DispatchQueue.main.async {
-                allUsers = complition
+                allUsers = completion
                 self?.tableView.reloadData()
             }
         }
@@ -89,10 +89,7 @@ class MyFriendsViewController: UITableViewController {
         } else {
             user = filteredUsers[indexPath.row]
         }
-        cell?.friendName.text = user.name
-        if let url = URL(string: user.avatar.url){
-            cell?.friendImageView.load(url: url)
-        }
+        cell?.configure(with: user)
         return cell ?? UITableViewCell()
     }
     

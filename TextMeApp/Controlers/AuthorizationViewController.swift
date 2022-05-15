@@ -23,10 +23,10 @@ class AuthorizationViewController: UIViewController {
     func authorize()  {
     var urlComponents = URLComponents(string: "https://oauth.vk.com/authorize")
     urlComponents?.queryItems = [
-        URLQueryItem(name: "client_id", value: "8160961"),
+        URLQueryItem(name: "client_id", value: "8167190"),
         URLQueryItem(name: "display", value: "mobile"),
         URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-        URLQueryItem(name: "scope", value: "262150"),
+        URLQueryItem(name: "scope", value: "335878"),
         URLQueryItem(name: "response_type", value: "token"),
         URLQueryItem(name: "v", value: "5.68") ]
     
