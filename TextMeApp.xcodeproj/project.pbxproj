@@ -24,6 +24,7 @@
 		3F68F1A527F407590021040F /* GlobalGroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68F1A427F407590021040F /* GlobalGroupsTableViewCell.swift */; };
 		3F68F1A727F407A60021040F /* GlobalGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68F1A627F407A60021040F /* GlobalGroupsTableViewController.swift */; };
 		3F6905B327F17B2700C48143 /* MyFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6905B227F17B2700C48143 /* MyFriendsViewController.swift */; };
+		3F7A35E6283269BD00C25DA1 /* json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A35E5283269BD00C25DA1 /* json.swift */; };
 		3FA71C5C282D2BA10037D3C7 /* GroupSearchingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA71C5B282D2BA10037D3C7 /* GroupSearchingData.swift */; };
 		3FBF8C3B27E6E7CE006F7FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF8C3A27E6E7CE006F7FB3 /* AppDelegate.swift */; };
 		3FBF8C3D27E6E7CE006F7FB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF8C3C27E6E7CE006F7FB3 /* SceneDelegate.swift */; };
@@ -63,6 +64,7 @@
 		3F68F1A427F407590021040F /* GlobalGroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalGroupsTableViewCell.swift; sourceTree = "<group>"; };
 		3F68F1A627F407A60021040F /* GlobalGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalGroupsTableViewController.swift; sourceTree = "<group>"; };
 		3F6905B227F17B2700C48143 /* MyFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsViewController.swift; sourceTree = "<group>"; };
+		3F7A35E5283269BD00C25DA1 /* json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = json.swift; sourceTree = "<group>"; };
 		3FA71C5B282D2BA10037D3C7 /* GroupSearchingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSearchingData.swift; sourceTree = "<group>"; };
 		3FBF8C3727E6E7CE006F7FB3 /* TextMeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextMeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FBF8C3A27E6E7CE006F7FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				3FD5C40D282A4A5700C8C69C /* GroupData.swift */,
 				3FA71C5B282D2BA10037D3C7 /* GroupSearchingData.swift */,
 				3FD100E6282E7D82008E24FC /* NewsData.swift */,
+				3F7A35E5283269BD00C25DA1 /* json.swift */,
 				3FD5C411282A80C300C8C69C /* UserData.swift */,
 				3FD5C413282A9B5A00C8C69C /* PhotoData.swift */,
 				3FD5C40F282A77FD00C8C69C /* UIImage+URL.swift */,
@@ -297,6 +300,7 @@
 				3F61A8E028051549008491F7 /* NewsTableViewController.swift in Sources */,
 				3FBF8C3B27E6E7CE006F7FB3 /* AppDelegate.swift in Sources */,
 				3FC6053C2827BDAA004BEC1B /* Session.swift in Sources */,
+				3F7A35E6283269BD00C25DA1 /* json.swift in Sources */,
 				3F61A8E228051683008491F7 /* NewsTableViewCell.swift in Sources */,
 				3F68F1A727F407A60021040F /* GlobalGroupsTableViewController.swift in Sources */,
 				3FA71C5C282D2BA10037D3C7 /* GroupSearchingData.swift in Sources */,

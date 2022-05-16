@@ -17,23 +17,31 @@ private struct Response : Decodable {
 }
 
 private struct Items: Decodable {
-    let text: String
-    let attachments: Attachments
+    let type: String
+    let photos: UserPhotos?
+    let text: String?
+    let attachments: [Attachments]?
 }
 
 private struct Attachments: Decodable {
-    let photo: Photos
+    let photo: Photos?
 }
 
 private struct Photos: Decodable {
-    let sizes: Sizes
+    let sizes: [Sizes]?
    
 }
 private struct Sizes: Decodable {
-    let url: String
+    let url: String?
 }
 
-
+private struct UserPhotos: Decodable {
+    let items: [Items2]?
+   
+}
+private struct Items2: Decodable {
+    let sizes: [Sizes]?
+}
 
 class NewsData {
     
@@ -47,27 +55,32 @@ class NewsData {
             URLQueryItem(name: "access_token", value: String(Session.instance.token)),
             URLQueryItem(name: "v", value: "5.131"),
             URLQueryItem(name: "user_id", value: String(Session.instance.userID)),
-            URLQueryItem(name: "filters", value: "post"),
+            URLQueryItem(name: "filters", value: "photo, post"),
             URLQueryItem(name: "return_banned", value: "0"),
-            URLQueryItem(name: "start_time", value: "1651363200"),
-            URLQueryItem(name: "count", value: "1"),
+            URLQueryItem(name: "start_time", value: "1651363200")
+            //URLQueryItem(name: "count", value: "13"),
         ]
         
         guard let url = urlConstructor.url else {return}
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             guard let data = data else {return}
+           
             let json = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
-            print("1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣1️⃣\(json)")
+            print(json)
+            
             do {
                 let model = try JSONDecoder().decode(NewsResponse.self, from: data)
-                
-                print("🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰🔰\(model)")
                 var news: [News] = []
                 
                 for i in 0...model.response.items.count-1 {
                     let text = model.response.items[i].text
-                   // let url = URL(string: model.response.items[i].attachments[i].photo.sizes[i].url)
+                    var url = URL(string: "")
+                    if model.response.items[i].type == "photo" {
+                        url = URL(string: model.response.items[i].photos?.items?[0].sizes?[0].url ?? "")
+                    } else {
+                       url = URL(string: model.response.items[i].attachments?[0].photo?.sizes?[0].url ?? "")
+                    }
                     news.append(News(text: text, imageUrl: url))
                 }
                     completion(news)

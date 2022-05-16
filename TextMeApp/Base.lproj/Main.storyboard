@@ -341,25 +341,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageNewsCell" rowHeight="136" id="fIf-2Q-3x7" customClass="ImageNewsCell" customModule="TextMeApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="375" height="136"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageNewsCell" rowHeight="367" id="fIf-2Q-3x7" customClass="ImageNewsCell" customModule="TextMeApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="375" height="367"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fIf-2Q-3x7" id="g0z-Vo-6Vq">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="136"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="367"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z9B-iM-OQu">
-                                            <rect key="frame" x="48" y="4" width="240" height="128"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z9B-iM-OQu">
+                                            <rect key="frame" x="5" y="5" width="365" height="357"/>
                                         </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Z9B-iM-OQu" firstAttribute="leading" secondItem="g0z-Vo-6Vq" secondAttribute="leading" constant="5" id="5ya-d7-Z3M"/>
+                                        <constraint firstItem="Z9B-iM-OQu" firstAttribute="top" secondItem="g0z-Vo-6Vq" secondAttribute="top" constant="5" id="Jex-4F-fpK"/>
+                                        <constraint firstAttribute="trailing" secondItem="Z9B-iM-OQu" secondAttribute="trailing" constant="5" id="gKW-CT-7HG"/>
+                                        <constraint firstAttribute="bottom" secondItem="Z9B-iM-OQu" secondAttribute="bottom" constant="5" id="lYT-zr-5Ft"/>
+                                        <constraint firstItem="Z9B-iM-OQu" firstAttribute="centerX" secondItem="g0z-Vo-6Vq" secondAttribute="centerX" id="rLd-vV-uPX"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="newsImageView" destination="Z9B-iM-OQu" id="rzH-36-WQW"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextNewsCell" rowHeight="100" id="gwh-pL-lH8" customClass="TextNewsCell" customModule="TextMeApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="180.66666603088379" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="411.66666603088379" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gwh-pL-lH8" id="j8C-eK-JYX">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -384,24 +390,30 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageAndTextCell" rowHeight="291" id="auk-OD-ttW" customClass="ImageAndTextCell" customModule="TextMeApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="280.66666603088379" width="375" height="291"/>
+                                <rect key="frame" x="0.0" y="511.66666603088379" width="375" height="291"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="auk-OD-ttW" id="3Bl-pJ-4xO">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="291"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sVE-u5-LRl">
-                                            <rect key="frame" x="80" y="131" width="240" height="128"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIg-LS-X59">
-                                            <rect key="frame" x="179" y="50" width="42" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIg-LS-X59">
+                                            <rect key="frame" x="21" y="15.999999999999998" width="333" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="750" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sVE-u5-LRl">
+                                            <rect key="frame" x="21" y="41.333333333333371" width="333" height="233.66666666666663"/>
+                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="lIg-LS-X59" firstAttribute="leading" secondItem="3Bl-pJ-4xO" secondAttribute="leadingMargin" constant="5" id="0UG-D1-74Z"/>
+                                        <constraint firstItem="lIg-LS-X59" firstAttribute="top" secondItem="3Bl-pJ-4xO" secondAttribute="topMargin" constant="5" id="BBq-Lc-iyB"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="sVE-u5-LRl" secondAttribute="trailing" constant="5" id="Cb6-If-04P"/>
+                                        <constraint firstItem="sVE-u5-LRl" firstAttribute="top" secondItem="lIg-LS-X59" secondAttribute="bottom" constant="5" id="aIP-gY-ThD"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="lIg-LS-X59" secondAttribute="trailing" constant="5" id="tKs-jJ-xMW"/>
+                                        <constraint firstItem="sVE-u5-LRl" firstAttribute="leading" secondItem="3Bl-pJ-4xO" secondAttribute="leadingMargin" constant="5" id="ves-Gz-4Ml"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="newsImageView" destination="sVE-u5-LRl" id="HoR-eI-z1E"/>
