@@ -17,9 +17,7 @@ class MyFriendsViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var users : [User] {
-        allUsers
-    }
+    var users : [User] = []
     var sectionUsers: [SectionUsers] {
         var result = [SectionUsers]()
         
@@ -43,11 +41,17 @@ class MyFriendsViewController: UITableViewController {
         super.viewDidLoad()
         searchBar.delegate = self
         
-        UserData().loadData() { [weak self] (completion) in
-            DispatchQueue.main.async {
-                allUsers = completion
-                self?.tableView.reloadData()
+        let userData = UserData()
+        
+        do {
+            let restoredUsers = try userData.restore()
+            if restoredUsers.isEmpty {
+                userData.loadData()
+            } else {
+                self.users = restoredUsers
             }
+        } catch {
+            print(error)
         }
     }
     

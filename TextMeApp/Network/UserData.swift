@@ -7,13 +7,14 @@
 
 import Foundation
 import UIKit
+import Realm
+import RealmSwift
 
 private struct UserResponse: Decodable {
     let response: Response
 }
 
 private struct Response : Decodable {
-    //let count: Int
     let items: [Items]
 }
 
@@ -31,12 +32,9 @@ private struct Items: Decodable {
         }
     }
 
-    
-
-
 class UserData {
     
-    func loadData(completion: @escaping ([User]) -> Void) {
+    func loadData() {
 
     var urlConstructor = URLComponents()
             urlConstructor.scheme = "https"
@@ -50,25 +48,49 @@ class UserData {
             ]
         guard let url = urlConstructor.url else {return}
         
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
-            guard let data = data else {return}
-                
-            do {
-                let model = try JSONDecoder().decode(UserResponse.self, from: data)
-                
-                var users: [User] = []
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard
+                let data = data,
+                let model = try? JSONDecoder().decode(UserResponse.self, from: data) else {return}
                 let items = model.response.items
                 
-                for item in items {
-                    let id = item.id
-                    let name = "\(item.firstName) \(item.lastName)"
-                    let avatar = Photo(id: item.id, url: item.avatar)
-                    users.append(User(id: id, name: name, avatar: avatar))
+                let realmUsers: [RealmUser] = items.map { user in
+                    let realmUser = RealmUser()
+                    realmUser.id = user.id
+                    realmUser.firstName = user.firstName
+                    realmUser.lastName = user.lastName
+                    realmUser.avatar = user.avatar
+                    
+                    return realmUser
                 }
-                    completion(users)
-            } catch {
-                print(error)
-            }
+            self.save(users: realmUsers)
         }.resume()
+    }
+    
+    
+    private func save(users: [RealmUser]) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                users.forEach { realm.add($0) }
+                
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func restore() throws -> [User] {
+        let realm = try Realm()
+        
+        let objects = realm.objects(RealmUser.self)
+        let users = Array(
+            objects.map {
+                User(id: $0.id,
+                     name: $0.firstName + $0.lastName,
+                      avatar: Photo(id:  $0.id, url: $0.avatar)
+                )
+            })
+        return users
     }
 }

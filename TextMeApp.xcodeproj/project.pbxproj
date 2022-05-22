@@ -45,9 +45,13 @@
 		3FD5C414282A9B5A00C8C69C /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD5C413282A9B5A00C8C69C /* PhotoData.swift */; };
 		3FFC1C6B28140615000ECD0F /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC1C6A28140615000ECD0F /* TransitionAnimator.swift */; };
 		3FFC1C6D28140645000ECD0F /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFC1C6C28140645000ECD0F /* CustomNavigationController.swift */; };
+		8621B872283A62D400DC7C56 /* RealmUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8621B871283A62D400DC7C56 /* RealmUser.swift */; };
+		9B8A7B97B64EDD085600E415 /* Pods_TextMeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB8A1C674637B04A00C4896 /* Pods_TextMeApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2065F341AA11AD126D32D6B2 /* Pods-TextMeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextMeApp.release.xcconfig"; path = "Target Support Files/Pods-TextMeApp/Pods-TextMeApp.release.xcconfig"; sourceTree = "<group>"; };
+		3CB8A1C674637B04A00C4896 /* Pods_TextMeApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TextMeApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F1BED6F28105DB800108C66 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		3F29F6822824F8B800544BDD /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		3F2CE5AE27FE854A009AFA45 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 		3FD5C413282A9B5A00C8C69C /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		3FFC1C6A28140615000ECD0F /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		3FFC1C6C28140645000ECD0F /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		8621B871283A62D400DC7C56 /* RealmUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUser.swift; sourceTree = "<group>"; };
+		A4258E54E577B35EDD7FEC2F /* Pods-TextMeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextMeApp.debug.xcconfig"; path = "Target Support Files/Pods-TextMeApp/Pods-TextMeApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,12 +101,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B8A7B97B64EDD085600E415 /* Pods_TextMeApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		161DDF2BF9A85F122C452080 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3CB8A1C674637B04A00C4896 /* Pods_TextMeApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3F61AFEF27F1D1B200F1DACD /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +133,8 @@
 			children = (
 				3FBF8C3927E6E7CE006F7FB3 /* TextMeApp */,
 				3FBF8C3827E6E7CE006F7FB3 /* Products */,
+				B9D6B3968D8ED435C85558C9 /* Pods */,
+				161DDF2BF9A85F122C452080 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +149,7 @@
 		3FBF8C3927E6E7CE006F7FB3 /* TextMeApp */ = {
 			isa = PBXGroup;
 			children = (
+				8621B873283A67BB00DC7C56 /* RealmData */,
 				3FD5C40C282A402E00C8C69C /* Network */,
 				3FD5C40A282A400F00C8C69C /* New Group */,
 				3FD5C409282A3F9B00C8C69C /* Cells */,
@@ -203,6 +221,23 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		8621B873283A67BB00DC7C56 /* RealmData */ = {
+			isa = PBXGroup;
+			children = (
+				8621B871283A62D400DC7C56 /* RealmUser.swift */,
+			);
+			path = RealmData;
+			sourceTree = "<group>";
+		};
+		B9D6B3968D8ED435C85558C9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A4258E54E577B35EDD7FEC2F /* Pods-TextMeApp.debug.xcconfig */,
+				2065F341AA11AD126D32D6B2 /* Pods-TextMeApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -210,9 +245,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3FBF8C4B27E6E7D1006F7FB3 /* Build configuration list for PBXNativeTarget "TextMeApp" */;
 			buildPhases = (
+				569419EB41E2A9245DAB837F /* [CP] Check Pods Manifest.lock */,
 				3FBF8C3327E6E7CE006F7FB3 /* Sources */,
 				3FBF8C3427E6E7CE006F7FB3 /* Frameworks */,
 				3FBF8C3527E6E7CE006F7FB3 /* Resources */,
+				F1DDCB4095DA578B73B3A324 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -269,6 +306,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		569419EB41E2A9245DAB837F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TextMeApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1DDCB4095DA578B73B3A324 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TextMeApp/Pods-TextMeApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TextMeApp/Pods-TextMeApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TextMeApp/Pods-TextMeApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3FBF8C3327E6E7CE006F7FB3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -288,6 +367,7 @@
 				3F29F6832824F8B800544BDD /* AuthorizationViewController.swift in Sources */,
 				3F61FC2E27F345E100BEE41D /* Group.swift in Sources */,
 				3FD100E7282E7D82008E24FC /* NewsData.swift in Sources */,
+				8621B872283A62D400DC7C56 /* RealmUser.swift in Sources */,
 				3FFC1C6B28140615000ECD0F /* TransitionAnimator.swift in Sources */,
 				3FD5C414282A9B5A00C8C69C /* PhotoData.swift in Sources */,
 				3F61FC3027F3465700BEE41D /* MyGroupsTableViewController.swift in Sources */,
@@ -452,6 +532,7 @@
 		};
 		3FBF8C4C27E6E7D1006F7FB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4258E54E577B35EDD7FEC2F /* Pods-TextMeApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -481,6 +562,7 @@
 		};
 		3FBF8C4D27E6E7D1006F7FB3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2065F341AA11AD126D32D6B2 /* Pods-TextMeApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
