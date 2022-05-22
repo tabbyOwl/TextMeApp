@@ -17,12 +17,12 @@ struct News {
     }
     
     let text: String?
-    let imageUrl: URL?
+    let imageUrls: [URL]?
     //let autor: Any
     //let date: String
     
     var newsType: NewsType? {
-        let hasImage = imageUrl != nil
+        let hasImage = imageUrls != nil
         let hasText = text != nil
         
         switch (hasImage, hasText) {

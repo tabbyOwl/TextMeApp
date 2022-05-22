@@ -64,16 +64,29 @@ class PhotoData {
                 
                 var photos: [Photo] = []
                 
-                for i in 0...model.response.items.count-1 {
-                    let id = model.response.items[i].id
+                let items = model.response.items
+                
+                for item in items {
+                    let id = item.id
+                    let likesCount = item.likes.count
+                    guard let url = item.sizes.last?.url else {return}
                     var isLiked = false
-                    if model.response.items[i].likes.user_likes != 0 {
+                    if item.likes.user_likes != 0 {
                         isLiked = true
                     }
-                    let likesCount = model.response.items[i].likes.count
-                    if let url = model.response.items[i].sizes.last?.url {
-                        photos.append(Photo(id: id, url: url, likesCounter: likesCount, isLiked: isLiked))
-                    }
+                    photos.append(Photo(id: id, url: url, likesCounter: likesCount, isLiked: isLiked))
+                
+            
+//                for i in 0...model.response.items.count-1 {
+//                    let id = model.response.items[i].id
+//                    var isLiked = false
+//                    if model.response.items[i].likes.user_likes != 0 {
+//                        isLiked = true
+//                    }
+//                    let likesCount = model.response.items[i].likes.count
+//                    if let url = model.response.items[i].sizes.last?.url {
+//                        photos.append(Photo(id: id, url: url, likesCounter: likesCount, isLiked: isLiked))
+//                    }
                 }
                     completion(photos)
             } catch {

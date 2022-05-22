@@ -17,7 +17,7 @@ class GlobalGroupsTableViewCell: UITableViewCell {
     func configure(with model: Group) {
         label.text = model.name
         if let url = URL(string: model.avatar.url) {
-        UIImageView().load(url: url, imageView: avatarImageView)
+            avatarImageView.load(url: url)
         }
     }
     

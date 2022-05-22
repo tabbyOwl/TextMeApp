@@ -57,11 +57,12 @@ class UserData {
                 let model = try JSONDecoder().decode(UserResponse.self, from: data)
                 
                 var users: [User] = []
+                let items = model.response.items
                 
-                for i in 0...model.response.items.count-1 {
-                    let id = model.response.items[i].id
-                    let name = "\(model.response.items[i].firstName) \(model.response.items[i].lastName)"
-                    let avatar = Photo(id:model.response.items[i].id, url: model.response.items[i].avatar)
+                for item in items {
+                    let id = item.id
+                    let name = "\(item.firstName) \(item.lastName)"
+                    let avatar = Photo(id: item.id, url: item.avatar)
                     users.append(User(id: id, name: name, avatar: avatar))
                 }
                     completion(users)

@@ -28,6 +28,7 @@ private struct Attachments: Decodable {
 }
 
 private struct Photos: Decodable {
+    let access_key: String
     let sizes: [Sizes]?
    
 }
@@ -36,10 +37,11 @@ private struct Sizes: Decodable {
 }
 
 private struct UserPhotos: Decodable {
-    let items: [Items2]?
+    let items: [PhotoItems]?
+
    
 }
-private struct Items2: Decodable {
+private struct PhotoItems: Decodable {
     let sizes: [Sizes]?
 }
 
@@ -55,38 +57,77 @@ class NewsData {
             URLQueryItem(name: "access_token", value: String(Session.instance.token)),
             URLQueryItem(name: "v", value: "5.131"),
             URLQueryItem(name: "user_id", value: String(Session.instance.userID)),
-            URLQueryItem(name: "filters", value: "photo, post"),
+            URLQueryItem(name: "filters", value: "post"),
             URLQueryItem(name: "return_banned", value: "0"),
             URLQueryItem(name: "start_time", value: "1651363200")
-            //URLQueryItem(name: "count", value: "13"),
         ]
         
         guard let url = urlConstructor.url else {return}
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             guard let data = data else {return}
-           
-            let json = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
-            print(json)
             
             do {
                 let model = try JSONDecoder().decode(NewsResponse.self, from: data)
-                var news: [News] = []
                 
-                for i in 0...model.response.items.count-1 {
-                    let text = model.response.items[i].text
-                    var url = URL(string: "")
-                    if model.response.items[i].type == "photo" {
-                        url = URL(string: model.response.items[i].photos?.items?[0].sizes?[0].url ?? "")
-                    } else {
-                       url = URL(string: model.response.items[i].attachments?[0].photo?.sizes?[0].url ?? "")
+                var news: [News] = []
+                let items = model.response.items
+                
+                for item in items {
+                    var urls: [URL] = []
+                    let text = item.text
+                    print (item.type)
+                    if item.type == "photo" {
+                        if let url = URL (string: item.photos?.items?[0].sizes?[0].url ?? "") {
+                        urls.append(url)
+                        }
+                    } else if item.type == "post" {
+                        if let url = URL(string: item.attachments?[0].photo?.sizes?[0].url ?? "") {
+                        urls.append(url)
                     }
-                    news.append(News(text: text, imageUrl: url))
+                    }
+                    
+                    news.append(News(text: text, imageUrls: urls))
+                 
                 }
                     completion(news)
             } catch let error {
-                print("🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️(\(error)")
+              print(error)
             }
         }.resume()
     }
 }
+
+
+//                    if item.type == "photo" {
+//
+//                        guard let photoItems = item.photos?.items else {return}
+//
+//                        for photoItem in photoItems {
+//                            guard let sizes = photoItem.sizes else {return}
+//
+//                            for siz in sizes {
+//                                guard let urlString = siz.url else {return}
+//                                if let url = URL(string: urlString) {
+//                                urls.append(url)
+//                                }
+//                            }
+//                        }
+//                    } else
+//                    if item.type == "post" {
+
+//                    if item.type == "photo" {
+//                        guard let photoItems = item.photos?.items else {return}
+//                        print("🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋\(photoItems.count)")
+//                                            for photoItem in photoItems {
+//
+//                                                guard let sizes = photoItem.sizes else {return}
+//                                                for s in sizes {
+//                                                    guard let urlString = s.url else {return}
+//                                                    if let url = URL(string: urlString) {
+//                                                    urls.append(url)
+//                                                    }
+//                                                }
+//                                            }
+    
+    //guard let attachments = item.attachments else {return}

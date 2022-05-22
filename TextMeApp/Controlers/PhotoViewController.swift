@@ -35,8 +35,9 @@ class PhotoViewController: UIViewController {
         self.likeControl.isSelected = photos[self.indexOfCurrentImage].isLiked
         
         if let url = URL(string: photos[indexOfCurrentImage].url) {
-            UIImageView().load(url: url, imageView: photoImageView)
+            photoImageView.load(url: url)
         }
+        
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
         self.view.addGestureRecognizer(panGesture)
         
@@ -101,7 +102,7 @@ class PhotoViewController: UIViewController {
                                completion: nil)
                 DispatchQueue.main.async { [self] in
                     if let url = URL(string: photos[self.indexOfCurrentImage].url) {
-                        UIImageView().load(url: url, imageView: photoImageView)
+                        photoImageView.load(url: url)
                     }
                 }
             } else {

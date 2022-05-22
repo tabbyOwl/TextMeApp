@@ -52,10 +52,10 @@ class GroupSearchingData {
                 let model = try JSONDecoder().decode(GroupResponse.self, from: data)
 
                 var groups: [Group] = []
-                
-                for i in 0...model.response.items.count-1 {
-                    let name = model.response.items[i].name
-                    let avatar = Photo(id: model.response.items[i].id, url: model.response.items[i].avatar)
+                let items = model.response.items
+                for item in items {
+                    let name = item.name
+                    let avatar = Photo(id: item.id, url: item.avatar)
                     groups.append(Group(name: name, avatar: avatar))
                 }
                     completion(groups)

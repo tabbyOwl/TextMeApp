@@ -25,6 +25,7 @@
 		3F68F1A727F407A60021040F /* GlobalGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F68F1A627F407A60021040F /* GlobalGroupsTableViewController.swift */; };
 		3F6905B327F17B2700C48143 /* MyFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6905B227F17B2700C48143 /* MyFriendsViewController.swift */; };
 		3F7A35E6283269BD00C25DA1 /* json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A35E5283269BD00C25DA1 /* json.swift */; };
+		3F7A35EC2833553E00C25DA1 /* ColectionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7A35EB2833553E00C25DA1 /* ColectionCells.swift */; };
 		3FA71C5C282D2BA10037D3C7 /* GroupSearchingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA71C5B282D2BA10037D3C7 /* GroupSearchingData.swift */; };
 		3FBF8C3B27E6E7CE006F7FB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF8C3A27E6E7CE006F7FB3 /* AppDelegate.swift */; };
 		3FBF8C3D27E6E7CE006F7FB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF8C3C27E6E7CE006F7FB3 /* SceneDelegate.swift */; };
@@ -65,6 +66,7 @@
 		3F68F1A627F407A60021040F /* GlobalGroupsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalGroupsTableViewController.swift; sourceTree = "<group>"; };
 		3F6905B227F17B2700C48143 /* MyFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsViewController.swift; sourceTree = "<group>"; };
 		3F7A35E5283269BD00C25DA1 /* json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = json.swift; sourceTree = "<group>"; };
+		3F7A35EB2833553E00C25DA1 /* ColectionCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColectionCells.swift; sourceTree = "<group>"; };
 		3FA71C5B282D2BA10037D3C7 /* GroupSearchingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSearchingData.swift; sourceTree = "<group>"; };
 		3FBF8C3727E6E7CE006F7FB3 /* TextMeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextMeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FBF8C3A27E6E7CE006F7FB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				3F61FC2B27F3330400BEE41D /* PhotoCollectionCell.swift */,
 				3F61AFF227F1EFFC00F1DACD /* MyFriendsTableCell.swift */,
 				3FD100E8282E81C3008E24FC /* NewsCellProtocol.swift */,
+				3F7A35EB2833553E00C25DA1 /* ColectionCells.swift */,
 				3FD100EE282E86F8008E24FC /* ImageAndTextCell.swift */,
 				3FD100EA282E82D0008E24FC /* ImageNewsCell.swift */,
 				3FD100EC282E8637008E24FC /* TextNewsCell.swift */,
@@ -281,6 +284,7 @@
 				3F61AFF327F1EFFC00F1DACD /* MyFriendsTableCell.swift in Sources */,
 				3FD100EB282E82D0008E24FC /* ImageNewsCell.swift in Sources */,
 				3F68F1A527F407590021040F /* GlobalGroupsTableViewCell.swift in Sources */,
+				3F7A35EC2833553E00C25DA1 /* ColectionCells.swift in Sources */,
 				3F29F6832824F8B800544BDD /* AuthorizationViewController.swift in Sources */,
 				3F61FC2E27F345E100BEE41D /* Group.swift in Sources */,
 				3FD100E7282E7D82008E24FC /* NewsData.swift in Sources */,

@@ -10,28 +10,48 @@ import UIKit
 
 class ImageNewsCell: UITableViewCell {
     
-    @IBOutlet weak var newsImageView: UIImageView?
+@IBOutlet weak var imageCollectionView: UICollectionView!
     
-    static let identifier = String(describing: "ImageNewsCell")
+    weak var cellDelegate: CollectionViewCellDelegate?
     
-    private lazy var newNewsImageView: UIImageView = {
-        let height = bounds.height * 0.95
-        let width = bounds.width * 0.95
+    var images: [URL]?
+    
+    override func awakeFromNib() {
         
-        let topDiff = (bounds.height - height) / 2
-        let leftDiff = (bounds.width - width) / 2
-        
-        let frame = CGRect(x: leftDiff, y: topDiff, width: width, height: height)
-        let nImageView = UIImageView(frame: frame)
-        
-        addSubview(nImageView)
-        
-        return nImageView
-    } ()
+        self.imageCollectionView.dataSource = self
+        self.imageCollectionView.delegate = self
+    }
 }
 
+extension ImageNewsCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func updateCellWith(images: [URL]?) {
+        self.images = images
+        self.imageCollectionView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? ImageAndTextColectionCell
+        self.cellDelegate?.collectionView(collectionviewcell: cell, index: indexPath.item, didTappedInTableViewCell: self)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.images?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageNewsCell", for: indexPath) as? ImageCollectionCell {
+            cell.newsImageView.load(url: (images?[indexPath.item])!)
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+}
+    
 extension ImageNewsCell: NewsCellProtocol {
     func set<T: NewsCellDataProtocol>(value: T) {
-        UIImageView().load(url: value.imageUrl!, imageView: newNewsImageView)
+        print("IMAGENEWSCELL🌹")
+        self.images = value.imageUrls
+        self.imageCollectionView.reloadData()
     }
 }

@@ -7,30 +7,48 @@
 
 import Foundation
 import UIKit
+
+protocol CollectionViewCellDelegate: AnyObject {
+    func collectionView(collectionviewcell: ImageAndTextColectionCell?, index: Int, didTappedInTableViewCell: UITableViewCell)
+    // other delegate methods that you can define to perform action in viewcontroller
+}
+
 class ImageAndTextCell: UITableViewCell {
     
-    @IBOutlet weak var newsImageView: UIImageView?
+    @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var newsLabel: UILabel?
     
-    private lazy var newNewsImageView: UIImageView = {
-        let height = bounds.height * 0.95
-        let width = bounds.width * 0.95
+    var images: [URL]?
+    
+    override func awakeFromNib() {
         
-        let topDiff = (bounds.height - height) / 2
-        let leftDiff = (bounds.width - width) / 2
+        self.imageCollectionView.dataSource = self
+        self.imageCollectionView.delegate = self
         
-        let frame = CGRect(x: leftDiff, y: topDiff, width: width, height: height)
-        let nImageView = UIImageView(frame: frame)
-        
-        addSubview(nImageView)
-        
-        return nImageView
-    } ()
+    }
+}
+
+extension ImageAndTextCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.images?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageAndTextCell", for: indexPath) as? ImageAndTextColectionCell {
+            cell.newsImageView.load(url: (images?[indexPath.item])!)
+            return cell
+        }
+        return UICollectionViewCell()
+    }
 }
 
 extension ImageAndTextCell: NewsCellProtocol {
     func set<T: NewsCellDataProtocol>(value: T) {
-        UIImageView().load(url: value.imageUrl!, imageView: newNewsImageView)
+        print("IMAGETEXTNEWSCELL☂️\(value.imageUrls?.count)")
+        self.images = value.imageUrls
         newsLabel?.text = value.text
+        self.imageCollectionView.reloadData()
     }
+
 }

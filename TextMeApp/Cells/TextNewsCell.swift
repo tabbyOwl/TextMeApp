@@ -14,7 +14,10 @@ class TextNewsCell: UITableViewCell {
 }
 
 extension TextNewsCell: NewsCellProtocol {
+    
     func set<T: NewsCellDataProtocol>(value: T) {
         newsLabel?.text = value.text
     }
+    
+  
 }

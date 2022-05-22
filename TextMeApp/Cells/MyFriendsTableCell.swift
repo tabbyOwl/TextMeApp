@@ -16,9 +16,9 @@ class MyFriendsTableCell: UITableViewCell {
     func configure(with model: User) {
         friendName.text = model.name
         if let url = URL(string: model.avatar.url) {
-        UIImageView().load(url: url, imageView: friendImageView)
-        }
+        friendImageView.load(url: url)
     }
+}
     
     override func awakeFromNib() {
         super.awakeFromNib()
