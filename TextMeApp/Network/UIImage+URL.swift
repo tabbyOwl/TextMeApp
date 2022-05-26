@@ -15,7 +15,6 @@ extension UIImageView {
             guard let data = data else {return}
             DispatchQueue.main.async() { [weak self] in
                 self?.image = UIImage(data: data)
-                print("LOAD PHOTO 🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨🎨")
             }
         }.resume()
     }

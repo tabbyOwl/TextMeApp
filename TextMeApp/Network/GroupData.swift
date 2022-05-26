@@ -46,7 +46,6 @@ class GroupData {
     
     func delete(realmGroup: RealmGroup) {
         
-        
         do {
         let realm = try Realm()
         try realm.write {

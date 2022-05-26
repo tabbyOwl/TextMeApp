@@ -10,10 +10,8 @@ import UIKit
 class PhotosCollectionViewController: UICollectionViewController {
     
     var userId: Int = 0
-
     var photos: [Photo] = []
     
-  
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -27,20 +25,15 @@ class PhotosCollectionViewController: UICollectionViewController {
                     photoData.loadData(userId: self.userId) { [weak self] (completion) in
                         DispatchQueue.main.async {
                     self?.photos = completion
-                        self?.collectionView.reloadData()
+                    self?.collectionView.reloadData()
                 }
-                }
-                print("LOAD PHOTOS 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎")
+            }
             } else {
                 photos = restoredPhotos.filter { $0.ownerId == userId }
-               print("RESTORE PHOTOS 🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏")
             }
         } catch {
     }
 }
-        
-
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }

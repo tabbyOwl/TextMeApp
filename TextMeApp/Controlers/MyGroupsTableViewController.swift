@@ -25,20 +25,18 @@ class MyGroupsTableViewController: UITableViewController {
             if restoredGroups.isEmpty {
                 groupData.loadData { [weak self] (completion) in
                     DispatchQueue.main.async {
-                self?.groups = completion
-                self?.tableView.reloadData()
-            }
-        }
-                print("🍏")
+                        self?.groups = completion
+                        self?.tableView.reloadData()
+                    }
+                }
             } else {
                 self.groups = restoredGroups
-                print("🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏")
             }
         } catch {
             print(error)
         }
     }
-        
+    
     
     // MARK: - Table view data source
     
@@ -57,8 +55,6 @@ class MyGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "удалить", handler: {[weak self] _, _, block in
             self?.groups.remove(at: indexPath.row)
-            self?.groupData.delete(realmGroup: <#T##RealmGroup#>)
-            
             tableView.deleteRows(at: [indexPath], with: .automatic)
             block(true)
         })
@@ -72,16 +68,16 @@ class MyGroupsTableViewController: UITableViewController {
         }
     }
 }
+
+extension MyGroupsTableViewController: GlobalGroupsTableViewControllerDelegate {
     
-    extension MyGroupsTableViewController: GlobalGroupsTableViewControllerDelegate {
-
-        func userSubscribe(group: Group) {
-            groups.append(group)
-            tableView.reloadData()
-        }
-
-        func userUnsubscribe(group: Group) {
-            groups.removeAll(where: {$0.id == group.id})
-            tableView.reloadData()
-        }
+    func userSubscribe(group: Group) {
+        groups.append(group)
+        tableView.reloadData()
     }
+    
+    func userUnsubscribe(group: Group) {
+        groups.removeAll(where: {$0.id == group.id})
+        tableView.reloadData()
+    }
+}

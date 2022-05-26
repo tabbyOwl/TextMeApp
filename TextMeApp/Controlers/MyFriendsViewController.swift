@@ -49,14 +49,12 @@ class MyFriendsViewController: UITableViewController {
             if restoredUsers.isEmpty {
                 userData.loadData { [weak self] (completion) in
                     DispatchQueue.main.async {
-                self?.users = completion
-                    self?.tableView.reloadData()
-            }
-        }
-                print("LOAD 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎")
+                        self?.users = completion
+                        self?.tableView.reloadData()
+                    }
+                }
             } else {
                 self.users = restoredUsers
-               print("RESTORE 🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏")
             }
         } catch {
             print(error)
@@ -119,14 +117,14 @@ class MyFriendsViewController: UITableViewController {
             if let userIndex = users.firstIndex(where: { $0.id == user.id }) {
                 photosVC.userId = users[userIndex].id
             }
-            } else {
-                let user = filteredUsers[indexPath.row]
-                if let userIndex = users.firstIndex(where: { $0.id == user.id }) {
-                    photosVC.userId = users[userIndex].id
-                }
+        } else {
+            let user = filteredUsers[indexPath.row]
+            if let userIndex = users.firstIndex(where: { $0.id == user.id }) {
+                photosVC.userId = users[userIndex].id
             }
         }
     }
+}
 
 
 extension MyFriendsViewController: UISearchBarDelegate {

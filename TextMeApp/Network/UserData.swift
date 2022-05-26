@@ -67,7 +67,6 @@ class UserData {
     
     func restore() throws -> [User] {
         let realm = try Realm()
-        
         let objects = realm.objects(RealmUser.self)
         let users = Array(
             objects.map {

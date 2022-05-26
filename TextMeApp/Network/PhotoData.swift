@@ -65,7 +65,6 @@ class PhotoData {
              
              return realmPhoto
          }
-     
         do {
             let realm = try Realm()
             try realm.write {
@@ -76,10 +75,9 @@ class PhotoData {
         }
     }
     
-    
     func restore() throws -> [Photo] {
-        let realm = try Realm()
         
+        let realm = try Realm()
         let objects = realm.objects(RealmPhoto.self)
         let photos = Array(
             objects.map {
@@ -92,53 +90,4 @@ class PhotoData {
         return photos
     }
 }
-//
-//
-//        URLSession.shared.dataTask(with: url) { data, _, _ in
-//            guard
-//                let data = data,
-//                let model = try? JSONDecoder().decode(PhotoResponse.self, from: data) else {return}
-//                let items = model.response.items
-//
-//            let realmPhotos: [RealmPhoto] = items.map { photo in
-//                    let realmPhoto = RealmPhoto()
-//                    realmPhoto.id = photo.id
-//                    realmPhoto.url = photo.sizes.last?.url ?? ""
-//                    realmPhoto.likes = photo.likes.count
-//                    realmPhoto.isLiked = photo.likes.user_likes
-//                    realmPhoto.ownerId = photo.ownerId
-//
-//                return realmPhoto
-//                }
-//            self.save(photos: realmPhotos)
-//        }.resume()
-//    }
-//
-//
-//     func save(photos: [RealmPhoto]) {
-//        do {
-//            let realm = try Realm()
-//            try realm.write {
-//                photos.forEach { realm.add($0) }
-//            }
-//        } catch {
-//            print(error)
-//        }
-//    }
-//
-//
-//    func restore() throws -> [Photo] {
-//        let realm = try Realm()
-//
-//        let objects = realm.objects(RealmPhoto.self)
-//        let photos = Array(
-//            objects.map {
-//                Photo(id: $0.id,
-//                      sizes: [PhotoUrl(url: $0.url)],
-//                      likes: Likes(user_likes: $0.isLiked, count: $0.likes),
-//                      ownerId: $0.ownerId)
-//            }
-//        )
-//        return photos
-//    }
-//}
+

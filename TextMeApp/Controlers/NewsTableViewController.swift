@@ -50,7 +50,6 @@ class NewsTableViewController: UITableViewController {
             return UITableViewCell()
         }
         
-        
         (cell as? NewsCellProtocol)?.set(value: curentNews)
         
         return cell

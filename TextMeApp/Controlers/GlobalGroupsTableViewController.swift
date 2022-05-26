@@ -25,12 +25,12 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    GroupSearchingData().loadData(searchText: "") { [weak self] (completion) in
-        DispatchQueue.main.async {
-        self?.groups = completion
-        self?.tableView.reloadData()
+        GroupSearchingData().loadData(searchText: "") { [weak self] (completion) in
+            DispatchQueue.main.async {
+                self?.groups = completion
+                self?.tableView.reloadData()
+            }
         }
-    }
         searchBar.delegate = self
         
     }
@@ -40,13 +40,9 @@ class GlobalGroupsTableViewController: UITableViewController {
         let group = groups[indexPath.row]
         
         if group.isSuscribe == 1 {
-      // if myGroups.contains(where: { $0.id == group.id }) {
-            
-            self.myGroups.removeAll(where: { $0.id == group.id })
             self.delegate?.userUnsubscribe(group: group)
             self.tableView.reloadData()
         } else if group.isSuscribe == 0 {
-            self.myGroups.append(group)
             self.delegate?.userSubscribe(group: group)
             self.tableView.reloadData()
         }
@@ -65,8 +61,8 @@ class GlobalGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GlobalGroupCell", for: indexPath) as? GlobalGroupsTableViewCell
         var group = Group(id: 0, name: "", avatar: "", isSuscribe: 1)
-            group = groups[indexPath.row]
-            cell?.configure(with: group)
+        group = groups[indexPath.row]
+        cell?.configure(with: group)
         
         if group.isSuscribe == 1 {
             cell?.button.setTitle("Отписаться", for: .normal)
@@ -79,7 +75,7 @@ class GlobalGroupsTableViewController: UITableViewController {
         
         cell?.button.tag = indexPath.row
         cell?.button.addTarget(self, action: #selector(subscribeButtonAction), for: .touchUpInside)
-      
+        
         return cell ?? UITableViewCell()
     }
 }
@@ -89,8 +85,8 @@ extension GlobalGroupsTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         GroupSearchingData().loadData(searchText: searchText) { [weak self] (completion) in
             DispatchQueue.main.async {
-            self?.groups = completion
-            self?.tableView.reloadData()
+                self?.groups = completion
+                self?.tableView.reloadData()
             }
         }
     }

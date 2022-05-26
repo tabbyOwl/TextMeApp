@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F1BED7028105DB800108C66 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1BED6F28105DB800108C66 /* Photo.swift */; };
 		3F29F6832824F8B800544BDD /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F29F6822824F8B800544BDD /* AuthorizationViewController.swift */; };
 		3F2CE5AF27FE854A009AFA45 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2CE5AE27FE854A009AFA45 /* LikeControl.swift */; };
 		3F61A8E028051549008491F7 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F61A8DF28051549008491F7 /* NewsTableViewController.swift */; };
@@ -53,7 +52,6 @@
 
 /* Begin PBXFileReference section */
 		280BACE40FDFF4D43F4B19B3 /* Pods-TextMeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextMeApp.debug.xcconfig"; path = "Target Support Files/Pods-TextMeApp/Pods-TextMeApp.debug.xcconfig"; sourceTree = "<group>"; };
-		3F1BED6F28105DB800108C66 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		3F29F6822824F8B800544BDD /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		3F2CE5AE27FE854A009AFA45 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		3F61A8DF28051549008491F7 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
@@ -127,7 +125,6 @@
 				865362F9283CD4D7009E0C85 /* RealmGroup.swift */,
 				865362FF283CF8F1009E0C85 /* RealmPhoto.swift */,
 				3FC6053B2827BDAA004BEC1B /* Session.swift */,
-				3F1BED6F28105DB800108C66 /* Photo.swift */,
 				3F61A8E328059DAC008491F7 /* News.swift */,
 			);
 			path = Model;
@@ -376,7 +373,6 @@
 				3F6905B327F17B2700C48143 /* MyFriendsViewController.swift in Sources */,
 				3FD5C40E282A4A5700C8C69C /* GroupData.swift in Sources */,
 				3F61AFF527F226DC00F1DACD /* PhotosCollectionViewController.swift in Sources */,
-				3F1BED7028105DB800108C66 /* Photo.swift in Sources */,
 				3FD5C410282A77FD00C8C69C /* UIImage+URL.swift in Sources */,
 				865362FA283CD4D7009E0C85 /* RealmGroup.swift in Sources */,
 				3F61A8E428059DAC008491F7 /* News.swift in Sources */,

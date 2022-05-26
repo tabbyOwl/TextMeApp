@@ -29,5 +29,3 @@ class RealmUser: Object {
     var photos: List<RealmPhoto>
 }
 
-//
-//var allUsers: [User] = []
