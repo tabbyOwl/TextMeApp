@@ -9,24 +9,37 @@ import UIKit
 
 class PhotosCollectionViewController: UICollectionViewController {
     
-    var userIndex: Int = 0
+    var userId: Int = 0
 
-    var photos: [Photo] {
-        allUsers[userIndex].photos
-    }
+    var photos: [Photo] = []
     
+  
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        PhotoData().loadData(userId: allUsers[userIndex].id) { [weak self] (complition) in
-            DispatchQueue.main.async {
-            //self?.user.photos = complition
-                allUsers[self!.userIndex].photos = complition
-            self?.collectionView.reloadData()
-            
+        let photoData = PhotoData()
+        
+        do {
+            let restoredPhotos = try photoData.restore()
+            if restoredPhotos.isEmpty || !restoredPhotos.contains(where: { $0.ownerId == userId }) {
+                
+               
+                    photoData.loadData(userId: self.userId) { [weak self] (completion) in
+                        DispatchQueue.main.async {
+                    self?.photos = completion
+                        self?.collectionView.reloadData()
+                }
+                }
+                print("LOAD PHOTOS 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎")
+            } else {
+                photos = restoredPhotos.filter { $0.ownerId == userId }
+               print("RESTORE PHOTOS 🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏")
             }
-        }
+        } catch {
+    }
 }
+        
+
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
@@ -44,7 +57,7 @@ class PhotosCollectionViewController: UICollectionViewController {
               let onePhotoVC = segue.destination as? PhotoViewController else {
                   return
               }
-        onePhotoVC.userIndex = self.userIndex
+        onePhotoVC.photos = self.photos
         let currentPhoto = photos[index]
         onePhotoVC.indexOfCurrentImage = photos.firstIndex(where: { $0.id == currentPhoto.id } ) ?? 0
     }

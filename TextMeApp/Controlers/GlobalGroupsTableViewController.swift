@@ -1,9 +1,9 @@
-//
-//  GlobalGroupsTableViewController.swift
-//  TextMeApp
-//
-//  Created by jane on 30.03.2022.
-//
+////
+////  GlobalGroupsTableViewController.swift
+////  TextMeApp
+////
+////  Created by jane on 30.03.2022.
+////
 
 import UIKit
 
@@ -25,13 +25,12 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        GroupSearchingData().loadData(searchText: "а") { [weak self] (completion) in
-            DispatchQueue.main.async {
-            self?.groups = completion
-            self?.tableView.reloadData()
-            }
+    GroupSearchingData().loadData(searchText: "") { [weak self] (completion) in
+        DispatchQueue.main.async {
+        self?.groups = completion
+        self?.tableView.reloadData()
         }
+    }
         searchBar.delegate = self
         
     }
@@ -40,12 +39,13 @@ class GlobalGroupsTableViewController: UITableViewController {
         let indexPath = IndexPath(row: sender.tag, section: 0)
         let group = groups[indexPath.row]
         
-       if myGroups.contains(where: { $0.name == group.name }) {
+        if group.isSuscribe == 1 {
+      // if myGroups.contains(where: { $0.id == group.id }) {
             
-            self.myGroups.removeAll(where: { $0.name == group.name })
+            self.myGroups.removeAll(where: { $0.id == group.id })
             self.delegate?.userUnsubscribe(group: group)
             self.tableView.reloadData()
-        } else {
+        } else if group.isSuscribe == 0 {
             self.myGroups.append(group)
             self.delegate?.userSubscribe(group: group)
             self.tableView.reloadData()
@@ -64,20 +64,17 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GlobalGroupCell", for: indexPath) as? GlobalGroupsTableViewCell
-        var group = Group(name: "")
-        if filteredGroups.count == 0 {
+        var group = Group(id: 0, name: "", avatar: "", isSuscribe: 1)
             group = groups[indexPath.row]
-        } else {
-            group = filteredGroups[indexPath.row]
-        }
-        cell?.configure(with: group)
+            cell?.configure(with: group)
         
-        if myGroups.contains(where: { $0.name == group.name }) {
-            
+        if group.isSuscribe == 1 {
             cell?.button.setTitle("Отписаться", for: .normal)
-            group.isSuscribe = true
-        } else {
+            
+            group.isSuscribe = 0
+        } else if group.isSuscribe == 0 {
             cell?.button.setTitle("Подписаться", for: .normal)
+            group.isSuscribe = 1
         }
         
         cell?.button.tag = indexPath.row
@@ -90,10 +87,9 @@ class GlobalGroupsTableViewController: UITableViewController {
 extension GlobalGroupsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        GroupSearchingData().loadData(searchText: searchText) { [weak self] (complition) in
+        GroupSearchingData().loadData(searchText: searchText) { [weak self] (completion) in
             DispatchQueue.main.async {
-            self?.groups = complition
+            self?.groups = completion
             self?.tableView.reloadData()
             }
         }

@@ -18,12 +18,13 @@ class MyGroupsTableCell: UITableViewCell {
     
     func configure(with model: Group) {
         label.text = model.name
-        if let url = URL(string: model.avatar.url) {
-        UIImageView().load(url: url, imageView: avatarImageView)
+        if let url = URL(string: model.avatar) {
+            avatarImageView.load(url: url)
         }
     }
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         
         shadowView.layer.masksToBounds = false
         shadowView.layer.shadowColor = UIColor.black.cgColor

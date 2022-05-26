@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 
 private struct NewsResponse: Decodable {
-   let response: Response
+   let response: nResponse
 }
 
-private struct Response : Decodable {
+private struct nResponse : Decodable {
     let items: [Items]
 }
 
@@ -65,9 +65,6 @@ class NewsData {
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             guard let data = data else {return}
-           
-            let json = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
-            print(json)
             
             do {
                 let model = try JSONDecoder().decode(NewsResponse.self, from: data)
@@ -75,14 +72,22 @@ class NewsData {
                 
                 for i in 0...model.response.items.count-1 {
                     let text = model.response.items[i].text
-                    var url = URL(string: "")
+                    
+                    var urls: [URL] = []
                     if model.response.items[i].type == "photo" {
-                        url = URL(string: model.response.items[i].photos?.items?[0].sizes?[0].url ?? "")
-                    } else {
-                       url = URL(string: model.response.items[i].attachments?[0].photo?.sizes?[0].url ?? "")
+                        for j in 0...(model.response.items[i].photos?.items?.count ?? 0) {
+                            if let url = URL(string: model.response.items[i].photos?.items?[j].sizes?[0].url ?? "") {
+                            urls.append(url)
+                            }
                     }
-                    news.append(News(text: text, imageUrl: url))
+                    } else {
+                        if let url = URL(string: model.response.items[i].attachments?[0].photo?.sizes?[0].url ?? "") {
+                        urls.append(url)
+                        }
+                    }
+                    news.append(News(text: text, imageUrls: urls))
                 }
+               
                     completion(news)
             } catch let error {
                 print("🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️🅰️(\(error)")

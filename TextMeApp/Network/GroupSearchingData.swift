@@ -7,31 +7,11 @@
 
 import Foundation
 import UIKit
-
-private struct GroupResponse : Decodable {
-    let response: Response
-}
-
-private struct Response : Decodable {
-    let count: Int
-    let items: [Items]
-}
-
-private struct Items: Decodable {
-    let id: Int
-    let name: String
-    let avatar: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case avatar = "photo_50"
-    }
-}
+import RealmSwift
 
 class GroupSearchingData {
     
-    func loadData(searchText: String, completion: @escaping ([Group]) -> Void) {
+    func loadData(searchText: String, completion: @escaping ([Group]) -> Void)  {
 
     var urlConstructor = URLComponents()
             urlConstructor.scheme = "https"
@@ -52,11 +32,13 @@ class GroupSearchingData {
                 let model = try JSONDecoder().decode(GroupResponse.self, from: data)
 
                 var groups: [Group] = []
-                
-                for i in 0...model.response.items.count-1 {
-                    let name = model.response.items[i].name
-                    let avatar = Photo(id: model.response.items[i].id, url: model.response.items[i].avatar)
-                    groups.append(Group(name: name, avatar: avatar))
+                let items = model.response.items
+                for item in items {
+                    let id = item.id
+                    let name = item.name
+                    let isSuscribe = item.isSuscribe
+                    let avatar = item.avatar
+                    groups.append(Group(id: id, name: name, avatar: avatar, isSuscribe: isSuscribe))
                 }
                     completion(groups)
             } catch {
@@ -65,4 +47,6 @@ class GroupSearchingData {
         }.resume()
     }
 }
+
+
 

@@ -7,27 +7,7 @@
 
 import Foundation
 import UIKit
-
-private struct GroupResponse : Decodable {
-    let response: Response
-}
-
-private struct Response : Decodable {
-    let count: Int
-    let items: [Items]
-}
-
-private struct Items: Decodable {
-    let id: Int
-    let name: String
-    let avatar: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case avatar = "photo_50"
-    }
-}
+import RealmSwift
 
 class GroupData {
 
@@ -45,23 +25,73 @@ class GroupData {
             ]
         guard let url = urlConstructor.url else {return}
 
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
-            guard let data = data else {return}
-
-            do {
-                let model = try JSONDecoder().decode(GroupResponse.self, from: data)
-
-                var groups: [Group] = []
-
-                for i in 0...model.response.items.count-1 {
-                    let name = model.response.items[i].name
-                    let avatar = Photo(id: model.response.items[i].id, url: model.response.items[i].avatar)
-                    groups.append(Group(name: name, avatar: avatar))
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard
+                let data = data,
+                let model = try? JSONDecoder().decode(GroupResponse.self, from: data) else {return}
+                let items = model.response.items
+                
+                let groups: [Group] = items.map { item in
+                    let group = Group(id: item.id,
+                                      name: item.name,
+                                      avatar: item.avatar,
+                                      isSuscribe: item.isSuscribe)
+                    
+                    return group
                 }
-                    completion(groups)
-            } catch {
-                print(error)
-            }
+            completion(groups)
+            self.save(groups: groups)
         }.resume()
     }
+    
+    func delete(realmGroup: RealmGroup) {
+        
+        
+        do {
+        let realm = try Realm()
+        try realm.write {
+            realm.delete(realmGroup)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    
+     func save(groups: [Group]) {
+         
+         let realmGroups: [RealmGroup] = groups.map { group in
+             let realmGroup = RealmGroup()
+             realmGroup.id = group.id
+             realmGroup.name = group.name
+             realmGroup.avatar = group.avatar
+             realmGroup.isSuscribe = group.isSuscribe
+             
+             return realmGroup
+         }
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realmGroups.forEach { realm.add($0) }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func restore() throws -> [Group] {
+        let realm = try Realm()
+        
+        let objects = realm.objects(RealmGroup.self)
+        let groups = Array(
+            objects.map {
+                Group(id: $0.id,
+                     name: $0.name,
+                     avatar: $0.avatar,
+                      isSuscribe: $0.isSuscribe)
+            }
+        )
+        return groups
+    }
 }
+

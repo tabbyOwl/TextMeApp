@@ -7,32 +7,7 @@
 
 import Foundation
 import UIKit
-
-private struct UserResponse: Decodable {
-    let response: Response
-}
-
-private struct Response : Decodable {
-    //let count: Int
-    let items: [Items]
-}
-
-private struct Items: Decodable {
-    let id: Int
-    let firstName: String
-    let lastName: String
-    let avatar: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case firstName = "first_name"
-        case lastName = "last_name"
-        case avatar = "photo_100"
-        }
-    }
-
-    
-
+import RealmSwift
 
 class UserData {
     
@@ -50,24 +25,58 @@ class UserData {
             ]
         guard let url = urlConstructor.url else {return}
         
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
-            guard let data = data else {return}
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard
+                let data = data,
+                let model = try? JSONDecoder().decode(UserResponse.self, from: data) else {return}
+                let items = model.response.items
                 
-            do {
-                let model = try JSONDecoder().decode(UserResponse.self, from: data)
-                
-                var users: [User] = []
-                
-                for i in 0...model.response.items.count-1 {
-                    let id = model.response.items[i].id
-                    let name = "\(model.response.items[i].firstName) \(model.response.items[i].lastName)"
-                    let avatar = Photo(id:model.response.items[i].id, url: model.response.items[i].avatar)
-                    users.append(User(id: id, name: name, avatar: avatar))
+                let users: [User] = items.map { item in
+                    let user = User(id: item.id,
+                                    firstName: item.firstName,
+                                    lastName: item.lastName,
+                                    avatar: item.avatar)
+                    return user
                 }
-                    completion(users)
-            } catch {
-                print(error)
-            }
+            completion(users)
+            self.save(users: users)
         }.resume()
+    }
+    
+    
+     func save(users: [User]) {
+         
+         let realmUsers: [RealmUser] = users.map { user in
+         let realmUser = RealmUser()
+         realmUser.id = user.id
+         realmUser.firstName = user.firstName
+         realmUser.lastName = user.lastName
+         realmUser.avatar = user.avatar
+             
+             return realmUser
+         }
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realmUsers.forEach { realm.add($0) }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func restore() throws -> [User] {
+        let realm = try Realm()
+        
+        let objects = realm.objects(RealmUser.self)
+        let users = Array(
+            objects.map {
+                User(id: $0.id,
+                     firstName: $0.firstName,
+                     lastName: $0.lastName,
+                     avatar: $0.avatar)
+            }
+        )
+        return users
     }
 }

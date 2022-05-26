@@ -10,28 +10,37 @@ import UIKit
 
 class ImageNewsCell: UITableViewCell {
     
-    @IBOutlet weak var newsImageView: UIImageView?
+@IBOutlet weak var collectionView: UICollectionView!
     
-    static let identifier = String(describing: "ImageNewsCell")
+    weak var cellDelegate: CollectionViewCellDelegate?
     
-    private lazy var newNewsImageView: UIImageView = {
-        let height = bounds.height * 0.95
-        let width = bounds.width * 0.95
-        
-        let topDiff = (bounds.height - height) / 2
-        let leftDiff = (bounds.width - width) / 2
-        
-        let frame = CGRect(x: leftDiff, y: topDiff, width: width, height: height)
-        let nImageView = UIImageView(frame: frame)
-        
-        addSubview(nImageView)
-        
-        return nImageView
-    } ()
+    var images: [URL]?
+    
 }
 
+extension ImageNewsCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? ImageAndTextColectionCell
+        self.cellDelegate?.collectionView(collectionviewcell: cell, index: indexPath.item, didTappedInTableViewCell: self)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.images?.count ?? 0
+    }
+    
+    private func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? ImageCollectionCell {
+            cell.imageView.load(url: (images?[indexPath.item])!)
+            print("🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹\(images)")
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+}
+    
 extension ImageNewsCell: NewsCellProtocol {
     func set<T: NewsCellDataProtocol>(value: T) {
-        UIImageView().load(url: value.imageUrl!, imageView: newNewsImageView)
+        images = value.imageUrls
+        self.collectionView.reloadData()
     }
 }

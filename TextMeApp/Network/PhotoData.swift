@@ -6,37 +6,8 @@
 //
 
 import Foundation
+import RealmSwift
 
-private struct PhotoResponse: Decodable {
-    let response: Response
-}
-
-private struct Response : Decodable {
-    let count: Int
-    let items: [Items]
-}
-
-private struct Items: Decodable {
-    let id: Int
-    let sizes: [Sizes]
-    let likes: Likes
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case sizes
-        case likes
-        }
-    }
-
-private struct Sizes: Decodable {
-    let url: String
-   
-}
-
-private struct Likes: Decodable {
-    let user_likes: Int
-    let count: Int
-}
 
 class PhotoData {
     
@@ -56,29 +27,118 @@ class PhotoData {
             ]
         guard let url = urlConstructor.url else {return}
         
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
-            guard let data = data else {return}
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard
+                let data = data,
+                let model = try? JSONDecoder().decode(PhotoResponse.self, from: data) else {return}
+                let items = model.response.items
                 
-            do {
-                let model = try JSONDecoder().decode(PhotoResponse.self, from: data)
+            let photos: [Photo] = items.map { item in
                 
-                var photos: [Photo] = []
+                let photo = Photo(id: item.id,
+                                  sizes: [PhotoUrl(url: item.sizes.last?.url ?? "")],
+                                  likes: Likes(user_likes: item.likes.user_likes,count: item.likes.count),
+                                  ownerId: item.ownerId)
+//                photo.id = item.id
+//                photo.url = item.sizes.last?.url ?? ""
+//                photo.likes = item.likes.count
+//                photo.isLiked = item.likes.user_likes
+//                photo.ownerId = item.ownerId
                 
-                for i in 0...model.response.items.count-1 {
-                    let id = model.response.items[i].id
-                    var isLiked = false
-                    if model.response.items[i].likes.user_likes != 0 {
-                        isLiked = true
-                    }
-                    let likesCount = model.response.items[i].likes.count
-                    if let url = model.response.items[i].sizes.last?.url {
-                        photos.append(Photo(id: id, url: url, likesCounter: likesCount, isLiked: isLiked))
-                    }
+                return photo
                 }
-                    completion(photos)
-            } catch {
-                print(error)
-            }
+                completion(photos)
+            self.save(photos: photos)
         }.resume()
     }
+    
+    
+     func save(photos: [Photo]) {
+         
+         let realmPhotos: [RealmPhoto] = photos.map { photo in
+         let realmPhoto = RealmPhoto()
+         realmPhoto.id = photo.id
+         realmPhoto.url = photo.sizes.last?.url ?? ""
+         realmPhoto.likes = photo.likes.count
+         realmPhoto.isLiked = photo.likes.user_likes
+         realmPhoto.ownerId = photo.ownerId
+             
+             return realmPhoto
+         }
+     
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realmPhotos.forEach { realm.add($0) }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    
+    func restore() throws -> [Photo] {
+        let realm = try Realm()
+        
+        let objects = realm.objects(RealmPhoto.self)
+        let photos = Array(
+            objects.map {
+                Photo(id: $0.id,
+                      sizes: [PhotoUrl(url: $0.url)],
+                      likes: Likes(user_likes: $0.isLiked, count: $0.likes),
+                      ownerId: $0.ownerId)
+            }
+        )
+        return photos
+    }
 }
+//
+//
+//        URLSession.shared.dataTask(with: url) { data, _, _ in
+//            guard
+//                let data = data,
+//                let model = try? JSONDecoder().decode(PhotoResponse.self, from: data) else {return}
+//                let items = model.response.items
+//
+//            let realmPhotos: [RealmPhoto] = items.map { photo in
+//                    let realmPhoto = RealmPhoto()
+//                    realmPhoto.id = photo.id
+//                    realmPhoto.url = photo.sizes.last?.url ?? ""
+//                    realmPhoto.likes = photo.likes.count
+//                    realmPhoto.isLiked = photo.likes.user_likes
+//                    realmPhoto.ownerId = photo.ownerId
+//
+//                return realmPhoto
+//                }
+//            self.save(photos: realmPhotos)
+//        }.resume()
+//    }
+//
+//
+//     func save(photos: [RealmPhoto]) {
+//        do {
+//            let realm = try Realm()
+//            try realm.write {
+//                photos.forEach { realm.add($0) }
+//            }
+//        } catch {
+//            print(error)
+//        }
+//    }
+//
+//
+//    func restore() throws -> [Photo] {
+//        let realm = try Realm()
+//
+//        let objects = realm.objects(RealmPhoto.self)
+//        let photos = Array(
+//            objects.map {
+//                Photo(id: $0.id,
+//                      sizes: [PhotoUrl(url: $0.url)],
+//                      likes: Likes(user_likes: $0.isLiked, count: $0.likes),
+//                      ownerId: $0.ownerId)
+//            }
+//        )
+//        return photos
+//    }
+//}

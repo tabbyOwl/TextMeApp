@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+
 
 protocol NewsCellProtocol {
     func set<T:NewsCellDataProtocol>(value: T)
@@ -13,7 +15,7 @@ protocol NewsCellProtocol {
 
 protocol NewsCellDataProtocol {
     var text: String? { get }
-    var imageUrl: URL? { get }
+    var imageUrls: [URL]? { get }
 }
 
 extension News: NewsCellDataProtocol {}

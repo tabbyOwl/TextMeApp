@@ -17,14 +17,13 @@ class MyFriendsViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var users : [User] {
-        allUsers
-    }
+    var users : [User] = []
+    
     var sectionUsers: [SectionUsers] {
         var result = [SectionUsers]()
         
         for user in users {
-            guard let character = user.name.first else {
+            guard let character = user.firstName.first else {
                 continue
             }
             if let groupedIndex = result.firstIndex(where: {$0.character == character }) {
@@ -34,7 +33,7 @@ class MyFriendsViewController: UITableViewController {
                 result.append(friend)
             }
         }
-        return result
+        return result.sorted {$0.character < $1.character}
     }
     
     var filteredUsers:[User] = []
@@ -43,11 +42,24 @@ class MyFriendsViewController: UITableViewController {
         super.viewDidLoad()
         searchBar.delegate = self
         
-        UserData().loadData() { [weak self] (completion) in
-            DispatchQueue.main.async {
-                allUsers = completion
-                self?.tableView.reloadData()
+        let userData = UserData()
+        
+        do {
+            let restoredUsers = try userData.restore()
+            if restoredUsers.isEmpty {
+                userData.loadData { [weak self] (completion) in
+                    DispatchQueue.main.async {
+                self?.users = completion
+                    self?.tableView.reloadData()
             }
+        }
+                print("LOAD 🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎")
+            } else {
+                self.users = restoredUsers
+               print("RESTORE 🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏")
+            }
+        } catch {
+            print(error)
         }
     }
     
@@ -82,7 +94,7 @@ class MyFriendsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendsCell", for: indexPath) as? MyFriendsTableCell
-        var user = User(id: 0, name: "", avatar: Photo(id: 0, url: "default"))
+        var user = User(id: 0, firstName: "", lastName: "", avatar: "")
         if filteredUsers.count == 0 {
             let sectionUser = sectionUsers[indexPath.section]
             user = sectionUser.users[indexPath.row]
@@ -104,15 +116,13 @@ class MyFriendsViewController: UITableViewController {
         if filteredUsers.count == 0 {
             let sectionUser = sectionUsers[indexPath.section]
             let user = sectionUser.users[indexPath.row]
-            //photosVC.user = user
             if let userIndex = users.firstIndex(where: { $0.id == user.id }) {
-                photosVC.userIndex = userIndex
+                photosVC.userId = users[userIndex].id
             }
             } else {
                 let user = filteredUsers[indexPath.row]
-                //photosVC.user = user
                 if let userIndex = users.firstIndex(where: { $0.id == user.id }) {
-                    photosVC.userIndex = userIndex
+                    photosVC.userId = users[userIndex].id
                 }
             }
         }
@@ -124,7 +134,7 @@ extension MyFriendsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if !searchText.isEmpty {
-            filteredUsers = users.filter({$0.name.lowercased().contains(searchText.lowercased())})
+            filteredUsers = users.filter({$0.firstName.lowercased().contains(searchText.lowercased())})
             tableView.reloadData()
         }
         else {

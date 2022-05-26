@@ -14,11 +14,11 @@ class MyFriendsTableCell: UITableViewCell {
     @IBOutlet weak var friendImageView: UIImageView!
     
     func configure(with model: User) {
-        friendName.text = model.name
-        if let url = URL(string: model.avatar.url) {
-        UIImageView().load(url: url, imageView: friendImageView)
-        }
+        friendName.text = "\(model.firstName) \(model.lastName)"
+        if let url = URL(string: model.avatar) {
+        friendImageView.load(url: url)
     }
+}
     
     override func awakeFromNib() {
         super.awakeFromNib()
