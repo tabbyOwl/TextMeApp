@@ -42,10 +42,10 @@ class MyFriendsViewController: UITableViewController {
         super.viewDidLoad()
         searchBar.delegate = self
         
-        let userData = UserData()
-        
+        let userData = UserApi()
+       
         do {
-            let restoredUsers = try userData.restore()
+            let restoredUsers: [User] = try RealmData().restore()
             if restoredUsers.isEmpty {
                 userData.loadData { [weak self] (completion) in
                     DispatchQueue.main.async {

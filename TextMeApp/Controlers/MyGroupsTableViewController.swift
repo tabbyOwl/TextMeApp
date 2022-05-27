@@ -15,15 +15,13 @@ class MyGroupsTableViewController: UITableViewController {
     
     var groups: [Group] = []
     
-    let groupData = GroupData()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         do {
-            let restoredGroups = try groupData.restore()
+            let restoredGroups: [Group] = try RealmData().restore()
             if restoredGroups.isEmpty {
-                groupData.loadData { [weak self] (completion) in
+                GroupApi().loadData { [weak self] (completion) in
                     DispatchQueue.main.async {
                         self?.groups = completion
                         self?.tableView.reloadData()
@@ -55,7 +53,7 @@ class MyGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "удалить", handler: {[weak self] _, _, block in
             guard let group = self?.groups[indexPath.row] else {return}
-            self?.groupData.delete(group: group)
+            RealmData().delete(group: group)
             self?.groups.remove(at: indexPath.row)
             
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -76,13 +74,13 @@ extension MyGroupsTableViewController: GlobalGroupsTableViewControllerDelegate {
     func userSubscribe(group: Group) {
         
         groups.append(group)
-        groupData.save(group: group)
+        RealmData().save(group: group)
         tableView.reloadData()
     }
     
     func userUnsubscribe(group: Group) {
         groups.removeAll(where: {$0.id == group.id})
-        groupData.delete(group: group)
+        RealmData().delete(group: group)
         tableView.reloadData()
     }
 }

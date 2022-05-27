@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import RealmSwift
 
-class GroupSearchingData {
+class GroupSearchApi {
     
     func loadData(searchText: String, completion: @escaping ([Group]) -> Void)  {
 

@@ -15,7 +15,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        let photoData = PhotoData()
+        let photoData = PhotoApi()
         
         do {
             let restoredPhotos = try photoData.restore()

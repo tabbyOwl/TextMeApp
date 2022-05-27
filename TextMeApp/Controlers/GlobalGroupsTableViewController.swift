@@ -26,15 +26,14 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     var myGroups: [Group] {
        
-        let groupData = GroupData()
-        return try! groupData.restore()
+        return try! RealmData().restore()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
      
         
-        GroupSearchingData().loadData(searchText: "а") { [weak self] (completion) in
+        GroupSearchApi().loadData(searchText: "а") { [weak self] (completion) in
             DispatchQueue.main.async {
             self?.groups = completion
             self?.tableView.reloadData()
@@ -100,7 +99,7 @@ extension GlobalGroupsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        GroupSearchingData().loadData(searchText: searchText) { [weak self] (complition) in
+        GroupSearchApi().loadData(searchText: searchText) { [weak self] (complition) in
             DispatchQueue.main.async {
             self?.groups = complition
             self?.tableView.reloadData()
