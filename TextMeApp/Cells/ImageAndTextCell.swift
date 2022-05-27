@@ -39,7 +39,6 @@ extension ImageAndTextCell: UICollectionViewDelegate {
     private func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsImageCell", for: indexPath) as? ImageAndTextColectionCell {
             cell.newsImageView.load(url: (images?[indexPath.item])!)
-            print("🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹🐹\(images)")
             return cell
         }
         return UICollectionViewCell()

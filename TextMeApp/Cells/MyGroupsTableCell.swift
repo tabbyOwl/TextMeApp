@@ -25,7 +25,6 @@ class MyGroupsTableCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
         shadowView.layer.masksToBounds = false
         shadowView.layer.shadowColor = UIColor.black.cgColor
         shadowView.layer.shadowRadius = 10
