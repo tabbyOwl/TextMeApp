@@ -26,7 +26,9 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     var myGroups: [Group] {
        
-        return try! RealmData().restore()
+        guard let groups: [Group] = try? RealmData().restore() else {return []}
+        return groups
+        
     }
     
     override func viewDidLoad() {
