@@ -54,7 +54,10 @@ class MyGroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "удалить", handler: {[weak self] _, _, block in
+            guard let group = self?.groups[indexPath.row] else {return}
+            self?.groupData.delete(group: group)
             self?.groups.remove(at: indexPath.row)
+            
             tableView.deleteRows(at: [indexPath], with: .automatic)
             block(true)
         })
@@ -63,7 +66,6 @@ class MyGroupsTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let globalGroupsVC = segue.destination as? GlobalGroupsTableViewController {
-            globalGroupsVC.myGroups = self.groups
             globalGroupsVC.delegate = self
         }
     }

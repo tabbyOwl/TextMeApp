@@ -5,7 +5,9 @@
 ////  Created by jane on 30.03.2022.
 ////
 
+import Foundation
 import UIKit
+import RealmSwift
 
 protocol GlobalGroupsTableViewControllerDelegate {
     
@@ -21,14 +23,21 @@ class GlobalGroupsTableViewController: UITableViewController {
     var filteredGroups: [Group] = []
     
     var delegate: GlobalGroupsTableViewControllerDelegate?
-    var myGroups: [Group] = []
+    
+    var myGroups: [Group] {
+       
+        let groupData = GroupData()
+        return try! groupData.restore()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        GroupSearchingData().loadData(searchText: "") { [weak self] (completion) in
+     
+        
+        GroupSearchingData().loadData(searchText: "а") { [weak self] (completion) in
             DispatchQueue.main.async {
-                self?.groups = completion
-                self?.tableView.reloadData()
+            self?.groups = completion
+            self?.tableView.reloadData()
             }
         }
         searchBar.delegate = self
@@ -40,9 +49,11 @@ class GlobalGroupsTableViewController: UITableViewController {
         let group = groups[indexPath.row]
         
         if group.isSuscribe == 1 {
+  
             self.delegate?.userUnsubscribe(group: group)
             self.tableView.reloadData()
-        } else if group.isSuscribe == 0 {
+        } else {
+        
             self.delegate?.userSubscribe(group: group)
             self.tableView.reloadData()
         }
@@ -60,22 +71,26 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GlobalGroupCell", for: indexPath) as? GlobalGroupsTableViewCell
-        var group = Group(id: 0, name: "", avatar: "", isSuscribe: 1)
-        group = groups[indexPath.row]
+        var group = Group(id: 0, name: "", avatar: "", isSuscribe: 0)
+        if filteredGroups.count == 0 {
+            group = groups[indexPath.row]
+        } else {
+            group = filteredGroups[indexPath.row]
+        }
         cell?.configure(with: group)
         
-        if group.isSuscribe == 1 {
-            cell?.button.setTitle("Отписаться", for: .normal)
+        if myGroups.contains(where: { $0.name == group.name }) {
             
-            group.isSuscribe = 0
-        } else if group.isSuscribe == 0 {
-            cell?.button.setTitle("Подписаться", for: .normal)
+            cell?.button.setTitle("Отписаться", for: .normal)
             group.isSuscribe = 1
+            
+        } else {
+            cell?.button.setTitle("Подписаться", for: .normal)
         }
         
         cell?.button.tag = indexPath.row
         cell?.button.addTarget(self, action: #selector(subscribeButtonAction), for: .touchUpInside)
-        
+      
         return cell ?? UITableViewCell()
     }
 }
@@ -83,10 +98,11 @@ class GlobalGroupsTableViewController: UITableViewController {
 extension GlobalGroupsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        GroupSearchingData().loadData(searchText: searchText) { [weak self] (completion) in
+        
+        GroupSearchingData().loadData(searchText: searchText) { [weak self] (complition) in
             DispatchQueue.main.async {
-                self?.groups = completion
-                self?.tableView.reloadData()
+            self?.groups = complition
+            self?.tableView.reloadData()
             }
         }
     }

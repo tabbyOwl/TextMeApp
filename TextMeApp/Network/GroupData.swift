@@ -44,17 +44,40 @@ class GroupData {
         }.resume()
     }
     
-    func delete(realmGroup: RealmGroup) {
+    
+    func update(group: Group) {
+        do {
+        let realm = try Realm()
+        let objects = realm.objects(RealmGroup.self).filter{ $0.id == group.id }
+            if let realmGroup = objects.first {
+                try realm.write {
+                    realmGroup.id = group.id
+                    realmGroup.name = group.name
+                    realmGroup.isSuscribe = group.isSuscribe
+                    realmGroup.avatar = group.avatar
+                }
+            }
+        } catch {
+            print(error)
+        }
+        
+    }
+    
+    func delete(group: Group) {
         
         do {
         let realm = try Realm()
-        try realm.write {
-            realm.delete(realmGroup)
+        let objects = realm.objects(RealmGroup.self).filter{ $0.id == group.id }
+            if let realmGroup = objects.first {
+                try realm.write {
+                    realm.delete(realmGroup)
+                }
             }
         } catch {
             print(error)
         }
     }
+    
     
     
      func save(groups: [Group]) {

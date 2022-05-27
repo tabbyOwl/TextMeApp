@@ -14,10 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        guard let realm = try? Realm() else { return true }
-        try? realm.write {
-            try? Realm().deleteAll()
-        }
+//        guard let realm = try? Realm() else { return true }
+//        try? realm.write {
+//            try? Realm().deleteAll()
+//        }
         return true
     }
 

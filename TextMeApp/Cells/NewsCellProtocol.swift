@@ -18,4 +18,4 @@ protocol NewsCellDataProtocol {
     var imageUrls: [URL]? { get }
 }
 
-extension News: NewsCellDataProtocol {}
+extension RealmNews: NewsCellDataProtocol {}

@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 
-struct News {
+struct RealmNews {
+    
+    
     
     enum NewsType: String {
         case imageOnly = "ImageNewsCell"
