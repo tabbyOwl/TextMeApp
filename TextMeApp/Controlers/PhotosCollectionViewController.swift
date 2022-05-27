@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class PhotosCollectionViewController: UICollectionViewController {
     
@@ -14,15 +15,11 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        let photoData = PhotoApi()
         
         do {
-            let restoredPhotos = try photoData.restore()
+            let restoredPhotos: [Photo] = try RealmData().restore()
             if restoredPhotos.isEmpty || !restoredPhotos.contains(where: { $0.ownerId == userId }) {
-                
-               
-                    photoData.loadData(userId: self.userId) { [weak self] (completion) in
+                    PhotoApi().loadData(userId: self.userId) { [weak self] (completion) in
                         DispatchQueue.main.async {
                     self?.photos = completion
                     self?.collectionView.reloadData()
