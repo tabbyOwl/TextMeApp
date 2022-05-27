@@ -74,12 +74,15 @@ class MyGroupsTableViewController: UITableViewController {
 extension MyGroupsTableViewController: GlobalGroupsTableViewControllerDelegate {
     
     func userSubscribe(group: Group) {
+        
         groups.append(group)
+        groupData.save(group: group)
         tableView.reloadData()
     }
     
     func userUnsubscribe(group: Group) {
         groups.removeAll(where: {$0.id == group.id})
+        groupData.delete(group: group)
         tableView.reloadData()
     }
 }

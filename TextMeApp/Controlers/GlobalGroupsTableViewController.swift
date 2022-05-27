@@ -48,15 +48,16 @@ class GlobalGroupsTableViewController: UITableViewController {
         let indexPath = IndexPath(row: sender.tag, section: 0)
         let group = groups[indexPath.row]
         
-        if group.isSuscribe == 1 {
-  
-            self.delegate?.userUnsubscribe(group: group)
-            self.tableView.reloadData()
-        } else {
-        
-            self.delegate?.userSubscribe(group: group)
-            self.tableView.reloadData()
-        }
+        if myGroups.contains(where: { $0.id == group.id }) {
+         
+            
+             self.delegate?.userUnsubscribe(group: group)
+             self.tableView.reloadData()
+         } else {
+            
+             self.delegate?.userSubscribe(group: group)
+             self.tableView.reloadData()
+         }
     }
     
     // MARK: - Table view data source
@@ -79,7 +80,7 @@ class GlobalGroupsTableViewController: UITableViewController {
         }
         cell?.configure(with: group)
         
-        if myGroups.contains(where: { $0.name == group.name }) {
+        if myGroups.contains(where: { $0.id == group.id }) {
             
             cell?.button.setTitle("Отписаться", for: .normal)
             group.isSuscribe = 1

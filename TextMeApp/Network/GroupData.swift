@@ -78,8 +78,22 @@ class GroupData {
         }
     }
     
-    
-    
+    func save(group: Group) {
+        
+        let realmGroup = RealmGroup()
+        realmGroup.id = group.id
+        realmGroup.name = group.name
+        realmGroup.avatar = group.avatar
+        realmGroup.isSuscribe = group.isSuscribe
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.add(realmGroup)
+            }
+        } catch {
+            print(error)
+        }
+    }
      func save(groups: [Group]) {
          
          let realmGroups: [RealmGroup] = groups.map { group in
