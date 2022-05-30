@@ -90,7 +90,7 @@ class MyFriendsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendsCell", for: indexPath) as? MyFriendsTableCell
-        var user = User(id: 0, firstName: "", lastName: "", avatar: "")
+        let user: User
         if filteredUsers.count == 0 {
             let sectionUser = sectionUsers[indexPath.section]
             user = sectionUser.users[indexPath.row]

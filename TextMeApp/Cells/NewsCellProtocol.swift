@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import UIKit
-
 
 protocol NewsCellProtocol {
     func set<T:NewsCellDataProtocol>(value: T)

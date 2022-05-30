@@ -25,7 +25,7 @@ class RealmUser: Object {
   
     var isSuscribe: Bool = false
    
-    @Persisted
-    var photos: List<RealmPhoto>
+    
+    //var photos: List<RealmPhoto>
 }
 

@@ -55,8 +55,9 @@ class MyGroupsTableViewController: UITableViewController {
             guard let group = self?.groups[indexPath.row] else {return}
             RealmData().delete(group: group)
             self?.groups.remove(at: indexPath.row)
-            
+            tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.endUpdates()
             block(true)
         })
         return UISwipeActionsConfiguration(actions: [deleteAction])

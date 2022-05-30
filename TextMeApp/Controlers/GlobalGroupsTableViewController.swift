@@ -33,7 +33,6 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
         
         GroupSearchApi().loadData(searchText: "а") { [weak self] (completion) in
             DispatchQueue.main.async {

@@ -37,19 +37,16 @@ extension ImageAndTextCell: UICollectionViewDelegate {
     }
     
     private func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsImageCell", for: indexPath) as? ImageAndTextColectionCell {
-            cell.newsImageView.load(url: (images?[indexPath.item])!)
-            return cell
-        }
-        return UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsImageCell", for: indexPath)
+        (cell as? ImageAndTextColectionCell)?.newsImageView.load(url: (images?[indexPath.item])!)
+        return cell
     }
 }
 
 extension ImageAndTextCell: NewsCellProtocol {
     func set<T: NewsCellDataProtocol>(value: T) {
-        self.images = value.imageUrls!
+        self.images = value.imageUrls ?? []
         newsLabel?.text = value.text
-        self.imageCollectionView.reloadData()
     }
 
 }
