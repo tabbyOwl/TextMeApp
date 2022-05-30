@@ -42,27 +42,6 @@ class RealmData {
         }
     }
     
-     func save(groups: [Group]) {
-         
-         let realmGroups: [RealmGroup] = groups.map { group in
-             let realmGroup = RealmGroup()
-             realmGroup.id = group.id
-             realmGroup.name = group.name
-             realmGroup.avatar = group.avatar
-             realmGroup.isSuscribe = group.isSuscribe
-             
-             return realmGroup
-         }
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realmGroups.forEach { realm.add($0) }
-            }
-        } catch {
-            print(error)
-        }
-    }
-    
     func save(users: [User]) {
         
         let realmUsers: [RealmUser] = users.map { user in
