@@ -10,8 +10,14 @@ import RealmSwift
 
 class PhotosCollectionViewController: UICollectionViewController {
     
+    //MARK: - Public properties
+    
     var userId: Int = 0
-    var photos: [Photo] = []
+    
+    //MARK: - Private properties
+    private var photos: [Photo] = []
+    
+    //MARK: - Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()

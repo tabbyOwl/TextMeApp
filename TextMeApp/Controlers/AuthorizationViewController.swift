@@ -10,9 +10,15 @@ import WebKit
 
 class AuthorizationViewController: UIViewController {
     
-    var session = Session.instance
-   
+    //MARK: - @IBOutlets
+    
     @IBOutlet weak var webview: WKWebView!
+    
+    //MARK: - Private properties
+    
+    private var session = Session.instance
+   
+    //MARK: - Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +26,9 @@ class AuthorizationViewController: UIViewController {
         authorize()
     }
     
-    func authorize()  {
+    //MARK: - Private methods
+    
+    private func authorize()  {
     var urlComponents = URLComponents(string: "https://oauth.vk.com/authorize")
     urlComponents?.queryItems = [
         URLQueryItem(name: "client_id", value: "8173338"),

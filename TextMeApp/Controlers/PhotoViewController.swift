@@ -9,29 +9,37 @@ import UIKit
 
 class PhotoViewController: UIViewController {
     
+    //MARK: - @IBOutlets
+    
     @IBOutlet weak var likeControl: LikeControl!
     @IBOutlet weak var likeImage: UIImageView!
     @IBOutlet weak var likeLabel: UILabel!
     @IBOutlet weak var photoImageView: UIImageView!
     
-    var animator: UIViewPropertyAnimator?
+    //MARK: - Public properties
     
     var userIndex: Int = 0
-    var indexOfCurrentImage: Int = 0
-    var nextPhotoView: UIImageView?
-   
     var photos: [Photo] = []
+    var indexOfCurrentImage: Int = 0
     
-    var currentPhoto: Photo {
+    //MARK: - Private properties
+    
+    private var animator: UIViewPropertyAnimator?
+    private var nextPhotoView: UIImageView?
+   
+    private var currentPhoto: Photo {
         photos[indexOfCurrentImage]
     }
-    var isLiked: Bool {
+    
+    private var isLiked: Bool {
         if currentPhoto.likes.user_likes == 0 {
             return false
         } else {
             return true
-            }
         }
+    }
+    
+    //MARK: - Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +76,9 @@ class PhotoViewController: UIViewController {
         }
     }
     
-    @objc func viewPanned (_ sender: UIPanGestureRecognizer) {
+    
+    
+    @objc private func viewPanned (_ sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
             animator?.stopAnimation(true)

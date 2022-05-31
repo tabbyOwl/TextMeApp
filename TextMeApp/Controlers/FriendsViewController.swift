@@ -38,6 +38,7 @@ class FriendsViewController: UITableViewController {
     private var filteredBySearchUsers: [User] = []
     
     private let transitionAnimator = TransitionAnimator(isPresenting: false)
+    
     //MARK: - Override methods
     
     override func viewDidLoad() {
@@ -62,7 +63,6 @@ class FriendsViewController: UITableViewController {
         }
     }
     
-    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,7 +80,7 @@ class FriendsViewController: UITableViewController {
         if filteredBySearchUsers.count == 0  {
             return usersNameCharacters.count
         } else {
-            return 0
+            return 1
         }
     }
     
@@ -93,22 +93,22 @@ class FriendsViewController: UITableViewController {
         }
     }
         
-        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendsCell", for: indexPath) as? MyFriendsTableCell
-            
-            if filteredBySearchUsers.count == 0  {
-                let character = usersNameCharacters[indexPath.section]
-                if let users = usersSortedByCharacter[character] {
-                    
-                    cell?.configure(with: users[indexPath.row])
-                    
-                } else {
-                    cell?.configure(with: filteredBySearchUsers[indexPath.row])
-                }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendsCell", for: indexPath) as? MyFriendsTableCell
+        
+        if filteredBySearchUsers.count == 0  {
+            let character = usersNameCharacters[indexPath.section]
+            if let users = usersSortedByCharacter[character] {
                 
+                cell?.configure(with: users[indexPath.row])
             }
-            return cell ?? UITableViewCell()
+        } else {
+            cell?.configure(with: filteredBySearchUsers[indexPath.row])
         }
+        
+        
+        return cell ?? UITableViewCell()
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard
@@ -134,9 +134,6 @@ class FriendsViewController: UITableViewController {
     }
 }
         
-
-
-
 extension FriendsViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

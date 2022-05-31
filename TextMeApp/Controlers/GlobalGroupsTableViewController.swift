@@ -17,10 +17,11 @@ protocol GlobalGroupsTableViewControllerDelegate {
 
 class GlobalGroupsTableViewController: UITableViewController {
     
+    //MARK: - @IBOutlets
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var groups: [Group] = []
-    var filteredGroups: [Group] = []
+    //MARK: - Public properties
     
     var delegate: GlobalGroupsTableViewControllerDelegate?
     
@@ -30,6 +31,13 @@ class GlobalGroupsTableViewController: UITableViewController {
         return groups
         
     }
+    
+    //MARK: - Private properties
+    private var groups: [Group] = []
+    private var filteredGroups: [Group] = []
+    
+    
+    //MARK: - Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,22 +51,6 @@ class GlobalGroupsTableViewController: UITableViewController {
         }
         searchBar.delegate = self
         
-    }
-    
-    @IBAction func subscribeButtonAction(_ sender: UIButton) {
-        let indexPath = IndexPath(row: sender.tag, section: 0)
-        let group = groups[indexPath.row]
-        
-        if myGroups.contains(where: { $0.id == group.id }) {
-         
-            
-             self.delegate?.userUnsubscribe(group: group)
-             self.tableView.reloadData()
-         } else {
-            
-             self.delegate?.userSubscribe(group: group)
-             self.tableView.reloadData()
-         }
     }
     
     // MARK: - Table view data source
@@ -95,6 +87,25 @@ class GlobalGroupsTableViewController: UITableViewController {
       
         return cell ?? UITableViewCell()
     }
+    
+    //MARK: - IBActions
+    
+    @IBAction func subscribeButtonAction(_ sender: UIButton) {
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        let group = groups[indexPath.row]
+        
+        if myGroups.contains(where: { $0.id == group.id }) {
+         
+            
+             self.delegate?.userUnsubscribe(group: group)
+             self.tableView.reloadData()
+         } else {
+            
+             self.delegate?.userSubscribe(group: group)
+             self.tableView.reloadData()
+         }
+    }
+    
 }
 
 extension GlobalGroupsTableViewController: UISearchBarDelegate {

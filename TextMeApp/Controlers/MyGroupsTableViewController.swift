@@ -12,9 +12,11 @@ import RealmSwift
 
 class MyGroupsTableViewController: UITableViewController {
     
+    //MARK: - Private properties
     
-    var groups: [Group] = []
+    private var groups: [Group] = []
     
+    //MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,6 +70,7 @@ class MyGroupsTableViewController: UITableViewController {
         }
     }
 }
+
 
 extension MyGroupsTableViewController: GlobalGroupsTableViewControllerDelegate {
     
