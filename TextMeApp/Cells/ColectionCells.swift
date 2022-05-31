@@ -1,21 +1,21 @@
+////
+////  CollectionViewCell.swift
+////  TextMeApp
+////
+////  Created by jane on 17.05.2022.
+////
 //
-//  CollectionViewCell.swift
-//  TextMeApp
+//import UIKit
 //
-//  Created by jane on 17.05.2022.
+//class ImageAndTextColectionCell: UICollectionViewCell {
+//    
+//    @IBOutlet weak var newsImageView: UIImageView!
+//    
+//}
 //
-
-import UIKit
-
-class ImageAndTextColectionCell: UICollectionViewCell {
-    
-    @IBOutlet weak var newsImageView: UIImageView!
-    
-}
-
-
-class ImageCollectionCell: UICollectionViewCell {
-
-    @IBOutlet weak var imageView: UIImageView!
-    
-}
+//
+//class ImageCollectionCell: UICollectionViewCell {
+//
+//    @IBOutlet weak var imageView: UIImageView!
+//    
+//}

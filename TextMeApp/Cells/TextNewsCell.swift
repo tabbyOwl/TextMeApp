@@ -1,20 +1,20 @@
+////
+////  TextNewsCell.swift
+////  TextMeApp
+////
+////  Created by jane on 13.05.2022.
+////
 //
-//  TextNewsCell.swift
-//  TextMeApp
+//import Foundation
+//import UIKit
 //
-//  Created by jane on 13.05.2022.
+//class TextNewsCell: UITableViewCell {
+//    
+//    @IBOutlet weak var newsLabel: UILabel?
+//}
 //
-
-import Foundation
-import UIKit
-
-class TextNewsCell: UITableViewCell {
-    
-    @IBOutlet weak var newsLabel: UILabel?
-}
-
-extension TextNewsCell: NewsCellProtocol {
-    func set<T: NewsCellDataProtocol>(value: T) {
-        newsLabel?.text = value.text
-    }
-}
+//extension TextNewsCell: NewsCellProtocol {
+//    func set<T: NewsCellDataProtocol>(value: T) {
+//        newsLabel?.text = value.text
+//    }
+//}
