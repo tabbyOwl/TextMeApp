@@ -10,8 +10,6 @@ import UIKit
 
 struct RealmNews {
     
-    
-    
     enum NewsType: String {
         case imageOnly = "ImageNewsCell"
         case textOnly = "TextNewsCell"
