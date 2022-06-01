@@ -24,6 +24,7 @@ class FriendsViewController: UITableViewController {
             guard let character = user.firstName.first else {return [:]}
             if dict.keys.contains(character) {
                 dict[character]?.append(user)
+                dict[character] = dict[character]?.sorted{ ($0.firstName + $0.lastName) < ($1.firstName + $1.lastName) }
             } else {
                 dict[character] = [user]
             }

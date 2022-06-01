@@ -40,7 +40,9 @@ class GroupApi {
                     return group
                 }
             completion(groups)
-            RealmData().save(groups: groups)
+            groups.forEach { group in
+            RealmData().save(group: group)
+            }
         }.resume()
     }
 }
