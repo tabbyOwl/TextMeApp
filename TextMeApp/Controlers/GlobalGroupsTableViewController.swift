@@ -54,42 +54,34 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GlobalGroupCell", for: indexPath) as? GlobalGroupsTableViewCell
-        var group = Group(id: 0, name: "", avatar: "", isSuscribe: 0)
+        var group: Group
         if filteredGroups.count == 0 {
             group = groups[indexPath.row]
         } else {
             group = filteredGroups[indexPath.row]
         }
-        cell?.configure(with: group)
         
         if myGroups.contains(where: { $0.id == group.id }) {
             
-            cell?.button.setTitle("Отписаться", for: .normal)
-            group.isSuscribe = 1
+            cell?.subscribeImage.image = UIImage(systemName: "minus.circle")
             
         } else {
-            cell?.button.setTitle("Подписаться", for: .normal)
+            cell?.subscribeImage.image = UIImage(systemName: "plus.circle")
         }
         
-        cell?.button.tag = indexPath.row
-        cell?.button.addTarget(self, action: #selector(subscribeButtonAction), for: .touchUpInside)
+        cell?.configure(with: group)
         
         return cell ?? UITableViewCell()
     }
     
-    //MARK: - IBActions
     
-    @IBAction func subscribeButtonAction(_ sender: UIButton) {
+     func subscribe(_ sender: UIImageView) {
         let indexPath = IndexPath(row: sender.tag, section: 0)
         let group = groups[indexPath.row]
-        
         if myGroups.contains(where: { $0.id == group.id }) {
-            
-            
             self.delegate?.userUnsubscribe(group: group)
             self.tableView.reloadData()
         } else {
-            
             self.delegate?.userSubscribe(group: group)
             self.tableView.reloadData()
         }
@@ -98,9 +90,9 @@ class GlobalGroupsTableViewController: UITableViewController {
     func fetchGroups(searchText: String) {
         service.loadGroups(searchText: searchText) { result in
             switch result {
-            case .success(let group):
+            case .success(let groups):
                 DispatchQueue.main.async {
-                    self.groups = group
+                    self.groups = groups
                     self.tableView.reloadData()
                 }
 
@@ -115,6 +107,6 @@ extension GlobalGroupsTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-       fetchGroups(searchText: searchText)
-}
+        fetchGroups(searchText: searchText)
+    }
 }

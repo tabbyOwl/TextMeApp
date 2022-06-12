@@ -46,7 +46,8 @@ class PhotosCollectionViewController: UICollectionViewController {
         onePhotoVC.indexOfCurrentImage = photos.firstIndex(where:{ $0.id == currentPhoto.id}) ?? 0
     }
     
-    func fetchPhotos() {
+    //MARK: Private methods
+    private func fetchPhotos() {
         service.loadPhotos(userId: userId){ result in
             switch result {
             case .success(let photos):

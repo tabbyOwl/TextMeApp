@@ -25,13 +25,26 @@ import Foundation
     let id: Int
     let name: String
     let avatar: String
-    var isSuscribe: Int
+    var is_member: Int
     
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case avatar = "photo_50"
-        case isSuscribe = "is_member"
+        case is_member
         
     }
-}
+     
+     var isSuscribe: Bool {
+         get {
+             is_member == 1 ? true: false
+         }
+         set {
+             if newValue {
+                 is_member = 1
+             } else {
+                 is_member = 0
+             }
+         }
+     }
+ }

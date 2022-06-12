@@ -51,10 +51,12 @@ class MyGroupsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let globalGroupsVC = segue.destination as? GlobalGroupsTableViewController {
             globalGroupsVC.delegate = self
+            globalGroupsVC.myGroups = groups
         }
     }
     
-    func fetchGroups() {
+    // MARK: Private methods
+    private func fetchGroups() {
         service.loadGroups { result in
             switch result {
             case .success(let group):
@@ -75,7 +77,6 @@ class MyGroupsTableViewController: UITableViewController {
 extension MyGroupsTableViewController: GlobalGroupsTableViewControllerDelegate {
     
     func userSubscribe(group: Group) {
-        
         groups.append(group)
         tableView.reloadData()
     }

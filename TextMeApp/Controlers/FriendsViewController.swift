@@ -34,7 +34,7 @@ class FriendsViewController: UITableViewController {
     
     private var usersNameCharacters: [Character] {
      
-        return Array(usersSortedByCharacter.keys).sorted{ $0 < $1 }
+        return Array(usersSortedByCharacter.keys).sorted{ $0 > $1 }
        
     }
     

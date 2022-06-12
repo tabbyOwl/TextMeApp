@@ -22,22 +22,16 @@ class PhotoViewController: UIViewController {
     var photos: [Photo] = []
     var indexOfCurrentImage: Int = 0
     
+    var currentPhoto: Photo {
+       photos[indexOfCurrentImage]
+   }
     //MARK: - Private properties
+    
+   
     
     private var animator: UIViewPropertyAnimator?
     private var nextPhotoView: UIImageView?
     
-    private var currentPhoto: Photo {
-        photos[indexOfCurrentImage]
-    }
-    
-    private var isLiked: Bool {
-        if currentPhoto.likes.user_likes == 0 {
-            return false
-        } else {
-            return true
-        }
-    }
     
     //MARK: - Override methods
     
@@ -47,13 +41,16 @@ class PhotoViewController: UIViewController {
         likeControl.likeLabel = self.likeLabel
         likeControl.imageView = self.likeImage
         
-        // likeControl.addTarget(self, action: #selector(likeControlTapped), for: .touchUpInside)
+        likeControl.addTarget(self, action: #selector(likeControlTapped), for: .touchUpInside)
         
-        self.likeControl.isSelected = self.isLiked
+        self.likeControl.isSelected = currentPhoto.likes.isLiked
+        self.likeControl.likesCounter = currentPhoto.likes.count
         
         if let url = URL(string: currentPhoto.urls.last?.url ?? "") {
             photoImageView.load(url: url)
         }
+        likeLabel.text = String(currentPhoto.likes.count)
+        
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
         self.view.addGestureRecognizer(panGesture)
@@ -64,10 +61,11 @@ class PhotoViewController: UIViewController {
         
     }
     
-    //    @objc func likeControlTapped() {
-    //        likeControl.isSelected = !likeControl.isSelected
-    //        allUsers[userIndex].photos[self.indexOfCurrentImage].isLiked = self.likeControl.isSelected
-    //    }
+        @objc func likeControlTapped() {
+            likeControl.isSelected = !likeControl.isSelected
+            photos[self.indexOfCurrentImage].likes.isLiked = self.likeControl.isSelected
+           
+        }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.animator?.stopAnimation(true)
@@ -116,12 +114,19 @@ class PhotoViewController: UIViewController {
                     self.photoImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
                     self.photoImageView.transform = CGAffineTransform.identity
                     
-                    // self.likeControl.isSelected = photos[self.indexOfCurrentImage].isLiked
+                    self.likeControl.isSelected = currentPhoto.likes.isLiked
+                    self.likeControl.likesCounter = currentPhoto.likes.count
+                    likeLabel.text = String(currentPhoto.likes.count)
+                    likeImage.image = currentPhoto.likes.isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+                    
                 },
                                completion: nil)
+                
+               
                 DispatchQueue.main.async { [self] in
                     if let url = URL(string: currentPhoto.urls.last?.url ?? "") {
                         photoImageView.load(url: url)
+
                     }
                 }
             } else {

@@ -49,7 +49,6 @@
 		865362FE283CF828009E0C85 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865362FD283CF828009E0C85 /* Photo.swift */; };
 		86536300283CF8F1009E0C85 /* RealmPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865362FF283CF8F1009E0C85 /* RealmPhoto.swift */; };
 		86FAE38B284099FF0086DF85 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FAE38A284099FF0086DF85 /* News.swift */; };
-		DA859B6C2854392000C56D29 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DA859B6B2854392000C56D29 /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,7 +103,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA859B6C2854392000C56D29 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +256,6 @@
 			);
 			name = TextMeApp;
 			packageProductDependencies = (
-				DA859B6B2854392000C56D29 /* RealmSwift */,
 			);
 			productName = TextMeApp;
 			productReference = DA859B692854375300C56D29 /* TextMeApp.app */;
@@ -289,7 +286,7 @@
 			);
 			mainGroup = 3FBF8C2E27E6E7CE006F7FB3;
 			packageReferences = (
-				DA859B6A2854392000C56D29 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				DAA8763828547B5200146F2A /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 3FBF8C2E27E6E7CE006F7FB3;
 			projectDirPath = "";
@@ -580,7 +577,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DA859B6A2854392000C56D29 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+		DAA8763828547B5200146F2A /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
 			requirement = {
@@ -589,14 +586,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		DA859B6B2854392000C56D29 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DA859B6A2854392000C56D29 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3FBF8C2F27E6E7CE006F7FB3 /* Project object */;
 }

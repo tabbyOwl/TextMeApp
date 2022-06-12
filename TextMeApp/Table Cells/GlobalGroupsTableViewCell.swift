@@ -14,8 +14,9 @@ class GlobalGroupsTableViewCell: UITableViewCell {
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var button: UIButton!
-   
+  
+    @IBOutlet weak var subscribeImage: UIImageView!
+    
     func configure(with model: Group) {
         label.text = model.name
         if let url = URL(string: model.avatar) {
@@ -37,6 +38,10 @@ class GlobalGroupsTableViewCell: UITableViewCell {
         avatarImageView.layer.cornerRadius = 25
         avatarImageView.layer.masksToBounds = true
         
+        let subscribeTap = UITapGestureRecognizer(target: self, action: #selector (subscribe(recognizer: )))
+        subscribeImage.isUserInteractionEnabled = true
+        subscribeImage.addGestureRecognizer(subscribeTap)
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector( animateTapImage(recognizer: )))
         avatarImageView.isUserInteractionEnabled = true
         avatarImageView.addGestureRecognizer(tap)
@@ -48,6 +53,11 @@ class GlobalGroupsTableViewCell: UITableViewCell {
     
     //MARK: - Private methods
 
+    @objc private func subscribe (recognizer: UITapGestureRecognizer) {
+       let vc = self.parentViewController as? GlobalGroupsTableViewController
+        vc?.subscribe(subscribeImage)
+    }
+    
     @objc private func animateTapImage (recognizer: UITapGestureRecognizer) {
         
         UIView.animate(withDuration: 0.1,
@@ -65,4 +75,18 @@ class GlobalGroupsTableViewCell: UITableViewCell {
     
   
 
+}
+
+extension UIView {
+    var parentViewController: UIViewController? {
+        // Starts from next (As we know self is not a UIViewController).
+        var parentResponder: UIResponder? = self.next
+        while parentResponder != nil {
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+            parentResponder = parentResponder?.next
+        }
+        return nil
+    }
 }

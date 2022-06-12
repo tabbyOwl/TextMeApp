@@ -24,7 +24,7 @@ struct PhotosResponse : Decodable {
  struct Photo: Decodable {
     let id: Int
     let urls: [PhotoUrl]
-    let likes: Likes
+    var likes: Likes
     let ownerId: Int
      
      enum CodingKeys: String, CodingKey {
@@ -33,9 +33,24 @@ struct PhotosResponse : Decodable {
          case likes
          case ownerId = "owner_id"
      }
- }
+     
 
- struct Likes: Decodable {
-    let user_likes: Int
-    let count: Int
-}
+     struct Likes: Decodable {
+         var user_likes: Int
+         var count: Int
+         
+         var isLiked: Bool {
+             get {
+                 user_likes == 0 ? false : true
+             }
+             set {
+                 if newValue {
+                     user_likes = 1
+                 } else {
+                     user_likes = 0
+                 }
+             }
+         }
+     }
+     
+ }
