@@ -6,7 +6,7 @@
 //
 
 import UIKit
-//import RealmSwift
+import RealmSwift
 
 class PhotosCollectionViewController: UICollectionViewController {
     
@@ -17,6 +17,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     //MARK: - Private properties
     private var photos: [Photo] = []
     private var service = PhotoService()
+    
     //MARK: - Override methods
     
     override func viewDidLoad() {
@@ -24,6 +25,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         
       fetchPhotos()
     }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
@@ -47,18 +49,31 @@ class PhotosCollectionViewController: UICollectionViewController {
     }
     
     //MARK: Private methods
+    
     private func fetchPhotos() {
-        service.loadPhotos(userId: userId){ result in
-            switch result {
-            case .success(let photos):
-                DispatchQueue.main.async {
-                    self.photos = photos
-                    self.collectionView.reloadData()
+        do {
+            let realm = try Realm()
+            let restoredPhotos = realm.objects(PhotoRealm.self)
+            if restoredPhotos.isEmpty {
+                PhotoService().loadPhotos(userId: self.userId) { result in
+                    switch result {
+                    case .success(let photo):
+                        DispatchQueue.main.async {
+                            RealmData().save(objects: photo)
+                        }
+                    case .failure(_):
+                        return
+                    }
                 }
-
-            case .failure(_):
-                return
+                self.photos = try RealmData().restore()
+                self.collectionView.reloadData()
+            } else {
+                self.photos = try RealmData().restore()
+                self.collectionView.reloadData()
             }
+            
+        } catch {
+            print(error)
         }
     }
 }

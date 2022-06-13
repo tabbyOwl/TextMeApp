@@ -7,18 +7,6 @@
 
 import Foundation
 
-//struct NewsResponse: Decodable {
-//   let response: ResponseNews
-//}
-//
-//struct ResponseNews : Decodable {
-//    let news: [News]
-//
-//    enum CodingKeys: String, CodingKey {
-//        case news = "items"
-//    }
-//}
-
  struct News: Decodable {
     let type: String
     let userPhoto: UserPhoto?

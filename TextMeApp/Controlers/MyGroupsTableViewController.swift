@@ -8,7 +8,7 @@
 
 
 import UIKit
-//import RealmSwift
+import RealmSwift
 
 class MyGroupsTableViewController: UITableViewController {
     
@@ -57,20 +57,33 @@ class MyGroupsTableViewController: UITableViewController {
     
     // MARK: Private methods
     private func fetchGroups() {
-        service.loadGroups { result in
-            switch result {
-            case .success(let group):
-                DispatchQueue.main.async {
-                    self.groups = group
-                    self.tableView.reloadData()
+        do {
+            let realm = try Realm()
+            let restoredGroups = realm.objects(GroupRealm.self)
+            if restoredGroups.isEmpty {
+                GroupService().loadGroups { result in
+                    switch result {
+                    case .success(let group):
+                        DispatchQueue.main.async {
+                            RealmData().save(objects: group)
+                        }
+                    case .failure(_):
+                        return
+                    }
                 }
-
-            case .failure(_):
-                return
+                self.groups = try RealmData().restore()
+              
+            } else {
+                self.groups = try RealmData().restore()
+                self.tableView.reloadData()
             }
+            
+        } catch {
+            print(error)
         }
     }
 }
+
 
 
 

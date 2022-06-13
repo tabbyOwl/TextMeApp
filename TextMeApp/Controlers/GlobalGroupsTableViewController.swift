@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-//import RealmSwift
+import RealmSwift
 
 protocol GlobalGroupsTableViewControllerDelegate {
     
@@ -87,18 +87,29 @@ class GlobalGroupsTableViewController: UITableViewController {
         }
     }
     
-    func fetchGroups(searchText: String) {
-        service.loadGroups(searchText: searchText) { result in
-            switch result {
-            case .success(let groups):
-                DispatchQueue.main.async {
-                    self.groups = groups
-                    self.tableView.reloadData()
+    private func fetchGroups(searchText: String) {
+        do {
+            let realm = try Realm()
+            let restoredGroups = realm.objects(GroupRealm.self)
+            if restoredGroups.isEmpty {
+                GroupSearchService().loadGroups(searchText: searchText) { result in
+                    switch result {
+                    case .success(let group):
+                        DispatchQueue.main.async {
+                            RealmData().save(objects: group)
+                        }
+                    case .failure(_):
+                        return
+                    }
                 }
-
-            case .failure(_):
-                return
+                self.groups = try RealmData().restore()
+            } else {
+                self.groups = try RealmData().restore()
+                self.tableView.reloadData()
             }
+            
+        } catch {
+            print(error)
         }
     }
 }

@@ -16,7 +16,7 @@ class PhotoCollectionCell: UICollectionViewCell {
     //MARK: - Public methods
 func configure(with model: Photo) {
    
-    if let url = URL(string: model.urls.last?.url ?? "") {
+    if let url = URL(string: model.url) {
         photoCellImageView.load(url: url)
     }
 }

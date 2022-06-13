@@ -6,17 +6,13 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct User: Decodable {
+struct User {
+    
   let id: Int
   let firstName: String
   let lastName: String
   let avatar: String
   
-  enum CodingKeys: String, CodingKey {
-      case id
-      case firstName = "first_name"
-      case lastName = "last_name"
-      case avatar = "photo_100"
-      }
   }

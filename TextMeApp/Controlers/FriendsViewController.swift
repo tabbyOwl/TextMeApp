@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendsViewController: UITableViewController {
     
@@ -118,19 +119,30 @@ class FriendsViewController: UITableViewController {
         }
     
     
-    func fetchFriends() {
-        UserService().loadFriends { result in
-            switch result {
-            case .success(let user):
-                print(result)
-                DispatchQueue.main.async {
-                    self.users = user
-                    self.tableView.reloadData()
+    private func fetchFriends() {
+        do {
+            let realm = try Realm()
+            let restoredUsers = realm.objects(UserRealm.self)
+            if restoredUsers.isEmpty {
+                UserService().loadFriends { result in
+                    switch result {
+                    case .success(let user):
+                        DispatchQueue.main.async {
+                            RealmData().save(objects: user)
+                        }
+                    case .failure(_):
+                        return
+                    }
                 }
-
-            case .failure(_):
-                return
+                self.users = try RealmData().restore()
+                self.tableView.reloadData()
+            } else {
+                self.users = try RealmData().restore()
+                self.tableView.reloadData()
             }
+            
+        } catch {
+            print(error)
         }
     }
 }

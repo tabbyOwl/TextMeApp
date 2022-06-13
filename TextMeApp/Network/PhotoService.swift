@@ -9,8 +9,10 @@ import Foundation
 
 final class PhotoService {
 
-    typealias PhotoResult = Result<[Photo], Error>
+    typealias PhotoResult = Result<[PhotoRealm], Error>
 
+    //MARK: public methods
+    
     func loadPhotos(userId: Int, completion: @escaping(PhotoResult) -> ()) {
     
         let params = [
@@ -34,7 +36,7 @@ final class PhotoService {
             let decoder = JSONDecoder()
 
             do {
-                let result = try decoder.decode(Response<Photo>.self, from: data).response.items
+                let result = try decoder.decode(Response<PhotoRealm>.self, from: data).response.items
                 completion(.success(result))
             } catch {
                 completion(.failure(error))

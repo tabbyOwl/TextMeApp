@@ -27,8 +27,6 @@ class PhotoViewController: UIViewController {
    }
     //MARK: - Private properties
     
-   
-    
     private var animator: UIViewPropertyAnimator?
     private var nextPhotoView: UIImageView?
     
@@ -43,13 +41,13 @@ class PhotoViewController: UIViewController {
         
         likeControl.addTarget(self, action: #selector(likeControlTapped), for: .touchUpInside)
         
-        self.likeControl.isSelected = currentPhoto.likes.isLiked
-        self.likeControl.likesCounter = currentPhoto.likes.count
+        self.likeControl.isSelected = currentPhoto.isLiked
+        self.likeControl.likesCounter = currentPhoto.likes
         
-        if let url = URL(string: currentPhoto.urls.last?.url ?? "") {
+        if let url = URL(string: currentPhoto.url) {
             photoImageView.load(url: url)
         }
-        likeLabel.text = String(currentPhoto.likes.count)
+        likeLabel.text = String(currentPhoto.likes)
         
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
@@ -63,7 +61,7 @@ class PhotoViewController: UIViewController {
     
         @objc func likeControlTapped() {
             likeControl.isSelected = !likeControl.isSelected
-            photos[self.indexOfCurrentImage].likes.isLiked = self.likeControl.isSelected
+            photos[self.indexOfCurrentImage].isLiked = self.likeControl.isSelected
            
         }
     
@@ -114,17 +112,17 @@ class PhotoViewController: UIViewController {
                     self.photoImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
                     self.photoImageView.transform = CGAffineTransform.identity
                     
-                    self.likeControl.isSelected = currentPhoto.likes.isLiked
-                    self.likeControl.likesCounter = currentPhoto.likes.count
-                    likeLabel.text = String(currentPhoto.likes.count)
-                    likeImage.image = currentPhoto.likes.isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+                    self.likeControl.isSelected = currentPhoto.isLiked
+                    self.likeControl.likesCounter = currentPhoto.likes
+                    likeLabel.text = String(currentPhoto.likes)
+                    likeImage.image = currentPhoto.isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
                     
                 },
                                completion: nil)
                 
                
                 DispatchQueue.main.async { [self] in
-                    if let url = URL(string: currentPhoto.urls.last?.url ?? "") {
+                    if let url = URL(string: currentPhoto.url ?? "") {
                         photoImageView.load(url: url)
 
                     }

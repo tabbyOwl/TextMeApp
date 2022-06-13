@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import RealmSwift
 
 final class UserService {
 
-    typealias UserResult = Result<[User], Error>
+    typealias UserResult = Result<[UserRealm], Error>
 
     func loadFriends(completion: @escaping(UserResult) -> ()) {
     
@@ -30,8 +31,9 @@ final class UserService {
             }
             
             do {
-                let result = try JSONDecoder().decode(Response<User>.self, from: data).response.items
+                let result = try JSONDecoder().decode(Response<UserRealm>.self, from: data).response.items
                 completion(.success(result))
+               
             } catch {
                 completion(.failure(error))
             }
@@ -39,3 +41,6 @@ final class UserService {
 
     }
 }
+
+
+
