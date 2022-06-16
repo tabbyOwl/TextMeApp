@@ -5,8 +5,10 @@
 //  Created by Svetlana Oleinikova on 03.06.2022.
 //
 
+import RealmSwift
 
-struct PhotoUrl:  Decodable {
+
+struct Sizes: Decodable {
 
     var url: String
     

@@ -37,7 +37,7 @@ import Foundation
 }
 
  struct Photos: Decodable {
-    let urls: [PhotoUrl]?
+    let urls: [Sizes]?
      
      enum CodingKeys: String, CodingKey {
          case urls = "sizes"
@@ -50,7 +50,7 @@ import Foundation
    
 }
  struct UserPhotos: Decodable {
-    let urls: [PhotoUrl]?
+    let urls: [Sizes]?
      
      enum CodingKeys: String, CodingKey {
          case urls = "sizes"

@@ -17,7 +17,7 @@ class GlobalGroupsTableViewCell: UITableViewCell {
   
     @IBOutlet weak var subscribeImage: UIImageView!
     
-    func configure(with model: Group) {
+    func configure(with model: RealmGroup) {
         label.text = model.name
         if let url = URL(string: model.avatar) {
             avatarImageView.load(url: url)
@@ -38,9 +38,9 @@ class GlobalGroupsTableViewCell: UITableViewCell {
         avatarImageView.layer.cornerRadius = 25
         avatarImageView.layer.masksToBounds = true
         
-        let subscribeTap = UITapGestureRecognizer(target: self, action: #selector (subscribe(recognizer: )))
+       // let subscribeTap = UITapGestureRecognizer(target: self, action: #selector (subscribe(recognizer: )))
         subscribeImage.isUserInteractionEnabled = true
-        subscribeImage.addGestureRecognizer(subscribeTap)
+        //subscribeImage.addGestureRecognizer(subscribeTap)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector( animateTapImage(recognizer: )))
         avatarImageView.isUserInteractionEnabled = true
@@ -53,11 +53,11 @@ class GlobalGroupsTableViewCell: UITableViewCell {
     
     //MARK: - Private methods
 
-    @objc private func subscribe (recognizer: UITapGestureRecognizer) {
-       let vc = self.parentViewController as? GlobalGroupsTableViewController
-        vc?.subscribe(subscribeImage)
-    }
-    
+//    @objc private func subscribe (recognizer: UITapGestureRecognizer) {
+//       let vc = self.parentViewController as? GlobalGroupsTableViewController
+//        vc?.subscribe(subscribeImage)
+//    }
+//
     @objc private func animateTapImage (recognizer: UITapGestureRecognizer) {
         
         UIView.animate(withDuration: 0.1,

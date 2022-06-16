@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-class UserRealm: Object, Decodable {
+class RealmUser: Object {
     
     @Persisted(primaryKey: true)
     var id: Int
@@ -21,14 +21,9 @@ class UserRealm: Object, Decodable {
     @Persisted
     var avatar: String
     
-    enum CodingKeys: String, CodingKey {
-        case id
-        case firstName = "first_name"
-        case lastName = "last_name"
-        case avatar = "photo_100"
-    }
+ 
     
     @Persisted
-    var photos: List<PhotoRealm>
+    var photos = List<RealmPhoto>()
 }
 

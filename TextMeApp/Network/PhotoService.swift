@@ -9,7 +9,7 @@ import Foundation
 
 final class PhotoService {
 
-    typealias PhotoResult = Result<[PhotoRealm], Error>
+    typealias PhotoResult = Result<[Photo], Error>
 
     //MARK: public methods
     
@@ -36,7 +36,7 @@ final class PhotoService {
             let decoder = JSONDecoder()
 
             do {
-                let result = try decoder.decode(Response<PhotoRealm>.self, from: data).response.items
+                let result = try decoder.decode(Response<Photo>.self, from: data).response.items
                 completion(.success(result))
             } catch {
                 completion(.failure(error))

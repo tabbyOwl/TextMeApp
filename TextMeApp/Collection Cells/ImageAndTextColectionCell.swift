@@ -12,7 +12,7 @@ class ImageAndTextColectionCell: UICollectionViewCell {
     
     @IBOutlet weak var newsImageView: UIImageView!
     
-    func configure(with model: PhotoUrl) {
+    func configure(with model: Sizes) {
         print(model.url)
         if let url = URL(string: model.url ) {
             newsImageView.load(url: url)

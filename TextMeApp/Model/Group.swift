@@ -1,17 +1,9 @@
 //
-//  GroupApi.swift
+//  Group.swift
 //  TextMeApp
 //
-//  Created by Svetlana Oleinikova on 24.05.2022.
+//  Created by Svetlana Oleinikova on 16.06.2022.
 //
 
-import RealmSwift
+import Foundation
 
- struct Group {
-    let id: Int
-    let name: String
-    let avatar: String
-    
-    var isSuscribe: Bool
-     
- }

@@ -17,7 +17,7 @@ class ImageAndTextCell: UITableViewCell {
     
     //MARK: - Public properties
     
-    var images: [PhotoUrl] = []
+    var images: [Sizes] = []
     
 //    func updateCellWith(urls: [URL]) {
 //        self.images = urls

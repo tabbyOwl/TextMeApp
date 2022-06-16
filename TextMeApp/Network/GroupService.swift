@@ -9,7 +9,7 @@ import Foundation
 
 final class GroupService {
 
-    typealias GroupResult = Result<[GroupRealm], Error>
+    typealias GroupResult = Result<[RealmGroup], Error>
 
     func loadGroups(completion: @escaping(GroupResult) -> ()) {
     
@@ -30,7 +30,7 @@ final class GroupService {
             }
          
             do {
-                let result = try JSONDecoder().decode(Response<GroupRealm>.self, from: data).response.items
+                let result = try JSONDecoder().decode(Response<RealmGroup>.self, from: data).response.items
                 completion(.success(result))
              
             } catch {

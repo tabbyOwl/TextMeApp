@@ -18,9 +18,9 @@ class FriendsViewController: UITableViewController {
     
     private var users : [User] = []
     private var service = UserService()
+    
     private var usersSortedByCharacter: [Character:[User]] {
         var dict = [Character:[User]]()
-        
         for user in users {
             guard let character = user.firstName.first else {return [:]}
             if dict.keys.contains(character) {
@@ -30,7 +30,9 @@ class FriendsViewController: UITableViewController {
                 dict[character] = [user]
             }
         }
+        
         return dict
+        
     }
     
     private var usersNameCharacters: [Character] {
@@ -47,9 +49,10 @@ class FriendsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+
         
         self.fetchFriends()
-        print(self.users.count)
+        
     }
     
     // MARK: - Table view data source
@@ -110,39 +113,39 @@ class FriendsViewController: UITableViewController {
             let character = usersNameCharacters[indexPath.section]
             if let users = usersSortedByCharacter[character] {
                 let user = users[indexPath.row]
-                photosVC.userId = user.id
+                photosVC.user = user
             }
         } else {
             let user = filteredBySearchUsers[indexPath.row]
-                photosVC.userId = user.id
+                photosVC.user = user
             }
         }
     
     
     private func fetchFriends() {
+        
         do {
             let realm = try Realm()
-            let restoredUsers = realm.objects(UserRealm.self)
-            if restoredUsers.isEmpty {
+            let realmUsers = realm.objects(RealmUser.self)
+            if realmUsers.isEmpty {
                 UserService().loadFriends { result in
                     switch result {
-                    case .success(let user):
+                    case .success(let usersResult):
                         DispatchQueue.main.async {
-                            RealmData().save(objects: user)
+                            usersResult.forEach { user in
+                                RealmData().save(user: user)
+                            }
+                            
                         }
                     case .failure(_):
                         return
                     }
                 }
-                self.users = try RealmData().restore()
-                self.tableView.reloadData()
-            } else {
-                self.users = try RealmData().restore()
-                self.tableView.reloadData()
             }
-            
-        } catch {
-            print(error)
+            self.users = try RealmData().restore()
+            self.tableView.reloadData()
+        }
+        catch {
         }
     }
 }

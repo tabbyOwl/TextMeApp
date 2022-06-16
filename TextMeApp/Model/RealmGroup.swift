@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-class GroupRealm: Object, Decodable {
+class RealmGroup: Object, Decodable {
     
     @Persisted
     var id: Int
@@ -19,25 +19,25 @@ class GroupRealm: Object, Decodable {
     var avatar: String
     
     @Persisted
-    var is_member: Int
+    var isMember: Int
     
    enum CodingKeys: String, CodingKey {
        case id
        case name
        case avatar = "photo_50"
-       case is_member
+       case isMember = "is_member"
        
    }
     
     var isSuscribe: Bool {
         get {
-            is_member == 1 ? true: false
+            isMember == 1 ? true: false
         }
         set {
             if newValue {
-                is_member = 1
+                isMember = 1
             } else {
-                is_member = 0
+                isMember = 0
             }
         }
     }
