@@ -5,15 +5,23 @@
 //  Created by Svetlana Oleinikova on 16.06.2022.
 //
 
-import Foundation
+import RealmSwift
 
-struct Photo: Decodable {
+class Photo: Object, Decodable {
     
-    let id: Int
-    let sizes: [Sizes]
-    let likes: Likes?
-    let ownerId: Int
+    @Persisted(primaryKey: true)
+    var id: Int
     
+    @Persisted
+    var sizes = List<Sizes>()
+    
+    @Persisted
+    var likes: Likes?
+    
+    @Persisted
+    var ownerId: Int
+    
+   
     var url: String {
         sizes.last?.url ?? ""
     }

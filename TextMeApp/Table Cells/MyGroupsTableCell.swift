@@ -17,7 +17,7 @@ class MyGroupsTableCell: UITableViewCell {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var label: UILabel!
     
-    func configure(with model: RealmGroup) {
+    func configure(with model: Group) {
         label.text = model.name
         if let url = URL(string: model.avatar) {
             avatarImageView.load(url: url)

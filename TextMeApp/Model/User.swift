@@ -5,16 +5,26 @@
 //  Created by Svetlana Oleinikova on 16.06.2022.
 //
 
-import Foundation
+import RealmSwift
 
-struct User: Decodable {
+class User: Object, Decodable {
     
-    let id: Int
-    let firstName: String
-    let lastName: String
-    let avatar: String
+    @Persisted(primaryKey: true)
+    var id: Int
     
-    var photos: [Photo] = []
+    @Persisted
+    var firstName: String
+    
+    @Persisted
+    var lastName: String
+    
+    @Persisted
+    var avatar: String
+    
+ 
+    
+    @Persisted
+    var photos = List<Photo>()
     
     enum CodingKeys: String, CodingKey {
         case id

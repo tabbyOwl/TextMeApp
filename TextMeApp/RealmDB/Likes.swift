@@ -8,9 +8,12 @@
 import RealmSwift
 
 
-struct Likes: Decodable {
+class Likes: Object, Decodable {
     
+    @Persisted
     var userLikes: Int
+    
+    @Persisted
     var likesCount: Int
     
     enum CodingKeys: String, CodingKey {

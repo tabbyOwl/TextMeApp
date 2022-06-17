@@ -15,12 +15,17 @@ class FriendsViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     //MARK: - Private properties
+    private var token: NotificationToken?
+    private var filteredBySearchUsers: [User] = []
+    private let transitionAnimator = TransitionAnimator(isPresenting: false)
     
-    private var users : [User] = []
-    private var service = UserService()
+    private var users : Results<User>? {
+        try? RealmData().restore(User.self)
+    }
     
     private var usersSortedByCharacter: [Character:[User]] {
         var dict = [Character:[User]]()
+        if let users = users {
         for user in users {
             guard let character = user.firstName.first else {return [:]}
             if dict.keys.contains(character) {
@@ -30,27 +35,23 @@ class FriendsViewController: UITableViewController {
                 dict[character] = [user]
             }
         }
-        
+        }
         return dict
-        
     }
     
     private var usersNameCharacters: [Character] {
      
         return Array(usersSortedByCharacter.keys).sorted{ $0 > $1 }
-       
     }
     
-    private var filteredBySearchUsers: [User] = []
-    private let transitionAnimator = TransitionAnimator(isPresenting: false)
-    
+   
     //MARK: - Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-
         
+        createNotificationToken()
         self.fetchFriends()
         
     }
@@ -124,37 +125,60 @@ class FriendsViewController: UITableViewController {
     
     private func fetchFriends() {
         
-        do {
-            let realm = try Realm()
-            let realmUsers = realm.objects(RealmUser.self)
-            if realmUsers.isEmpty {
+        if let users = users {
+            print("🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀")
+            print(users.count)
+            if users.isEmpty {
                 UserService().loadFriends { result in
                     switch result {
-                    case .success(let usersResult):
+                    case .success(let user):
                         DispatchQueue.main.async {
-                            usersResult.forEach { user in
-                                RealmData().save(user: user)
-                            }
-                            
+                            RealmData().save(objects: user)
+                            self.tableView.reloadData()
                         }
-                    case .failure(_):
-                        return
-                    }
+                case .failure(_):
+                    return
                 }
             }
-            self.users = try RealmData().restore()
-            self.tableView.reloadData()
-        }
-        catch {
         }
     }
 }
+    
+    func createNotificationToken() {
+        token = users?.observe { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .initial(let usersData):
+                print("DBG token", usersData.count)
+            case .update(let users,
+                         deletions: let deletions,
+                         insertions: let insertions,
+                         modifications: let modifications):
+                let deletionsIndexPath = deletions.map { IndexPath(row: $0, section: 0) }
+                let insertionsIndexPath = insertions.map { IndexPath(row: $0, section: 0) }
+                let modificationsIndexPath = modifications.map { IndexPath(row: $0, section: 0) }
+                DispatchQueue.main.async {
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: deletionsIndexPath, with: .automatic)
+                    self.tableView.insertRows(at: insertionsIndexPath, with: .automatic)
+                    self.tableView.reloadRows(at: modificationsIndexPath, with: .automatic)
+                    self.tableView.endUpdates()
+                }
+            case .error(let error):
+                print("token Error", error)
+            }
+        }
+    }
+}
+
+
         
 extension FriendsViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         if !searchText.isEmpty {
+            if let users = users {
             filteredBySearchUsers = users.filter({$0.firstName.lowercased().contains(searchText.lowercased())})
             tableView.reloadData()
         }
@@ -163,4 +187,5 @@ extension FriendsViewController: UISearchBarDelegate {
             tableView.reloadData()
         }
     }
+}
 }

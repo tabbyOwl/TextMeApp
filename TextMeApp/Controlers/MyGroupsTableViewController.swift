@@ -14,19 +14,21 @@ class MyGroupsTableViewController: UITableViewController {
     
     //MARK: - Private properties
     
-    //private var groups: [Group] = []
     
-    var groups: Results<RealmGroup>? {
-       
-        try? RealmData().restore(RealmGroup.self)
-     
+    
+     var token: NotificationToken?
+    
+    var groups: Results<Group>? {
+        try? realmData.restore(Group.self)
     }
+    
+    var realmData = RealmData()
     private let service = GroupService()
     //MARK: - Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        createNotificationToken()
        fetchGroups()
     }
     
@@ -45,52 +47,84 @@ class MyGroupsTableViewController: UITableViewController {
         return cell ?? UITableViewCell()
     }
     
-//    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-////        let deleteAction = UIContextualAction(style: .normal, title: "удалить", handler: {[weak self] _, _, block in
-////            self?.groups.remove(at: indexPath.row)
-////
-////            block(true)
-////        })
-//       // return UISwipeActionsConfiguration(actions: [deleteAction])
-//    }
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "удалить", handler: {[weak self] _, _, block in
+            guard let group = self?.groups?[indexPath.row] else {return }
+            
+            self?.realmData.delete(group)
+         
+            block(true)
+        })
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let globalGroupsVC = segue.destination as? GlobalGroupsTableViewController {
-//            globalGroupsVC.delegate = self
-//            globalGroupsVC.myGroups = groups
-//        }
+        if let globalGroupsVC = segue.destination as? GlobalGroupsTableViewController {
+            globalGroupsVC.delegate = self
+        }
     }
     
     // MARK: Private methods
+    
+ 
     private func fetchGroups() {
-        if ((groups?.isEmpty) != nil){
+        
+        if let groups = groups {
+            if groups.isEmpty {
                 GroupService().loadGroups { result in
                     switch result {
                     case .success(let group):
                         DispatchQueue.main.async {
-                            RealmData().save(objects: group)
-                            self.tableView.reloadData()
-                        }
+                                self.realmData.save(objects: group)
+                                self.tableView.reloadData()
+                            }
                     case .failure(_):
                         return
                     }
                 }
+            }
+        }
+    }
+    
+    
+    func createNotificationToken() {
+
+        token = groups?.observe { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .initial(let groupsData):
+                print("DBG token", groupsData.count)
+            case .update(let groups,
+                         deletions: let deletions,
+                         insertions: let insertions,
+                         modifications: let modifications):
+                let deletionsIndexPath = deletions.map { IndexPath(row: $0, section: 0) }
+                let insertionsIndexPath = insertions.map { IndexPath(row: $0, section: 0) }
+                let modificationsIndexPath = modifications.map { IndexPath(row: $0, section: 0) }
+                DispatchQueue.main.async {
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: deletionsIndexPath, with: .automatic)
+                    self.tableView.insertRows(at: insertionsIndexPath, with: .automatic)
+                    //self.tableView.reloadRows(at: modificationsIndexPath, with: .automatic)
+                    self.tableView.endUpdates()
+                }
+            case .error(let error):
+                print("DBG token Error", error)
+            }
         }
     }
 }
 
+extension MyGroupsTableViewController: GlobalGroupsTableViewControllerDelegate {
 
+    func userSubscribe(group: Group) {
+        realmData.save(objects: [group])
+        tableView.reloadData()
+    }
 
-
-//extension MyGroupsTableViewController: GlobalGroupsTableViewControllerDelegate {
-//
-//    func userSubscribe(group: Group) {
-//        groups.append(group)
-//        tableView.reloadData()
-//    }
-//
-//    func userUnsubscribe(group: Group) {
-//        groups.removeAll(where: {$0.id == group.id})
-//        tableView.reloadData()
-//    }
-//}
+    func userUnsubscribe(group: Group) {
+        realmData.delete(group)
+        tableView.reloadData()
+    }
+}

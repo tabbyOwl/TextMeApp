@@ -17,7 +17,7 @@ class GlobalGroupsTableViewCell: UITableViewCell {
   
     @IBOutlet weak var subscribeImage: UIImageView!
     
-    func configure(with model: RealmGroup) {
+    func configure(with model: Group) {
         label.text = model.name
         if let url = URL(string: model.avatar) {
             avatarImageView.load(url: url)
