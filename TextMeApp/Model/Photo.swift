@@ -9,22 +9,24 @@ import RealmSwift
 
 class Photo: Object, Decodable {
     
-    @Persisted(primaryKey: true)
+    @Persisted
     var id: Int
     
-    @Persisted
-    var sizes = List<Sizes>()
+    var sizes: [Sizes]
     
-    @Persisted
     var likes: Likes?
     
     @Persisted
     var ownerId: Int
     
-   
-    var url: String {
-        sizes.last?.url ?? ""
-    }
+   @Persisted
+    var likesCount: Int
+    
+    @Persisted
+    var isLiked: Bool
+    
+    @Persisted
+    var url: String
     
     enum CodingKeys: String, CodingKey {
         case id

@@ -11,7 +11,6 @@ class NewsTableViewController: UITableViewController {
     
     var news: [News] = []
        
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         //tableView.delegate = self
@@ -50,7 +49,7 @@ class NewsTableViewController: UITableViewController {
         return cell
     }
     
-    func fetchNews() {
+    private func fetchNews() {
         NewsService().loadNews { result in
             switch result {
             case .success(let news):

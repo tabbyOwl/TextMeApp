@@ -8,9 +8,7 @@
 import RealmSwift
 
 
-class Sizes: Object, Decodable {
+class Sizes: Decodable {
 
-    @Persisted
     var url: String
-    
 }

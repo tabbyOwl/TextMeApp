@@ -9,7 +9,6 @@ import RealmSwift
 
 class Group: Object, Decodable {
     
-    
     @Persisted(primaryKey: true)
     var id: Int
     
@@ -27,7 +26,6 @@ class Group: Object, Decodable {
         case name
         case avatar = "photo_50"
         case isMember = "is_member"
-        
     }
     
     var isSuscribe: Bool {

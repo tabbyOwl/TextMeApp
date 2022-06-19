@@ -25,42 +25,30 @@ class GlobalGroupsTableViewController: UITableViewController {
     
     var delegate: GlobalGroupsTableViewControllerDelegate?
     
-    var myGroups: [Group] = []
-    
     //MARK: - Private properties
     
-     var groups: [Group] = []
+    private var groups: [Group] = []
     
-    private var filteredGroups: [Group] = []
-    private let service = GroupSearchService()
     //MARK: - Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-        fetchGroups(searchText: "")
-        searchBar.delegate = self
         
+        searchBar.delegate = self
     }
     
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return groups.count
-       
+        return groups.count
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GlobalGroupCell", for: indexPath) as? GlobalGroupsTableViewCell
-        var group: Group
-        if filteredGroups.count == 0 {
-            group = groups[indexPath.row]
-        } else {
-            group = filteredGroups[indexPath.row]
-        }
         
+        let group = groups[indexPath.row]
         if group.isSuscribe {
-            
             cell?.subscribeImage.image = UIImage(systemName: "minus.circle")
         } else {
             cell?.subscribeImage.image = UIImage(systemName: "plus.circle")
@@ -71,18 +59,22 @@ class GlobalGroupsTableViewController: UITableViewController {
         return cell ?? UITableViewCell()
     }
     
-    
-     func subscribe(_ sender: UIImageView) {
-        let indexPath = IndexPath(row: sender.tag, section: 0)
+    //MARK: - Public methods
+    func subscribe(_ sender: UIImageView) {
+        
+        guard let indexPath = tableView.indexPathForView(sender) else {return}
         let group = groups[indexPath.row]
-         if group.isSuscribe {
+        
+        if group.isSuscribe {
             self.delegate?.userUnsubscribe(group: group)
-            self.tableView.reloadData()
+            tableView.reloadRows(at: [indexPath], with: .automatic)
         } else {
             self.delegate?.userSubscribe(group: group)
-            self.tableView.reloadData()
+            tableView.reloadRows(at: [indexPath], with: .automatic)
         }
     }
+    
+    //MARK: - Private methods
     
     private func fetchGroups(searchText: String) {
         
@@ -100,7 +92,7 @@ class GlobalGroupsTableViewController: UITableViewController {
     }
 }
 
-
+    // MARK: -Extensions
 
 extension GlobalGroupsTableViewController: UISearchBarDelegate {
     

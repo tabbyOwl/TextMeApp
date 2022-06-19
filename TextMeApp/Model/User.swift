@@ -20,12 +20,7 @@ class User: Object, Decodable {
     
     @Persisted
     var avatar: String
-    
- 
-    
-    @Persisted
-    var photos = List<Photo>()
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case firstName = "first_name"

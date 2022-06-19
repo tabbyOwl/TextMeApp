@@ -8,31 +8,20 @@
 import RealmSwift
 
 
-class Likes: Object, Decodable {
+struct Likes: Decodable {
     
-    @Persisted
     var userLikes: Int
     
-    @Persisted
     var likesCount: Int
     
     enum CodingKeys: String, CodingKey {
         case userLikes = "user_likes"
         case likesCount = "count"
-        
     }
     
     var isLiked: Bool {
-        get {
-            userLikes == 0 ? false : true
-        }
-        set {
-            if newValue {
-                userLikes = 1
-            } else {
-                userLikes = 0
-            }
-        }
+        
+          return userLikes == 0 ? false : true
     }
 
 }

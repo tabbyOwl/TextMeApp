@@ -38,7 +38,6 @@ final class GroupService {
               
             }
         }.resume()
-
     }
 }
 

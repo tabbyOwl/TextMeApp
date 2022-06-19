@@ -16,7 +16,6 @@ class ImageAndTextColectionCell: UICollectionViewCell {
         print(model.url)
         if let url = URL(string: model.url ) {
             newsImageView.load(url: url)
-        
         }
     }
 }

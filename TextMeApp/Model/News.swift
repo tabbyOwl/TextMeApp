@@ -47,8 +47,8 @@ import Foundation
 
  struct UserPhoto: Decodable {
     let photos: [UserPhotos]?
-   
 }
+
  struct UserPhotos: Decodable {
     let urls: [Sizes]?
      

@@ -26,10 +26,9 @@ class PhotoViewController: UIViewController {
        photos[indexOfCurrentImage]
    }
     //MARK: - Private properties
-    
     private var animator: UIViewPropertyAnimator?
     private var nextPhotoView: UIImageView?
-    
+    private var realmData = RealmData()
     
     //MARK: - Override methods
     
@@ -41,13 +40,13 @@ class PhotoViewController: UIViewController {
         
         likeControl.addTarget(self, action: #selector(likeControlTapped), for: .touchUpInside)
         
-        self.likeControl.isSelected = ((currentPhoto.likes?.isLiked) != nil)
-        self.likeControl.likesCounter = currentPhoto.likes?.likesCount ?? 0
+        self.likeControl.isSelected = currentPhoto.isLiked
+        self.likeControl.likesCounter = currentPhoto.likesCount
         
         if let url = URL(string: currentPhoto.url) {
             photoImageView.load(url: url)
         }
-        likeLabel.text = String(currentPhoto.likes?.likesCount ?? 0)
+        likeLabel.text = String(currentPhoto.likesCount)
         
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
@@ -61,8 +60,9 @@ class PhotoViewController: UIViewController {
     
         @objc func likeControlTapped() {
             likeControl.isSelected = !likeControl.isSelected
-            photos[self.indexOfCurrentImage].likes?.isLiked = self.likeControl.isSelected
-           
+            realmData.updateLikes(photo: currentPhoto, likesCount: likeControl.likesCounter)
+         
+            
         }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -71,6 +71,7 @@ class PhotoViewController: UIViewController {
             animator.finishAnimation(at: .current)
         }
     }
+    
     
     //MARK: - Private methods
     
@@ -87,7 +88,7 @@ class PhotoViewController: UIViewController {
                 }
             })
             animator?.pauseAnimation()
-            
+    
         case .changed:
             let translationX = sender.translation(in: view).x
             let updateFractionComplete = abs(translationX) / 100
@@ -112,15 +113,14 @@ class PhotoViewController: UIViewController {
                     self.photoImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
                     self.photoImageView.transform = CGAffineTransform.identity
                     
-                    self.likeControl.isSelected = ((currentPhoto.likes?.isLiked) != nil)
-                    self.likeControl.likesCounter = currentPhoto.likes?.likesCount ?? 0
-                    likeLabel.text = String(currentPhoto.likes?.likesCount ?? 0)
-                    likeImage.image = currentPhoto.likes?.isLiked ?? false ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+                    self.likeControl.isSelected = currentPhoto.isLiked
+                    self.likeControl.likesCounter = currentPhoto.likesCount
+                    likeLabel.text = String(currentPhoto.likesCount)
+                    likeImage.image = currentPhoto.isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
                     
                 },
                                completion: nil)
                 
-               
                 DispatchQueue.main.async { [self] in
                     if let url = URL(string: currentPhoto.url) {
                         photoImageView.load(url: url)

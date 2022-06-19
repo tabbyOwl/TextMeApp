@@ -38,7 +38,6 @@ final class GroupSearchService {
                 completion(.failure(error))
             }
         }.resume()
-
     }
 }
 

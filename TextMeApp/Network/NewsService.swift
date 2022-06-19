@@ -39,6 +39,5 @@ final class NewsService {
                 completion(.failure(error))
             }
         }.resume()
-
     }
 }

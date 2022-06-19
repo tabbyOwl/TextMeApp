@@ -13,25 +13,22 @@ import RealmSwift
 class MyGroupsTableViewController: UITableViewController {
     
     //MARK: - Private properties
+
+    private var token: NotificationToken?
+    private var realmData = RealmData()
     
-    
-    
-     var token: NotificationToken?
-    
-    var groups: Results<Group>? {
+    private var groups: Results<Group>? {
         try? realmData.restore(Group.self)
     }
     
-    var realmData = RealmData()
-    private let service = GroupService()
     //MARK: - Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         createNotificationToken()
-       fetchGroups()
+        fetchGroups()
     }
-    
     
     // MARK: - Table view data source
     
@@ -67,11 +64,8 @@ class MyGroupsTableViewController: UITableViewController {
     
     // MARK: Private methods
     
- 
     private func fetchGroups() {
         
-        if let groups = groups {
-            if groups.isEmpty {
                 GroupService().loadGroups { result in
                     switch result {
                     case .success(let group):
@@ -84,18 +78,15 @@ class MyGroupsTableViewController: UITableViewController {
                     }
                 }
             }
-        }
-    }
     
-    
-    func createNotificationToken() {
+   private func createNotificationToken() {
 
         token = groups?.observe { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .initial(let groupsData):
                 print("DBG token", groupsData.count)
-            case .update(let groups,
+            case .update(_,
                          deletions: let deletions,
                          insertions: let insertions,
                          modifications: let modifications):
@@ -106,7 +97,7 @@ class MyGroupsTableViewController: UITableViewController {
                     self.tableView.beginUpdates()
                     self.tableView.deleteRows(at: deletionsIndexPath, with: .automatic)
                     self.tableView.insertRows(at: insertionsIndexPath, with: .automatic)
-                    //self.tableView.reloadRows(at: modificationsIndexPath, with: .automatic)
+                    self.tableView.reloadRows(at: modificationsIndexPath, with: .automatic)
                     self.tableView.endUpdates()
                 }
             case .error(let error):
@@ -119,12 +110,12 @@ class MyGroupsTableViewController: UITableViewController {
 extension MyGroupsTableViewController: GlobalGroupsTableViewControllerDelegate {
 
     func userSubscribe(group: Group) {
+        group.isSuscribe = !group.isSuscribe
         realmData.save(objects: [group])
-        tableView.reloadData()
     }
 
     func userUnsubscribe(group: Group) {
-        realmData.delete(group)
-        tableView.reloadData()
+        group.isSuscribe = !group.isSuscribe
+        realmData.deleteGroup(group: group)
     }
 }

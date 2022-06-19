@@ -12,12 +12,12 @@ class PhotoCollectionCell: UICollectionViewCell {
     //MARK: - @IBOutlets
     
     @IBOutlet weak var photoCellImageView: UIImageView!
-
+    
     //MARK: - Public methods
-func configure(with model: Photo) {
-   
-    if let url = URL(string: model.url) {
-        photoCellImageView.load(url: url)
+    func configure(with model: Photo) {
+        
+        if let url = URL(string: model.url) {
+            photoCellImageView.load(url: url)
+        }
     }
-}
 }

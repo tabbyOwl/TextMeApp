@@ -38,9 +38,6 @@ final class UserService {
                 completion(.failure(error))
             }
         }.resume()
-
     }
 }
-
-
 

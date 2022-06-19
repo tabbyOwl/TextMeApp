@@ -18,23 +18,24 @@ class FriendsViewController: UITableViewController {
     private var token: NotificationToken?
     private var filteredBySearchUsers: [User] = []
     private let transitionAnimator = TransitionAnimator(isPresenting: false)
+    private let realmData = RealmData()
     
     private var users : Results<User>? {
-        try? RealmData().restore(User.self)
+        try? realmData.restore(User.self)
     }
     
     private var usersSortedByCharacter: [Character:[User]] {
         var dict = [Character:[User]]()
         if let users = users {
-        for user in users {
-            guard let character = user.firstName.first else {return [:]}
-            if dict.keys.contains(character) {
-                dict[character]?.append(user)
-                dict[character] = dict[character]?.sorted{ ($0.firstName + $0.lastName) < ($1.firstName + $1.lastName) }
-            } else {
-                dict[character] = [user]
+            for user in users {
+                guard let character = user.firstName.first else {return [:]}
+                if dict.keys.contains(character) {
+                    dict[character]?.append(user)
+                    dict[character] = dict[character]?.sorted{ ($0.firstName + $0.lastName) < ($1.firstName + $1.lastName) }
+                } else {
+                    dict[character] = [user]
+                }
             }
-        }
         }
         return dict
     }
@@ -50,7 +51,6 @@ class FriendsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        
         createNotificationToken()
         self.fetchFriends()
         
@@ -114,21 +114,17 @@ class FriendsViewController: UITableViewController {
             let character = usersNameCharacters[indexPath.section]
             if let users = usersSortedByCharacter[character] {
                 let user = users[indexPath.row]
-                photosVC.user = user
+                photosVC.userId = user.id
             }
         } else {
             let user = filteredBySearchUsers[indexPath.row]
-                photosVC.user = user
+            photosVC.userId = user.id
             }
         }
     
     
     private func fetchFriends() {
         
-        if let users = users {
-            print("🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀🦀")
-            print(users.count)
-            if users.isEmpty {
                 UserService().loadFriends { result in
                     switch result {
                     case .success(let user):
@@ -141,16 +137,14 @@ class FriendsViewController: UITableViewController {
                 }
             }
         }
-    }
-}
-    
+
     func createNotificationToken() {
         token = users?.observe { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .initial(let usersData):
                 print("DBG token", usersData.count)
-            case .update(let users,
+            case .update(_,
                          deletions: let deletions,
                          insertions: let insertions,
                          modifications: let modifications):
@@ -171,21 +165,19 @@ class FriendsViewController: UITableViewController {
     }
 }
 
-
-        
 extension FriendsViewController: UISearchBarDelegate {
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
+        
         if !searchText.isEmpty {
             if let users = users {
-            filteredBySearchUsers = users.filter({$0.firstName.lowercased().contains(searchText.lowercased())})
-            tableView.reloadData()
-        }
-        else {
-            filteredBySearchUsers.removeAll()
-            tableView.reloadData()
+                filteredBySearchUsers = users.filter({$0.firstName.lowercased().contains(searchText.lowercased())})
+                tableView.reloadData()
+            }
+            else {
+                filteredBySearchUsers.removeAll()
+                tableView.reloadData()
+            }
         }
     }
-}
 }
