@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 final class UserService {
 
@@ -32,10 +33,11 @@ final class UserService {
             do {
                 let result = try JSONDecoder().decode(Response<User>.self, from: data).response.items
                 completion(.success(result))
+               
             } catch {
                 completion(.failure(error))
             }
         }.resume()
-
     }
 }
+

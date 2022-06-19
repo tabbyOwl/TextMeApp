@@ -8,7 +8,7 @@
 import UIKit
 
 class LikeControl: UIControl {
-
+    
     weak var likeLabel: UILabel?
     weak var imageView: UIImageView?
     
@@ -28,10 +28,9 @@ class LikeControl: UIControl {
                     self.imageView?.transform = CGAffineTransform.identity
                 })
             })
-
+            
             if isSelected {
                 likesCounter += 1
-                
             } else {
                 likesCounter -= 1
             }
@@ -42,7 +41,7 @@ class LikeControl: UIControl {
                 }, completion: nil)
             } else {
                 likeLabel?.text = ""
-                }
+            }
         }
     }
 }

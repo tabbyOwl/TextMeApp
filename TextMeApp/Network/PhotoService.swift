@@ -11,6 +11,8 @@ final class PhotoService {
 
     typealias PhotoResult = Result<[Photo], Error>
 
+    //MARK: public methods
+    
     func loadPhotos(userId: Int, completion: @escaping(PhotoResult) -> ()) {
     
         let params = [
@@ -40,6 +42,7 @@ final class PhotoService {
                 completion(.failure(error))
             }
         }.resume()
-
     }
 }
+
+

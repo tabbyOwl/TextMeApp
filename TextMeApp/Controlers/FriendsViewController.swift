@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendsViewController: UITableViewController {
     
@@ -14,19 +15,25 @@ class FriendsViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     //MARK: - Private properties
+
+    private var filteredBySearchUsers: [User] = []
+    private let transitionAnimator = TransitionAnimator(isPresenting: false)
+    private let realmData = RealmData()
+    private var users : Results<User>? {
+        try? realmData.restore(User.self)
+    }
     
-    private var users : [User] = []
-    private var service = UserService()
     private var usersSortedByCharacter: [Character:[User]] {
         var dict = [Character:[User]]()
-        
-        for user in users {
-            guard let character = user.firstName.first else {return [:]}
-            if dict.keys.contains(character) {
-                dict[character]?.append(user)
-                dict[character] = dict[character]?.sorted{ ($0.firstName + $0.lastName) < ($1.firstName + $1.lastName) }
-            } else {
-                dict[character] = [user]
+        if let users = users {
+            for user in users {
+                guard let character = user.firstName.first else {return [:]}
+                if dict.keys.contains(character) {
+                    dict[character]?.append(user)
+                    dict[character] = dict[character]?.sorted{ ($0.firstName + $0.lastName) < ($1.firstName + $1.lastName) }
+                } else {
+                    dict[character] = [user]
+                }
             }
         }
         return dict
@@ -35,20 +42,15 @@ class FriendsViewController: UITableViewController {
     private var usersNameCharacters: [Character] {
      
         return Array(usersSortedByCharacter.keys).sorted{ $0 > $1 }
-       
     }
-    
-    private var filteredBySearchUsers: [User] = []
-    private let transitionAnimator = TransitionAnimator(isPresenting: false)
-    
+   
     //MARK: - Override methods
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         searchBar.delegate = self
-        
         self.fetchFriends()
-        print(self.users.count)
     }
     
     // MARK: - Table view data source
@@ -56,8 +58,8 @@ class FriendsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if filteredBySearchUsers.count == 0 {
-            let character = usersNameCharacters[section]
-            guard let users = usersSortedByCharacter[character] else { return 0 }
+                let character = self.usersNameCharacters[section]
+            guard let users = self.usersSortedByCharacter[character] else { return 0 }
             return users.count
         } else {
             return filteredBySearchUsers.count
@@ -85,12 +87,13 @@ class FriendsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendsCell", for: indexPath) as? MyFriendsTableCell
   
         if filteredBySearchUsers.count == 0  {
+            
             let character = usersNameCharacters[indexPath.section]
             if let users = usersSortedByCharacter[character] {
-                
                 cell?.configure(with: users[indexPath.row])
             }
         } else {
+           
             cell?.configure(with: filteredBySearchUsers[indexPath.row])
         }
         return cell ?? UITableViewCell()
@@ -113,39 +116,40 @@ class FriendsViewController: UITableViewController {
             }
         } else {
             let user = filteredBySearchUsers[indexPath.row]
-                photosVC.userId = user.id
+            photosVC.userId = user.id
             }
         }
     
-    
-    func fetchFriends() {
-        UserService().loadFriends { result in
-            switch result {
-            case .success(let user):
-                print(result)
-                DispatchQueue.main.async {
-                    self.users = user
-                    self.tableView.reloadData()
-                }
-
-            case .failure(_):
-                return
-            }
-        }
-    }
-}
+    private func fetchFriends() {
         
-extension FriendsViewController: UISearchBarDelegate {
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
-        if !searchText.isEmpty {
-            filteredBySearchUsers = users.filter({$0.firstName.lowercased().contains(searchText.lowercased())})
-            tableView.reloadData()
+                UserService().loadFriends { result in
+                    switch result {
+                    case .success(let user):
+                        DispatchQueue.main.async {
+                            RealmData().save(objects: user)
+                        }
+                case .failure(_):
+                    return
+                }
+            }
         }
-        else {
-            filteredBySearchUsers.removeAll()
-            tableView.reloadData()
+}
+
+
+    extension FriendsViewController: UISearchBarDelegate {
+        
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            
+            if !searchText.isEmpty {
+                if let users = users {
+                    filteredBySearchUsers = users.filter({$0.firstName.lowercased().contains(searchText.lowercased())})
+                    tableView.reloadData()
+                }
+                else {
+                    filteredBySearchUsers.removeAll()
+                    tableView.reloadData()
+                }
+            }
         }
     }
-}
+

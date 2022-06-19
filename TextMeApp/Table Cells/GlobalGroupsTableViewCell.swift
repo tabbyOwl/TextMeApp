@@ -53,11 +53,24 @@ class GlobalGroupsTableViewCell: UITableViewCell {
     
     //MARK: - Private methods
 
-    @objc private func subscribe (recognizer: UITapGestureRecognizer) {
+    @objc private func subscribe(recognizer: UITapGestureRecognizer) {
+        
+        UIView.animate(withDuration: 0.1,
+                       delay: 0,
+                       usingSpringWithDamping: 0.6,
+                       initialSpringVelocity: 0.3,
+                       options: [],
+                       animations: {
+            self.subscribeImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8) },
+                       completion: {_ in
+            UIView.animate(withDuration: 0.5) {
+            self.subscribeImage.transform = CGAffineTransform.identity }
+        })
+        
        let vc = self.parentViewController as? GlobalGroupsTableViewController
         vc?.subscribe(subscribeImage)
     }
-    
+
     @objc private func animateTapImage (recognizer: UITapGestureRecognizer) {
         
         UIView.animate(withDuration: 0.1,
@@ -72,9 +85,6 @@ class GlobalGroupsTableViewCell: UITableViewCell {
             self.avatarImageView.transform = CGAffineTransform.identity }
         })
     }
-    
-  
-
 }
 
 extension UIView {

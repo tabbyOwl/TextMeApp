@@ -7,18 +7,6 @@
 
 import Foundation
 
-//struct NewsResponse: Decodable {
-//   let response: ResponseNews
-//}
-//
-//struct ResponseNews : Decodable {
-//    let news: [News]
-//
-//    enum CodingKeys: String, CodingKey {
-//        case news = "items"
-//    }
-//}
-
  struct News: Decodable {
     let type: String
     let userPhoto: UserPhoto?
@@ -49,20 +37,18 @@ import Foundation
 }
 
  struct Photos: Decodable {
-    let urls: [PhotoUrl]?
      
-     enum CodingKeys: String, CodingKey {
-         case urls = "sizes"
-     }
+    let sizes: [Sizes]?
+     
    
 }
 
  struct UserPhoto: Decodable {
     let photos: [UserPhotos]?
-   
 }
+
  struct UserPhotos: Decodable {
-    let urls: [PhotoUrl]?
+    let urls: [Sizes]?
      
      enum CodingKeys: String, CodingKey {
          case urls = "sizes"
