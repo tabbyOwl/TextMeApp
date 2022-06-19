@@ -71,7 +71,6 @@ class MyGroupsTableViewController: UITableViewController {
                     case .success(let group):
                         DispatchQueue.main.async {
                                 self.realmData.save(objects: group)
-                                self.tableView.reloadData()
                             }
                     case .failure(_):
                         return

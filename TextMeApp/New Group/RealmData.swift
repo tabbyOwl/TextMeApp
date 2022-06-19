@@ -21,7 +21,6 @@ class RealmData {
     }
     
     func restore<T: Object>(_ object: T.Type) throws -> Results<T> {
-        
         let realm = try Realm()
         return realm.objects(object)
         

@@ -44,16 +44,15 @@ class FriendsViewController: UITableViewController {
      
         return Array(usersSortedByCharacter.keys).sorted{ $0 > $1 }
     }
-    
    
     //MARK: - Override methods
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         searchBar.delegate = self
         createNotificationToken()
         self.fetchFriends()
-        
     }
     
     // MARK: - Table view data source
@@ -61,8 +60,8 @@ class FriendsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if filteredBySearchUsers.count == 0 {
-            let character = usersNameCharacters[section]
-            guard let users = usersSortedByCharacter[character] else { return 0 }
+                let character = self.usersNameCharacters[section]
+            guard let users = self.usersSortedByCharacter[character] else { return 0 }
             return users.count
         } else {
             return filteredBySearchUsers.count
@@ -92,7 +91,6 @@ class FriendsViewController: UITableViewController {
         if filteredBySearchUsers.count == 0  {
             let character = usersNameCharacters[indexPath.section]
             if let users = usersSortedByCharacter[character] {
-                
                 cell?.configure(with: users[indexPath.row])
             }
         } else {
@@ -122,7 +120,6 @@ class FriendsViewController: UITableViewController {
             }
         }
     
-    
     private func fetchFriends() {
         
                 UserService().loadFriends { result in
@@ -130,7 +127,6 @@ class FriendsViewController: UITableViewController {
                     case .success(let user):
                         DispatchQueue.main.async {
                             RealmData().save(objects: user)
-                            self.tableView.reloadData()
                         }
                 case .failure(_):
                     return
@@ -148,6 +144,7 @@ class FriendsViewController: UITableViewController {
                          deletions: let deletions,
                          insertions: let insertions,
                          modifications: let modifications):
+                //if !(self.users?.isEmpty ?? false) {
                 let deletionsIndexPath = deletions.map { IndexPath(row: $0, section: 0) }
                 let insertionsIndexPath = insertions.map { IndexPath(row: $0, section: 0) }
                 let modificationsIndexPath = modifications.map { IndexPath(row: $0, section: 0) }
@@ -158,6 +155,7 @@ class FriendsViewController: UITableViewController {
                     self.tableView.reloadRows(at: modificationsIndexPath, with: .automatic)
                     self.tableView.endUpdates()
                 }
+                //}
             case .error(let error):
                 print("token Error", error)
             }
