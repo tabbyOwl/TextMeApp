@@ -37,11 +37,9 @@ import Foundation
 }
 
  struct Photos: Decodable {
-    let urls: [Sizes]?
      
-     enum CodingKeys: String, CodingKey {
-         case urls = "sizes"
-     }
+    let sizes: [Sizes]?
+     
    
 }
 

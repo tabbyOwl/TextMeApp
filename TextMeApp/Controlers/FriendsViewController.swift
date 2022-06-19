@@ -15,11 +15,10 @@ class FriendsViewController: UITableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     //MARK: - Private properties
-    private var token: NotificationToken?
+
     private var filteredBySearchUsers: [User] = []
     private let transitionAnimator = TransitionAnimator(isPresenting: false)
     private let realmData = RealmData()
-    
     private var users : Results<User>? {
         try? realmData.restore(User.self)
     }
@@ -51,7 +50,6 @@ class FriendsViewController: UITableViewController {
         
         super.viewDidLoad()
         searchBar.delegate = self
-        createNotificationToken()
         self.fetchFriends()
     }
     
@@ -89,11 +87,13 @@ class FriendsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendsCell", for: indexPath) as? MyFriendsTableCell
   
         if filteredBySearchUsers.count == 0  {
+            
             let character = usersNameCharacters[indexPath.section]
             if let users = usersSortedByCharacter[character] {
                 cell?.configure(with: users[indexPath.row])
             }
         } else {
+           
             cell?.configure(with: filteredBySearchUsers[indexPath.row])
         }
         return cell ?? UITableViewCell()
@@ -133,49 +133,23 @@ class FriendsViewController: UITableViewController {
                 }
             }
         }
-
-    func createNotificationToken() {
-        token = users?.observe { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .initial(let usersData):
-                print("DBG token", usersData.count)
-            case .update(_,
-                         deletions: let deletions,
-                         insertions: let insertions,
-                         modifications: let modifications):
-                //if !(self.users?.isEmpty ?? false) {
-                let deletionsIndexPath = deletions.map { IndexPath(row: $0, section: 0) }
-                let insertionsIndexPath = insertions.map { IndexPath(row: $0, section: 0) }
-                let modificationsIndexPath = modifications.map { IndexPath(row: $0, section: 0) }
-                DispatchQueue.main.async {
-                    self.tableView.beginUpdates()
-                    self.tableView.deleteRows(at: deletionsIndexPath, with: .automatic)
-                    self.tableView.insertRows(at: insertionsIndexPath, with: .automatic)
-                    self.tableView.reloadRows(at: modificationsIndexPath, with: .automatic)
-                    self.tableView.endUpdates()
-                }
-                //}
-            case .error(let error):
-                print("token Error", error)
-            }
-        }
-    }
 }
 
-extension FriendsViewController: UISearchBarDelegate {
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+    extension FriendsViewController: UISearchBarDelegate {
         
-        if !searchText.isEmpty {
-            if let users = users {
-                filteredBySearchUsers = users.filter({$0.firstName.lowercased().contains(searchText.lowercased())})
-                tableView.reloadData()
-            }
-            else {
-                filteredBySearchUsers.removeAll()
-                tableView.reloadData()
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            
+            if !searchText.isEmpty {
+                if let users = users {
+                    filteredBySearchUsers = users.filter({$0.firstName.lowercased().contains(searchText.lowercased())})
+                    tableView.reloadData()
+                }
+                else {
+                    filteredBySearchUsers.removeAll()
+                    tableView.reloadData()
+                }
             }
         }
     }
-}
+

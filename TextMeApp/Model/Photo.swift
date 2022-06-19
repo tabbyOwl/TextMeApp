@@ -28,6 +28,10 @@ class Photo: Object, Decodable {
     @Persisted
     var url: String
     
+    override class func primaryKey() -> String? {
+        "id"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id
         case sizes

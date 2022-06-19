@@ -13,7 +13,7 @@ class NewsTableViewController: UITableViewController {
        
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tableView.delegate = self
+        tableView.delegate = self
         
        fetchNews()
     }
